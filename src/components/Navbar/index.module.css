@@ -1,0 +1,105 @@
+/* 🟦 Full-Height Navbar Styling */
+.navbar {
+    background-color: #05438a; /* Deep Blue */
+    color: white;
+    display: flex;
+    justify-content: space-between;
+    align-items: stretch; /* ✅ Ensures children (links) stretch fully */
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+    height: 4rem; /* ✅ Navbar height */
+    width: 100%;
+  }
+  
+  /* 🔵 Logo Styling */
+  .navbar h2 {
+    font-size: 24px;
+    margin: 0;
+    padding: 0 20px;
+    display: flex;
+    align-items: center; /* ✅ Center text vertically */
+    height: 100%;
+  }
+  
+  /* 🖱️ Navbar List */
+  .navbar ul {
+    list-style: none;
+    display: flex;
+    padding: 0;
+    margin: 0;
+    height: 100%; /* ✅ Ensures the links stretch to full navbar height */
+  }
+  
+  /* ✅ Navbar Items */
+  .navbar li {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-grow: 1;
+    height: 100%; /* ✅ Makes sure each link touches the top and bottom */
+  }
+  
+  /* ✅ Remove border from first link */
+  .navbar li:first-child {
+    border-left: none;
+  }
+  
+  .navbar li a {
+    font-size: 20px;
+    font-weight: bold;
+    color: white;
+    text-decoration: none;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100%;
+    width: 150px;
+    font-family: "Roboto", sans-serif;
+    font-optical-sizing: auto;
+    font-weight: 200;
+    font-style: normal;
+    font-variation-settings: "wdth" 100;
+    transition: background-color .5s ease-in-out, color .5s ease-in-out; /* ✅ Added smooth transition */
+  }
+  
+  /* 🌟 Full-Height Hover Effect */
+  .navbar li:hover {
+    background-color: #010c4b; /* Darker Blue */
+    transition: background-color .5s ease-in-out, color .5s ease-in-out; /* ✅ Ensure transition applies */
+  }
+  
+  /* 📱 Responsive Design */
+  @media (max-width: 768px) {
+    .navbar {
+      height: 4rem; /* ✅ Adjust navbar height */
+    }
+  
+    .navbar h2 {
+      font-size: 18px;
+    }
+  
+    .navbar li a {
+      font-size: 16px;
+    }
+  }
+  
+  @media (max-width: 480px) {
+    .navbar {
+      flex-direction: column;
+      height: auto;
+      align-items: center;
+      padding: 10px;
+    }
+  
+    .navbar ul {
+      flex-direction: column;
+      width: 100%;
+      text-align: center;
+    }
+  
+    .navbar li {
+      width: 100%;
+      border-left: none;
+      border-top: 2px solid white; /* ✅ Borders between stacked items */
+    }
+  }
+  

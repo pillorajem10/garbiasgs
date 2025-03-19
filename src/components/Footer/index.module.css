@@ -1,0 +1,28 @@
+/* 🦶 Footer Styling */
+.footer {
+    background-color: #05438a; /* Deep Red (Matches Navbar) */
+    color: white;
+    text-align: center;
+    padding: 15px 20px;
+    font-size: 16px;
+    position: relative;
+    bottom: 0;
+    width: 100%;
+    box-shadow: 0px -2px 6px rgba(0, 0, 0, 0.1);
+  }
+  
+  /* 📱 Responsive Design */
+  @media (max-width: 768px) {
+    .footer {
+      font-size: 14px; /* Make text smaller on small screens */
+      padding: 10px;
+    }
+  }
+  
+  @media (max-width: 480px) {
+    .footer {
+      font-size: 12px; /* Even smaller for mobile */
+      padding: 8px;
+    }
+  }
+  
