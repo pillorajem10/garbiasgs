@@ -11,7 +11,7 @@ html, body {
   height: 100%;
   overflow-x: hidden;  /* Prevent horizontal scrolling */
   font-family: Arial, sans-serif; /* Set a clean default font */
-  background-color: #fff; /* Light background color */
+  background-color: #f8f8f8; /* Light background color */
 }
 
 /* ✅ Root container should take the full viewport height */
@@ -23,9 +23,9 @@ html, body {
 
 .main-content {
   flex: 1; /* Makes this section take up remaining space */
-  padding: 20px;
   display: flex;
   align-items: center;
   justify-content: center; /* Centers content in the middle */
   text-align: center;
+  margin: 0;
 }
