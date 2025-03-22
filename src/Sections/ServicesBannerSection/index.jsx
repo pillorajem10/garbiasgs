@@ -4,7 +4,7 @@ import { motion, useAnimation, useInView } from 'framer-motion';
 import styles from './index.module.css';
 
 const ServicesBannerSection = () => {
-    const images = ['images/carousel2.webp', 'images/carousel1.webp'];
+    const images = ['images/1111.webp', 'images/22222.webp'];
     const [emblaRef, emblaApi] = useEmblaCarousel({ loop: true });
 
     const scrollNext = useCallback(() => {

@@ -10,8 +10,12 @@ const Navbar = ({ onToggleMenu }) => {
 
       <ul>
         <li><Link to="/">Home</Link></li>
-        <li><Link to="/services">Sevices</Link></li>
+        <li><Link to="/services">Services</Link></li>
         <li><Link to="/about">About</Link></li>
+        <li><Link to="#">Mission And Vision</Link></li>
+        <li><Link to="#">Projects</Link></li>
+        <li><Link to="#">Charity Program</Link></li>
+        <li><Link to="#">Location</Link></li>
         <li><Link to="/contact">Contact Us</Link></li>
       </ul>
 

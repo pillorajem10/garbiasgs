@@ -1,5 +1,6 @@
 // SECTIONS
 import ServicesBannerSection from '../../Sections/ServicesBannerSection';
+import ServicesSection from '../../Sections/ServicesSection';
 
 import styles from './index.module.css';
 
@@ -8,6 +9,9 @@ const Page = () => {
         <div>
             {/* Banner Section */}
             <ServicesBannerSection />
+
+            {/* Services Section */}
+            <ServicesSection />
         </div>
     );
 };

@@ -1,0 +1,127 @@
+.container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100svh;
+    background-color: blue; /* Fallback color */
+    background-image: url('/images/serviceCarousel.webp');
+    background-size: cover; /* Ensures the image covers the whole container */
+    background-position: center; /* Centers the background image */
+    background-repeat: no-repeat; /* Prevents the image from repeating */
+    position: relative; /* Required to position the overlay */
+    flex-wrap: wrap;
+    padding: 10px;
+}
+
+.container::before {
+    content: ''; /* Necessary to create a pseudo-element */
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(2, 18, 51, 0.7); /* Blue overlay with 70% opacity */
+    z-index: 1; /* Makes sure the overlay sits above the background but below content */
+}
+
+.container > * {
+    z-index: 2; /* Makes sure the content (children of .container) sits above the overlay */
+}
+
+.contentContainer {
+    display: flex;
+    align-items: flex-start;
+    gap: 3rem;
+    width: 100%;
+    max-width: 50rem;
+    flex-wrap: wrap;
+}
+
+.textContainer h2 {
+    font-size: 2rem;
+    color: #779cec; /* Specific heading color */
+}
+
+.textContainer ul {
+    padding: 1.5rem;
+    text-align: left;
+}
+
+.textContainer li {
+    font-size: 1.2rem;
+    color: #fff; /* White text color */
+}
+
+.imageContainer img {
+    width: 22rem;
+    height: 22rem;
+    object-fit: cover;
+    border-radius: 5px;
+}
+
+.textContainer {
+  display: flex;
+  align-items: flex-start;
+  flex-direction: column;
+  justify-content: flex-start;
+}
+
+@media screen and (max-width: 700px) {
+    .container {
+      flex-direction: column;
+      gap: 4rem;
+      padding: 30px 20px;
+      background-position: top;
+      text-align: center;
+    }
+  
+    .contentContainer {
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+    }
+  
+    .textContainer {
+      align-items: center;
+      justify-content: center;
+    }
+  
+    .textContainer h2 {
+      font-size: 1.8rem;
+    }
+  
+    .textContainer ul {
+      padding: 1rem;
+    }
+  
+    .textContainer li {
+      font-size: 1.1rem;
+    }
+  
+    .imageContainer img {
+      width: 100%;
+      max-width: 20rem;
+      height: auto;
+    }
+  }
+  
+  @media screen and (max-width: 500px) {
+    .container {
+      gap: 2rem;
+      padding: 20px;
+    }
+  
+    .textContainer h2 {
+      font-size: 1.6rem;
+    }
+  
+    .textContainer li {
+      font-size: 1rem;
+    }
+  
+    .imageContainer img {
+      max-width: 100%;
+      height: auto;
+    }
+  }
+  
