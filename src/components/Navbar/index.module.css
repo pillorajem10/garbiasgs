@@ -1,11 +1,11 @@
 .navbar {
-    background-color: #05438a; /* Deep Blue */
+    background-color: #0081b8;
     color: white;
     display: flex;
     justify-content: space-between;
     align-items: center; /* ✅ Ensures content stays centered */
     box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
-    border-bottom: solid 5px #1f7fee;
+    border-bottom: solid 5px #05438a;
     height: 5rem; /* ✅ Navbar height */
     width: 100%;
     position: sticky;
@@ -69,7 +69,7 @@
 /* ✅ Link Styling */
 .navbar li a {
     font-size: 20px;
-    font-weight: bold;
+    font-weight: 100;
     color: rgb(216, 216, 216);
     text-decoration: none;
     display: flex;
@@ -77,23 +77,46 @@
     justify-content: center;
     margin-right: 4rem;
     font-family: "Roboto", sans-serif;
-    font-weight: 100;
-    transition: background-color 0.3s ease-in-out, color 0.3s ease-in-out;
+    transition: transform 0.2s ease, color 0.3s ease;
 }
 
-/* 🌟 Full-Height Hover Effect */
 .navbar li a:hover {
-    transition: background-color 0.3s ease-in-out, color 0.3s ease-in-out;
-    color: rgb(134, 134, 134);
+    transform: scale(1.3); /* subtle growth */
+    color: rgb(157, 160, 160);
 }
+
+.burger {
+    display: none;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    padding: 0 1rem;
+    height: 100%;
+    z-index: 11;
+}
+
+/* The 3 bars */
+.burger span {
+    display: block;
+    width: 2.3rem;
+    height: 4px;
+    background-color: white;
+    margin: 4px 0;
+    border-radius: 3px;
+    transition: 0.3s ease;
+}
+
+
 
 /* 📱 Responsive Design */
-@media (max-width: 768px) {
+@media (max-width: 900px) {
     /*
     .navbar {
         height: 4rem;
     }
     */
+    
 
     .navbar h2 {
         font-size: 18px;
@@ -101,17 +124,33 @@
 
     .navbar li a {
         font-size: 16px;
+        margin-right: 2rem;
+        font-weight: 400;
     }
 }
 
-@media (max-width: 480px) {
+@media (max-width: 670px) {
     .navbar li {
         width: 100%;
         border-left: none;
+        display: none;
     }
 
     .navbar li a {
         font-size: 16px;
         margin-right: 8px;
     }
+
+    .burger {
+        display: flex;
+    }
 }
+
+@media (max-width: 400px) {
+    .logo {
+        width: 80%;
+        height: auto;
+    }
+}
+
+
