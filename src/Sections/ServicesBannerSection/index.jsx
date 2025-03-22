@@ -54,7 +54,7 @@ const ServicesBannerSection = () => {
                 animate={controls}
                 transition={{ type: 'spring', stiffness: 50, damping: 14 }}
             >
-                <h1>Services</h1>
+                <h1>Our Services</h1>
                 <p>
                     GarBia Structural and Geotechnical Solutions offers technical services ranging from geotechnical engineering, 
                     sub-surface soil exploration, laboratory testing, and micro-piling for foundations, 
