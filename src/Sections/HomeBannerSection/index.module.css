@@ -1,6 +1,6 @@
 .banner {
     position: relative;
-    height: 100svh; /* Ensure full viewport height */
+    height: 91.6svh; /* Ensure full viewport height */
     width: 100%;
     overflow: hidden;
     display: flex;

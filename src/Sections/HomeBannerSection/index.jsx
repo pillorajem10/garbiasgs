@@ -59,7 +59,7 @@ const HomeBannerSection = () => {
                     Dreaming of your perfect home? Lay the groundwork for a lifetime of stability by prioritizing safety and securing a flawless foundation
                 </p>
                 <p className={styles.strongFoundations}>
-                    Strong foundations for a safer future
+                    Strong foundations for a safe future
                 </p>
             </motion.div>
         </div>

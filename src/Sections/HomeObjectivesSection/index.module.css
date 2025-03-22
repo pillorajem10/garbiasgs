@@ -4,7 +4,7 @@
     align-items: center;
     min-height: 100svh;
     background-color: blue; /* Fallback color */
-    background-image: url('/images/missionBackground.webp');
+    background-image: url('/images/garbiaObjectiveWallpaper.webp');
     background-size: cover; /* Ensures the image covers the whole container */
     background-position: center; /* Centers the background image */
     background-repeat: no-repeat; /* Prevents the image from repeating */
@@ -21,7 +21,7 @@
     left: 0;
     width: 100%;
     height: 100%;
-    background: rgba(12, 30, 66, 0.7); /* Blue overlay with 70% opacity */
+    background: rgba(2, 18, 51, 0.7); /* Blue overlay with 70% opacity */
     z-index: 1; /* Makes sure the overlay sits above the background but below content */
 }
 
@@ -29,24 +29,10 @@
     z-index: 2; /* Makes sure the content (children of .container) sits above the overlay */
 }
 
-.imageContainer {
-    width: 100%;
-    max-width: 50rem;
-    border-radius: 5px;
-    margin-bottom: 5rem;
-}
-
-.imageContainer img {
-    width: 100%;
-    border-radius: 5px;
-}
-
 .imageContainer1 {
     width: 100%;
-    max-width: 25rem;
+    max-width: 30rem;
     border-radius: 5px;
-    margin-top: 5rem;
-
 }
 
 .imageContainer1 img {
@@ -57,7 +43,7 @@
 .rightContainer, .leftContainer {
     color: white;
     z-index: 2;
-    max-width: 38rem;
+    max-width: 35rem;
     text-align: left;
 }
 
@@ -67,7 +53,7 @@
 }
 
 .rightContainer p, .leftContainer p {
-    font-size: 1.2rem;
+    font-size: 1.5rem;
     margin-top: 2rem;
 }
 
@@ -79,11 +65,9 @@
         background-position: top;
     }
 
-    .imageContainer,
     .imageContainer1 {
         max-width: 90%;
-        margin-bottom: 3rem;
-        margin-top: 3rem;
+        margin-top: 2rem;
     }
 
     .rightContainer,
@@ -106,7 +90,12 @@
 @media screen and (max-width: 500px) {
     .container {
         gap: 3rem;
-        padding: 20px 15px;
+        padding: 30px;
+    }
+
+    .imageContainer1 {
+        max-width: 100%;
+        margin-top: 1.5rem;
     }
 
     .rightContainer h2,
@@ -117,12 +106,5 @@
     .rightContainer p,
     .leftContainer p {
         font-size: 1rem;
-    }
-
-    .imageContainer,
-    .imageContainer1 {
-        max-width: 100%;
-        margin-bottom: 2rem;
-        margin-top: 2rem;
     }
 }
