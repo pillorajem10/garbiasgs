@@ -11,7 +11,7 @@ const ServiceBlock = ({ title, image, items }) => {
     if (inView) {
       controls.start({ y: 0, opacity: 1 });
     } else {
-      controls.start({ y: -80, opacity: 0 });
+      controls.start({ y: 80, opacity: 0 });
     }
   }, [inView, controls]);
 
@@ -19,7 +19,7 @@ const ServiceBlock = ({ title, image, items }) => {
     <motion.div
       ref={ref}
       className={styles.contentContainer}
-      initial={{ y: -80, opacity: 0 }}
+      initial={{ y: 80, opacity: 0 }}
       animate={controls}
       transition={{ type: 'spring', stiffness: 60, damping: 15 }}
     >

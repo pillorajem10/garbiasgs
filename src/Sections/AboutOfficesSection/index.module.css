@@ -1,0 +1,172 @@
+.container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100svh;
+    background-color: blue;
+    background-image: url('/images/aboutBacker1.webp');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    position: relative;
+    gap: 5rem; /* Reduce from 10rem for smaller gap */
+    padding: 40px 20px; /* More padding for internal spacing */
+    flex-wrap: wrap;
+    box-sizing: border-box;
+    overflow: hidden;
+  }
+  
+
+.container::before {
+    content: ''; /* Necessary to create a pseudo-element */
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(2, 18, 51, 0.7); /* Blue overlay with 70% opacity */
+    z-index: 1; /* Makes sure the overlay sits above the background but below content */
+}
+
+.container > * {
+    z-index: 2; /* Makes sure the content (children of .container) sits above the overlay */
+}
+
+.mainContent {
+    color: white;
+    z-index: 2;
+    width: 100%;
+    max-width: 1000px; /* Prevents it from stretching too far */
+    text-align: center;
+    padding: 0 1rem; /* Horizontal padding to avoid touching container edges */
+    box-sizing: border-box;
+  }
+  
+
+.mainContent h2 {
+    font-size: 2.5rem;
+    font-style: italic;
+    font-weight: 100;
+    color: #779cec; /* Specific heading color */
+    margin-bottom: 2rem;
+}
+
+.mainContent p {
+    font-size: 1.5rem;
+    margin-top: 2rem;
+}
+
+.slideshow {
+    display: flex;
+    align-items: center;
+    gap: 1.5rem;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: center;
+    margin-top: 1.5rem;
+  }
+
+.mainImage {
+  max-width: 42rem;
+  height: auto;
+  border-radius: 8px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+  object-fit: cover;
+}
+
+.thumbnailRow {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  max-height: 30rem;
+  overflow-y: auto;
+  padding-right: 4px;
+}
+
+.thumbnailRow::-webkit-scrollbar {
+  width: 4px;
+}
+
+.thumbnailRow::-webkit-scrollbar-thumb {
+  background: rgba(255, 255, 255, 0.3);
+  border-radius: 4px;
+}
+
+.thumbnail {
+  width: 120px;
+  height: 120px;
+  object-fit: cover;
+  border-radius: 4px;
+  opacity: 0.6;
+  cursor: pointer;
+  transition: opacity 0.2s ease, transform 0.2s ease;
+}
+
+.thumbnail:hover {
+  opacity: 1;
+  transform: scale(1.05);
+}
+
+.thumbnail.active {
+  opacity: 1;
+  border: 2px solid #00bfff;
+}
+
+
+@media screen and (max-width: 700px) {
+    .container {
+        flex-direction: column;
+        gap: 5rem;
+        padding: 30px 20px;
+        background-position: top;
+    }
+
+    .imageContainer1 {
+        max-width: 90%;
+        margin-top: 2rem;
+    }
+
+    .mainContent {
+        max-width: 100%;
+        text-align: center;
+    }
+
+    .mainContent h2 {
+        font-size: 2rem;
+    }
+
+    .mainContent p {
+        font-size: 1.1rem;
+    }
+
+    .slideshow {
+        flex-direction: column;
+    }
+
+    .thumbnailRow {
+        flex-direction: row;
+        max-height: none;
+        overflow-x: auto;
+        overflow-y: hidden;
+    }
+}
+
+@media screen and (max-width: 500px) {
+    .container {
+        gap: 3rem;
+        padding: 30px;
+    }
+
+    .imageContainer1 {
+        max-width: 100%;
+        margin-top: 1.5rem;
+    }
+
+    .mainContent h2 {
+        font-size: 1.7rem;
+    }
+
+    .mainContent p {
+        font-size: 1rem;
+    }
+}

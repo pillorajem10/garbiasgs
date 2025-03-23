@@ -6,6 +6,7 @@ import { AnimatePresence } from "framer-motion";
 import Navbar from "./components/Navbar/index";
 import Footer from "./components/Footer/index";
 import BurgerMenu from "./components/BurgerMenu";
+import ScrollToTop from "./components/ScrollToTop";
 
 // PAGES
 import Home from "./Pages/Home";
@@ -19,6 +20,7 @@ function App() {
 
   return (
     <Router>
+      <ScrollToTop />
       {/* Pass toggle function to Navbar */}
       <Navbar onToggleMenu={() => setMenuOpen(true)} />
 

@@ -1,0 +1,161 @@
+.container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100svh;
+    background-color: blue; /* Fallback color */
+    background-image: url('/images/aboutBackround.webp');
+    background-size: cover; /* Ensures the image covers the whole container */
+    background-position: center; /* Centers the background image */
+    background-repeat: no-repeat; /* Prevents the image from repeating */
+    position: relative; /* Required to position the overlay */
+    gap: 10rem;
+    padding: 20px;
+    flex-wrap: wrap;
+}
+
+.container::before {
+    content: ''; /* Necessary to create a pseudo-element */
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(2, 18, 51, 0.7); /* Blue overlay with 70% opacity */
+    z-index: 1; /* Makes sure the overlay sits above the background but below content */
+}
+
+.container > * {
+    z-index: 2; /* Makes sure the content (children of .container) sits above the overlay */
+}
+
+.imageContainer1 {
+    width: 100%;
+    max-width: 30rem;
+    border-radius: 5px;
+}
+
+.imageContainer1 img {
+    width: 100%;
+    border-radius: 5px;
+}
+
+.rightContainer, .leftContainer {
+    color: white;
+    z-index: 2;
+    max-width: 35rem;
+    text-align: left;
+}
+
+.rightContainer h2, .leftContainer h2 {
+    font-size: 2.5rem;
+    color: #779cec; /* Specific heading color */
+}
+
+.rightContainer p, .leftContainer p {
+    font-size: 1.5rem;
+    margin-top: 2rem;
+}
+
+.subList {
+    list-style-type: none;
+}
+
+.subList li p {
+    font-size: 1rem;
+    font-style: italic;
+}
+
+.slideshow {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.mainImage {
+  max-width: 100%;
+  height: auto;
+  border-radius: 8px;
+  margin-bottom: 1rem;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+}
+
+.thumbnailRow {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  justify-content: center;
+}
+
+.thumbnail {
+  width: 70px;
+  height: 70px;
+  object-fit: cover;
+  border-radius: 4px;
+  opacity: 0.6;
+  cursor: pointer;
+  transition: opacity 0.2s ease, transform 0.2s ease;
+}
+
+.thumbnail:hover {
+  opacity: 1;
+  transform: scale(1.05);
+}
+
+.thumbnail.active {
+  opacity: 1;
+  border: 2px solid #00bfff;
+}
+
+
+@media screen and (max-width: 700px) {
+    .container {
+        flex-direction: column;
+        gap: 5rem;
+        padding: 30px 20px;
+        background-position: top;
+    }
+
+    .imageContainer1 {
+        max-width: 90%;
+        margin-top: 2rem;
+    }
+
+    .rightContainer,
+    .leftContainer {
+        max-width: 100%;
+        text-align: center;
+    }
+
+    .rightContainer h2,
+    .leftContainer h2 {
+        font-size: 2rem;
+    }
+
+    .rightContainer p,
+    .leftContainer p {
+        font-size: 1.1rem;
+    }
+}
+
+@media screen and (max-width: 500px) {
+    .container {
+        gap: 3rem;
+        padding: 30px;
+    }
+
+    .imageContainer1 {
+        max-width: 100%;
+        margin-top: 1.5rem;
+    }
+
+    .rightContainer h2,
+    .leftContainer h2 {
+        font-size: 1.7rem;
+    }
+
+    .rightContainer p,
+    .leftContainer p {
+        font-size: 1rem;
+    }
+}
