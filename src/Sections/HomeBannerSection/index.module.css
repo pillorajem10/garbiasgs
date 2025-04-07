@@ -1,34 +1,14 @@
 .banner {
     position: relative;
     height: 91.6svh; /* Ensure full viewport height */
-    width: 100%;
+    width: 100svw;
     overflow: hidden;
     display: flex;
     align-items: center;
+    background-image: url('/images/DJI_0020_trimmed.webp');
     justify-content: center;
 }
 
-.carousel {
-    overflow: hidden;
-    width: 100%;
-    height: 100%;
-}
-
-.carouselWrapper {
-    display: flex;
-}
-
-.carouselSlide {
-    flex: 0 0 100%;
-    min-width: 100%;
-    height: 100svh; /* Ensure each slide takes full height */
-}
-
-.carouselImage {
-    width: 100%;
-    height: 100%;
-    object-fit: cover; /* Ensures the image covers the area without distortion */
-}
 
 /* Overlay with blue transparency */
 .overlay {

@@ -1,33 +1,15 @@
 .banner {
     position: relative;
-    height: 91.6svh; /* Ensure full viewport height */
-    width: 100%;
+    height: 91.6svh;
+    width: 100vw; /* Ensure full screen width */
     overflow: hidden;
     display: flex;
     align-items: center;
     justify-content: center;
-}
-
-.carousel {
-    overflow: hidden;
-    width: 100%;
-    height: 100%;
-}
-
-.carouselWrapper {
-    display: flex;
-}
-
-.carouselSlide {
-    flex: 0 0 100%;
-    min-width: 100%;
-    height: 100svh; /* Ensure each slide takes full height */
-}
-
-.carouselImage {
-    width: 100%;
-    height: 100%;
-    object-fit: cover; /* Ensures the image covers the area without distortion */
+    background-image: url('/images/DJI_0107_trimmed.webp'); /* or whichever image you want */
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
 }
 
 /* Overlay with blue transparency */
@@ -37,7 +19,7 @@
     left: 0;
     width: 100%;
     height: 100%;
-    background: rgba(2, 18, 51, 0.7); /* Blue overlay with 50% opacity */
+    background: rgba(2, 18, 51, 0.7);
     z-index: 1;
 }
 
@@ -63,7 +45,6 @@
     margin-top: 40px;
     font-weight: bold;
 }
-
 
 @media screen and (max-width: 700px) {
     .bannerText {
@@ -94,9 +75,5 @@
     .bannerText p {
         font-size: 1rem;
         margin-top: 20px;
-    }
-
-    .bannerText .strongFoundations {
-        font-size: 1rem;
     }
 }

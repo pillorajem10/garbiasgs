@@ -1,23 +1,8 @@
-import { useState, useCallback, useEffect, useRef } from 'react';
-import useEmblaCarousel from 'embla-carousel-react';
+import { useRef, useEffect } from 'react';
 import { motion, useAnimation, useInView } from 'framer-motion';
 import styles from './index.module.css';
 
 const ServicesBannerSection = () => {
-    const images = ['images/1111.webp', 'images/22222.webp'];
-    const [emblaRef, emblaApi] = useEmblaCarousel({ loop: true });
-
-    const scrollNext = useCallback(() => {
-        if (emblaApi) emblaApi.scrollNext();
-    }, [emblaApi]);
-
-    useEffect(() => {
-        if (!emblaApi) return;
-        const interval = setInterval(scrollNext, 5000);
-        return () => clearInterval(interval);
-    }, [emblaApi, scrollNext]);
-
-    // Animation for banner text
     const bannerTextRef = useRef(null);
     const controls = useAnimation();
     const inView = useInView(bannerTextRef, { threshold: 0.3 });
@@ -34,17 +19,6 @@ const ServicesBannerSection = () => {
         <div className={styles.banner}>
             {/* Overlay */}
             <div className={styles.overlay}></div>
-
-            {/* Carousel */}
-            <div className={styles.carousel} ref={emblaRef}>
-                <div className={styles.carouselWrapper}>
-                    {images.map((image, index) => (
-                        <div className={styles.carouselSlide} key={index}>
-                            <img src={image} alt={`banner-${index}`} className={styles.carouselImage} />
-                        </div>
-                    ))}
-                </div>
-            </div>
 
             {/* Animated Banner Text */}
             <motion.div

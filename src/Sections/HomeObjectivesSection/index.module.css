@@ -4,7 +4,7 @@
     align-items: center;
     min-height: 100svh;
     background-color: blue; /* Fallback color */
-    background-image: url('/images/garbiaObjectiveWallpaper.webp');
+    background-image: url('/images/DJI_0075.webp');
     background-size: cover; /* Ensures the image covers the whole container */
     background-position: center; /* Centers the background image */
     background-repeat: no-repeat; /* Prevents the image from repeating */
