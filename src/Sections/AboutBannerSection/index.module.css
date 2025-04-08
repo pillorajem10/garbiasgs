@@ -1,33 +1,22 @@
 .banner {
     position: relative;
-    height: 91.6svh; /* Ensure full viewport height */
-    width: 100%;
+    height: 91.6svh;
+    width: 100vw;
     overflow: hidden;
     display: flex;
     align-items: center;
     justify-content: center;
 }
 
-.carousel {
-    overflow: hidden;
+/* Background Video */
+.videoBackground {
+    position: absolute;
+    top: 0;
+    left: 0;
     width: 100%;
     height: 100%;
-}
-
-.carouselWrapper {
-    display: flex;
-}
-
-.carouselSlide {
-    flex: 0 0 100%;
-    min-width: 100%;
-    height: 100svh; /* Ensure each slide takes full height */
-}
-
-.carouselImage {
-    width: 100%;
-    height: 100%;
-    object-fit: cover; /* Ensures the image covers the area without distortion */
+    object-fit: cover;
+    z-index: 0;
 }
 
 /* Overlay with blue transparency */
@@ -37,7 +26,7 @@
     left: 0;
     width: 100%;
     height: 100%;
-    background: rgba(2, 18, 51, 0.7); /* Blue overlay with 50% opacity */
+    background: rgba(2, 18, 51, 0.7);
     z-index: 1;
 }
 
@@ -63,7 +52,6 @@
     margin-top: 40px;
     font-weight: bold;
 }
-
 
 @media screen and (max-width: 700px) {
     .bannerText {

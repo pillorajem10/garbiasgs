@@ -17,6 +17,16 @@ const ServicesBannerSection = () => {
 
     return (
         <div className={styles.banner}>
+            {/* Background Video */}
+            <video
+                className={styles.videoBackground}
+                src="/videos/DJI_0107_trimmed.webm"
+                autoPlay
+                loop
+                muted
+                playsInline
+            />
+
             {/* Overlay */}
             <div className={styles.overlay}></div>
 

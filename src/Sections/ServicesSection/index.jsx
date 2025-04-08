@@ -58,7 +58,7 @@ const ServicesSection = () => {
       />
       <ServiceBlock
         title="Laboratory Testing"
-        image="/images/soil_testing.webp"
+        image="/images/66bc725f-c176-4ea9-8816-eb138ef6824e.webp"
         items={[
           'Soil Sample Analysis',
           'Moisture Content Testing',
@@ -73,7 +73,7 @@ const ServicesSection = () => {
       />
       <ServiceBlock
         title="Foundation Improvement"
-        image="/images/foundationImprovement.webp"
+        image="/images/DJI_0088.webp"
         items={[
           'Soil Stabilization',
           'Deep Foundation Solutions',

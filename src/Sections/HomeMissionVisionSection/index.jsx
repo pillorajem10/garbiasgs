@@ -40,7 +40,7 @@ const HomeMissionVisionSection = () => {
                 transition={{ type: 'spring', stiffness: 60, damping: 15 }}
             >
                 <div className={styles.imageContainer}>
-                    <img src="images/visionMission.webp" alt="GIF" />
+                    <img src="images/DJI_0103.webp" alt="GIF" />
                 </div>
 
                 <h2>Mission</h2>
@@ -67,7 +67,7 @@ const HomeMissionVisionSection = () => {
                     for geotechnical services with the highest quality standards and competitive rates, delivered in a timely manner in Luzon.
                 </p>
                 <div className={styles.imageContainer1}>
-                    <img src="images/vision.webp" alt="GIF" />
+                    <img src="images/DJI_0059.webp" alt="GIF" />
                 </div>
             </motion.div>
         </section>
