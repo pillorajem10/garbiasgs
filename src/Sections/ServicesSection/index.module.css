@@ -1,127 +1,169 @@
+/* 🌌 Background and Overlay */
 .container {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    min-height: 100svh;
-    background-color: blue; /* Fallback color */
-    background-image: url('/images/20250327_102257.webp');
-    background-size: cover; /* Ensures the image covers the whole container */
-    background-position: center; /* Centers the background image */
-    background-repeat: no-repeat; /* Prevents the image from repeating */
-    position: relative; /* Required to position the overlay */
-    flex-wrap: wrap;
-    padding: 10px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 4rem;
+  padding: 40px 20px;
+  min-height: 100svh;
+  background-color: blue;
+  background-image: url('/images/20250327_102257.webp');
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  position: relative;
+  overflow: hidden;
 }
 
 .container::before {
-    content: ''; /* Necessary to create a pseudo-element */
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: rgba(2, 18, 51, 0.7); /* Blue overlay with 70% opacity */
-    z-index: 1; /* Makes sure the overlay sits above the background but below content */
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(2, 18, 51, 0.7);
+  z-index: 1;
 }
 
 .container > * {
-    z-index: 2; /* Makes sure the content (children of .container) sits above the overlay */
+  z-index: 2;
 }
 
+/* 🧊 Service Row Wrapper */
+.serviceRow {
+  display: flex;
+  flex-direction: column;
+  gap: 4rem;
+  width: 100%;
+  align-items: center;
+}
+
+/* 💎 Service Block Card */
 .contentContainer {
-    display: flex;
-    align-items: flex-start;
-    gap: 3rem;
-    width: 100%;
-    max-width: 50rem;
-    flex-wrap: wrap;
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 2rem;
+  max-width: 1200px;
+  width: 100%;
+  padding: 2rem;
+  border-radius: 12px;
+  background-color: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.2);
+  backdrop-filter: blur(10px);
+  transition: transform 0.3s ease;
+}
+
+.contentContainer:hover {
+  transform: translateY(-6px);
+}
+
+/* 🖼️ Image Column */
+.imageContainer {
+  flex: 0 0 30rem;
+}
+
+.image {
+  width: 100%;
+  height: 28rem;
+  object-fit: cover;
+  border-radius: 8px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+}
+
+/* 📃 Text Column */
+.textContainer {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-end;
+  color: white;
 }
 
 .textContainer h2 {
-    font-size: 2rem;
-    color: #779cec; /* Specific heading color */
+  font-size: 2rem;
+  color: #aad4ff;
+  margin-bottom: 1rem;
 }
 
 .textContainer ul {
-    padding: 1.5rem;
-    text-align: left;
+  margin: 0;
+  list-style-type: disc;
 }
 
 .textContainer li {
-    font-size: 1.2rem;
-    color: #fff; /* White text color */
+  font-size: 1.3rem;
+  margin-bottom: 0.5rem;
 }
 
-.imageContainer img {
-    width: 22rem;
-    height: 22rem;
-    object-fit: cover;
-    border-radius: 5px;
+.textContainer ul ul li {
+  font-size: .85rem; /* Slightly smaller than main list */
+  opacity: 0.85;       /* Optional: makes it visually lighter */
+  margin-bottom: 0.3rem;
+  font-style: italic;
 }
 
-.textContainer {
-  display: flex;
-  align-items: flex-start;
-  flex-direction: column;
-  justify-content: flex-start;
+.textContainer ul ul {
+  list-style-type: circle;
 }
 
-@media screen and (max-width: 700px) {
-    .container {
-      flex-direction: column;
-      gap: 4rem;
-      padding: 30px 20px;
-      background-position: top;
-      text-align: center;
-    }
-  
-    .contentContainer {
-      flex-direction: column;
-      align-items: center;
-      text-align: center;
-    }
-  
-    .textContainer {
-      align-items: center;
-      justify-content: center;
-    }
-  
-    .textContainer h2 {
-      font-size: 1.8rem;
-    }
-  
-    .textContainer ul {
-      padding: 1rem;
-    }
-  
-    .textContainer li {
-      font-size: 1.1rem;
-    }
-  
-    .imageContainer img {
-      width: 100%;
-      max-width: 20rem;
-      height: auto;
-    }
+/* 📱 Responsive Layout */
+@media screen and (max-width: 900px) {
+  .contentContainer {
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    padding: 1.5rem;
   }
-  
-  @media screen and (max-width: 500px) {
-    .container {
-      gap: 2rem;
-      padding: 20px;
-    }
-  
-    .textContainer h2 {
-      font-size: 1.6rem;
-    }
-  
-    .textContainer li {
-      font-size: 1rem;
-    }
-  
-    .imageContainer img {
-      max-width: 100%;
-      height: auto;
-    }
+
+  .imageContainer {
+    width: 100%;
+    max-width: 22rem;
   }
-  
+
+  .image {
+    height: auto;
+  }
+
+  .textContainer {
+    width: 100%;
+    align-items: center;
+  }
+
+  .textContainer h2 {
+    font-size: 1.8rem;
+  }
+
+  .textContainer ul {
+    padding-left: 1rem;
+    text-align: left;
+  }
+
+  .textContainer li {
+    font-size: 1.1rem;
+  }
+}
+
+@media screen and (max-width: 500px) {
+  .container {
+    gap: 2rem;
+    padding: 20px;
+  }
+
+  .textContainer h2 {
+    font-size: 1.6rem;
+  }
+
+  .textContainer li {
+    font-size: 1rem;
+  }
+
+  .imageContainer img {
+    width: 100%;
+    height: auto;
+  }
+}

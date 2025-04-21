@@ -15,6 +15,22 @@ const ServiceBlock = ({ title, image, items }) => {
     }
   }, [inView, controls]);
 
+  const renderList = (list) =>
+    list.map((item, idx) =>
+      typeof item === 'string' ? (
+        <li key={idx}>{item}</li>
+      ) : (
+        <li key={idx}>
+          {item.title}
+          <ul>
+            {item.subItems.map((subItem, subIdx) => (
+              <li key={subIdx}>{subItem}</li>
+            ))}
+          </ul>
+        </li>
+      )
+    );
+
   return (
     <motion.div
       ref={ref}
@@ -29,11 +45,7 @@ const ServiceBlock = ({ title, image, items }) => {
 
       <div className={styles.textContainer}>
         <h2>{title}</h2>
-        <ul>
-          {items.map((item, idx) => (
-            <li key={idx}>{item}</li>
-          ))}
-        </ul>
+        <ul>{renderList(items)}</ul>
       </div>
     </motion.div>
   );
@@ -42,46 +54,48 @@ const ServiceBlock = ({ title, image, items }) => {
 const ServicesSection = () => {
   return (
     <section className={styles.container}>
-      <ServiceBlock
-        title="Soil Exploration"
-        image="/images/servicesImages/p103_orig.webp"
-        items={[
-          'Site Assessment',
-          'Borehole Drilling',
-          'Geotechnical Testing',
-          'Soil Profiling',
-          'Laboratory Analysis',
-          'Foundation Design Recommendations',
-          'Soil Improvement Solutions',
-          'Detailed Geotechnical Reports',
-        ]}
-      />
-      <ServiceBlock
-        title="Laboratory Testing"
-        image="/images/66bc725f-c176-4ea9-8816-eb138ef6824e.webp"
-        items={[
-          'Soil Sample Analysis',
-          'Moisture Content Testing',
-          'Compaction Tests',
-          'Atterberg Limits Testing',
-          'Strength Testing',
-          'Permeability Testing',
-          'Grain Size Distribution',
-          'pH & Organic Content Analysis',
-          'Comprehensive Test Reports',
-        ]}
-      />
-      <ServiceBlock
-        title="Foundation Improvement"
-        image="/images/DJI_0088.webp"
-        items={[
-          'Soil Stabilization',
-          'Deep Foundation Solutions',
-          'Ground Improvement Techniques',
-          'Geotechnical Reinforcement',
-          'Dynamic Compaction',
-        ]}
-      />
+      <div className={styles.serviceRow}>
+        <ServiceBlock
+          title="Services"
+          image="/images/servicesImages/p103_orig.webp"
+          items={[
+            'Site Assessment',
+            {
+              title: 'Soil Exploration',
+              subItems: ['SPT / Coring', 'Test Pit'],
+            },
+            'Geotechnical Testing',
+            {
+              title: 'Detailed Geotechnical Reports',
+              subItems: [
+                'Laboratory Analysis',
+                'Liquefaction Analysis',
+                'Foundation Design Recommendation',
+              ],
+            },
+            'Micropiling / Bored Piling Works',
+            'Jet Grouting / Cement Grouting Works',
+          ]}
+        />
+        <ServiceBlock
+          title="Laboratory Testing"
+          image="/images/66bc725f-c176-4ea9-8816-eb138ef6824e.webp"
+          items={[
+            'Soil Sample Analysis',
+            'Moisture Content Testing',
+            'Specific Gravity Testing',
+            'Atterberg Limit Testing',
+            'Grain Size Distribution',
+            'Consolidation Test',
+            'Field Density Test',
+            'Maximum Dry Density Test',
+            'California Bearing Ratio (CBR) Test',
+            'Los Angeles Abrasion Test',
+            'Permeability Testing',
+            'Unconfined Compression Test',
+          ]}
+        />
+      </div>
     </section>
   );
 };
