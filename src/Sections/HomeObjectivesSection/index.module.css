@@ -38,6 +38,7 @@
 .imageContainer1 img {
     width: 100%;
     border-radius: 5px;
+    max-height: 40rem;
 }
 
 .rightContainer, .leftContainer {
