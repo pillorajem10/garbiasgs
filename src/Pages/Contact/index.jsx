@@ -1,7 +1,10 @@
+import ContactSection from "../../Sections/ContactSection";
+
 const Page = () => {
     return (
         <div>
-            <h1>Contact</h1>
+            {/* Contact Section */}
+            <ContactSection />
         </div>
     );
 };

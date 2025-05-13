@@ -13,6 +13,7 @@ import Home from "./Pages/Home";
 import About from "./Pages/About";
 import Services from "./Pages/Services";
 import Contact from "./Pages/Contact";
+import MissionVision from "./Pages/MissionVision";
 
 
 function App() {
@@ -35,6 +36,7 @@ function App() {
           <Route path="/services" element={<Services />} />
           <Route path="/about" element={<About />} />
           <Route path="/contact" element={<Contact />} />
+          <Route path="/mission-vision" element={<MissionVision />} />
         </Routes>
       </div>
 
