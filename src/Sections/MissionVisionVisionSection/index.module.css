@@ -9,7 +9,7 @@
     background-position: center; /* Centers the background image */
     background-repeat: no-repeat; /* Prevents the image from repeating */
     position: relative; /* Required to position the overlay */
-    gap: 10rem;
+    gap: 5rem;
     padding: 20px;
     flex-wrap: wrap;
 }
@@ -30,15 +30,13 @@
 }
 
 .imageContainer1 {
-    width: 100%;
-    max-width: 50rem;
+    max-width: 45rem;
     border-radius: 5px;
 }
 
 .imageContainer1 img {
     width: 100%;
     border-radius: 5px;
-    max-height: 38rem;
 }
 
 .rightContainer, .leftContainer {
@@ -58,7 +56,7 @@
 
 .rightContainer h2, .leftContainer h2 {
     font-size: 2.5rem;
-    color: #779cec; /* Specific heading color */
+    color: #96b7ff; /* Specific heading color */
 }
 
 .rightContainer p, .leftContainer p {
@@ -68,7 +66,7 @@
 
 .rightContainer h2, .leftContainer h2 {
     font-size: 2.5rem;
-    color: #779cec; /* Specific heading color */
+    color: #96b7ff; /* Specific heading color */
 }
 
 .rightContainer p, .leftContainer p {
@@ -77,7 +75,30 @@
     max-width: 35rem;
 }
 
-@media screen and (max-width: 700px) {
+@media screen and (max-width: 1380px) {
+    .container {
+        padding: 30px;
+        gap: 1rem;
+    }
+
+    .imageContainer1 {
+        max-width: 30rem;
+    }
+
+    .rightContainer, .leftContainer {
+        max-width: 35rem;
+    }
+
+    .rightContainer h2, .leftContainer h2 {
+        font-size: 2.2rem;
+    }
+
+    .rightContainer p, .leftContainer p {
+        font-size: 1.3rem;
+    }
+}
+
+@media screen and (max-width: 1100px) {
     .container {
         flex-direction: column;
         gap: 5rem;
@@ -86,7 +107,7 @@
     }
 
     .imageContainer1 {
-        max-width: 90%;
+        max-width: 100%;
         margin-top: 2rem;
     }
 

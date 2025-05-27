@@ -1,74 +1,58 @@
 .container {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    min-height: 100svh;
-    background-color: blue;
-    background-image: url('/images/20250411_130752.webp');
-    background-size: cover;
-    background-position: center;
-    background-repeat: no-repeat;
-    position: relative;
-    gap: 5rem; /* Reduce from 10rem for smaller gap */
-    padding: 40px 20px; /* More padding for internal spacing */
-    flex-wrap: wrap;
-    box-sizing: border-box;
-    overflow: hidden;
-  }
-  
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100svh;
+  background: blue url('/images/20250411_130752.webp') center/cover no-repeat;
+  position: relative;
+  padding: 40px 20px;
+  box-sizing: border-box;
+  overflow: hidden;
+  flex-wrap: wrap;
+  gap: 3rem;
+}
 
 .container::before {
-    content: ''; /* Necessary to create a pseudo-element */
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: rgba(2, 18, 51, 0.7); /* Blue overlay with 70% opacity */
-    z-index: 1; /* Makes sure the overlay sits above the background but below content */
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: rgba(2, 18, 51, 0.7);
+  z-index: 1;
 }
 
 .container > * {
-    z-index: 2; /* Makes sure the content (children of .container) sits above the overlay */
+  z-index: 2;
 }
 
 .mainContent {
-    color: white;
-    z-index: 2;
-    width: 100%;
-    max-width: 1000px; /* Prevents it from stretching too far */
-    text-align: center;
-    padding: 0 1rem; /* Horizontal padding to avoid touching container edges */
-    box-sizing: border-box;
-  }
-  
-
-.mainContent h2 {
-    font-size: 2.5rem;
-    font-style: italic;
-    font-weight: 100;
-    color: #779cec; /* Specific heading color */
-    margin-bottom: 2rem;
+  color: white;
+  z-index: 2;
+  width: 100%;
+  max-width: 1000px;
+  text-align: center;
+  padding: 0 1rem;
+  box-sizing: border-box;
 }
 
-.mainContent p {
-    font-size: 1.5rem;
-    margin-top: 2rem;
+.mainContent h2 {
+  font-size: 2.5rem;
+  font-style: italic;
+  font-weight: 500;
+  color: #96b7ff;
+  margin-bottom: 2rem;
 }
 
 .slideshow {
-    display: flex;
-    align-items: center;
-    gap: 1.5rem;
-    flex-direction: row;
-    flex-wrap: wrap;
-    justify-content: center;
-    margin-top: 1.5rem;
-  }
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 1.5rem;
+  justify-content: center;
+}
 
 .mainImage {
-  max-width: 42rem;
-  height: auto;
+  width: 100%;
+  max-width: 500px;
   border-radius: 8px;
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
   object-fit: cover;
@@ -76,25 +60,27 @@
 
 .thumbnailRow {
   display: flex;
-  flex-direction: column;
+  flex-wrap: wrap;
+  justify-content: center;
   gap: 0.5rem;
-  max-height: 30rem;
-  overflow-y: auto;
-  padding-right: 4px;
+  padding: 0.5rem;
+  width: 100%;
+  box-sizing: border-box;
 }
 
 .thumbnailRow::-webkit-scrollbar {
   width: 4px;
 }
-
 .thumbnailRow::-webkit-scrollbar-thumb {
   background: rgba(255, 255, 255, 0.3);
   border-radius: 4px;
 }
 
 .thumbnail {
-  width: 120px;
-  height: 120px;
+  flex: 1 1 70px; /* Makes each thumbnail responsive */
+  max-width: 70px;
+  height: auto;
+  aspect-ratio: 1 / 1;
   object-fit: cover;
   border-radius: 4px;
   opacity: 0.6;
@@ -112,61 +98,53 @@
   border: 2px solid #00bfff;
 }
 
+.thumbnail.active img {
+  opacity: 1;
+  border: 2px solid #00bfff;
+}
 
-@media screen and (max-width: 700px) {
-    .container {
-        flex-direction: column;
-        gap: 5rem;
-        padding: 30px 20px;
-        background-position: top;
-    }
+/* 🔁 Responsive */
+@media screen and (max-width: 768px) {
+  .mainContent h2 {
+    font-size: 2rem;
+  }
 
-    .imageContainer1 {
-        max-width: 90%;
-        margin-top: 2rem;
-    }
+  .slideshow {
+    flex-direction: column;
+  }
 
-    .mainContent {
-        max-width: 100%;
-        text-align: center;
-    }
+  .mainImage {
+    width: 100%;
+  }
 
-    .mainContent h2 {
-        font-size: 2rem;
-    }
+  .thumbnailRow {
+    flex-direction: row;
+    overflow-x: auto;
+    overflow-y: hidden;
+    scroll-snap-type: x mandatory;
+    -webkit-overflow-scrolling: touch;
+    gap: 0.75rem;
+  }
 
-    .mainContent p {
-        font-size: 1.1rem;
-    }
-
-    .slideshow {
-        flex-direction: column;
-    }
-
-    .thumbnailRow {
-        flex-direction: row;
-        max-height: none;
-        overflow-x: auto;
-        overflow-y: hidden;
-    }
+  .thumbnail {
+    scroll-snap-align: start;
+    width: 80px;
+    height: 80px;
+  }
 }
 
 @media screen and (max-width: 500px) {
-    .container {
-        gap: 3rem;
-        padding: 30px;
-    }
+  .container {
+    gap: 2rem;
+    padding: 20px;
+  }
 
-    .imageContainer1 {
-        max-width: 100%;
-        margin-top: 1.5rem;
-    }
+  .mainContent h2 {
+    font-size: 1.7rem;
+  }
 
-    .mainContent h2 {
-        font-size: 1.7rem;
-    }
-
-    .mainContent p {
-        font-size: 1rem;
-    }
+  .thumbnail {
+    width: 70px;
+    height: 70px;
+  }
 }

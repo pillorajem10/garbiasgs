@@ -174,4 +174,8 @@
   .form {
     padding: 20px;
   }
+
+  .qrSection {
+    display: none;
+  }
 }

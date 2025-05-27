@@ -35,7 +35,7 @@
 .serviceRow {
   display: flex;
   flex-direction: column;
-  gap: 4rem;
+  gap: .5rem;
   width: 100%;
   align-items: center;
 }
@@ -92,6 +92,7 @@
 
 .textContainer ul {
   margin: 0;
+  padding-left: 1.5rem;
   list-style-type: disc;
 }
 
@@ -101,7 +102,7 @@
 }
 
 .textContainer ul ul li {
-  font-size: .85rem; /* Slightly smaller than main list */
+  font-size: .80rem; /* Slightly smaller than main list */
   opacity: 0.85;       /* Optional: makes it visually lighter */
   margin-bottom: 0.3rem;
   font-style: italic;
@@ -150,12 +151,21 @@
 
 @media screen and (max-width: 500px) {
   .container {
-    gap: 2rem;
     padding: 20px;
+    gap: 0; /* remove excessive spacing between blocks */
+  }
+
+  .contentContainer {
+    padding: 1rem; /* reduce inner card padding */
   }
 
   .textContainer h2 {
     font-size: 1.6rem;
+    margin-bottom: 0.5rem; /* reduce space under title */
+  }
+
+  .textContainer ul {
+    margin-top: 0; /* remove default spacing above list */
   }
 
   .textContainer li {
@@ -167,3 +177,10 @@
     height: auto;
   }
 }
+
+@media screen and (max-width: 355px) {
+  .textContainer {
+    margin-top: -7rem; /* adjust margin for first text block */
+  }
+}
+
