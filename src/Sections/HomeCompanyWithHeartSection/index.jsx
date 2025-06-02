@@ -78,7 +78,7 @@ const HomeCompanyWithHeartSection = () => {
                     transition={{ type: 'spring', stiffness: 60, damping: 15 }}
                 >
                     <video
-                        src="/videos/garbiaCharity.webm"
+                        src="/videos/garbiaCharity.mp4"
                         className={styles.video}
                         autoPlay
                         muted

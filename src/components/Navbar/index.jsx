@@ -15,7 +15,7 @@ const Navbar = ({ onToggleMenu }) => {
         <li><Link to="/mission-vision">Mission And Vision</Link></li>
         <li><Link to="#">Projects</Link></li>
         <li><Link to="#">Program</Link></li>
-        <li><Link to="#">Location</Link></li>
+        <li><Link to="/location">Location</Link></li>
         <li><Link to="/contact">Contact Us</Link></li>
       </ul>
 

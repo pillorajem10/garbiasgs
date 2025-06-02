@@ -1,0 +1,151 @@
+.banner {
+    position: relative;
+    height: 87.3svh;
+    width: 100svw;
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+/* Background Video */
+.videoBackground {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    z-index: 0;
+}
+
+/* Overlay with blue transparency */
+.overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(2, 18, 51, 0.7);
+    z-index: 1;
+}
+
+/* Banner text styling */
+.bannerText {
+    z-index: 2;
+    color: white;
+    text-align: left;
+    top: 30%;
+    left: 8%;
+    padding: 1rem;
+    display: flex;
+    width: 100%;
+    align-items: center;
+    justify-content: center;
+    gap: 3rem;
+    border-radius: 8px;
+    flex-wrap: wrap;
+}
+
+.bannerText h1 {
+    font-size: 3.5rem;
+    font-weight: bold;
+}
+
+.bannerText p {
+    font-size: 1.3rem;
+    margin-top: 40px;
+    font-weight: bold;
+}
+
+.mapContainer {
+  margin-top: 2rem;
+  width: 100%;
+  max-width: 800px;
+  height: 500px;
+  border-radius: 8px;
+  overflow: hidden;
+  box-shadow: 0 0 10px rgba(0,0,0,0.3);
+}
+
+.textContainer {
+    max-width: 600px;
+}
+
+@media screen and (max-width: 1500px) {
+    .bannerText {
+        padding: 10px;
+        max-width: 100%;
+    }
+
+    .bannerText h1 {
+        font-size: 3rem;
+    }
+
+    .bannerText p {
+        font-size: 1.2rem;
+        margin-top: 30px;
+    }
+
+    .mapContainer {
+        max-width: 600px;
+    }
+}
+
+@media screen and (max-width: 1238px) {
+    .textContainer {
+        max-width: 400px;
+    }
+
+    .mapContainer {
+        max-width: 500px;
+    }
+}
+
+@media screen and (max-width: 930px) {
+    .textContainer {
+        max-width: 100%;
+    }
+
+    .mapContainer {
+        max-width: 100%;
+    }
+}
+
+@media screen and (max-width: 700px) {
+    .bannerText {
+        padding: 15px;
+        max-width: 90%;
+    }
+
+    .bannerText h1 {
+        font-size: 2.5rem;
+    }
+
+    .bannerText p {
+        font-size: 1.1rem;
+        margin-top: 30px;
+    }
+
+    .banner {
+        min-height: 89.2svh;
+    }
+}
+
+@media screen and (max-width: 500px) {
+    .bannerText {
+        padding: 10px;
+        width: 100%;
+        border: none;
+        text-align: center;
+    }
+
+    .bannerText h1 {
+        font-size: 1.8rem;
+    }
+
+    .bannerText p {
+        font-size: 1rem;
+        margin-top: 20px;
+    }
+}

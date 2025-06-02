@@ -20,7 +20,7 @@ const ContactBannerSection = () => {
             {/* Background Video */}
             <video
                 className={styles.videoBackground}
-                src="/videos/DJI_0020_trimmed.webm"
+                src="/videos/DJI_0237_clip2.mp4"
                 autoPlay
                 loop
                 muted

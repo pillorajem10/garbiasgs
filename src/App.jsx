@@ -14,6 +14,7 @@ import About from "./Pages/About";
 import Services from "./Pages/Services";
 import Contact from "./Pages/Contact";
 import MissionVision from "./Pages/MissionVision";
+import Location from "./Pages/Location";
 
 
 function App() {
@@ -37,6 +38,7 @@ function App() {
           <Route path="/about" element={<About />} />
           <Route path="/contact" element={<Contact />} />
           <Route path="/mission-vision" element={<MissionVision />} />
+          <Route path="/location" element={<Location />} />
         </Routes>
       </div>
 
