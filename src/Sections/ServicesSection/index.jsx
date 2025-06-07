@@ -57,7 +57,7 @@ const ServicesSection = () => {
       <div className={styles.serviceRow}>
         <ServiceBlock
           title="Services"
-          image="/images/servicesImages/p103_orig.webp"
+          image="https://wotg.sgp1.cdn.digitaloceanspaces.com/videos/chatvideos/servicesImages/p103_orig.webp"
           items={[
             'Site Assessment',
             {
@@ -79,7 +79,7 @@ const ServicesSection = () => {
         />
         <ServiceBlock
           title="Laboratory Testing"
-          image="/images/66bc725f-c176-4ea9-8816-eb138ef6824e.webp"
+          image="https://wotg.sgp1.cdn.digitaloceanspaces.com/videos/chatvideos/66bc725f-c176-4ea9-8816-eb138ef6824e.webp"
           items={[
             'Soil Sample Analysis',
             'Moisture Content Testing',

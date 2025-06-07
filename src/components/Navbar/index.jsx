@@ -5,7 +5,7 @@ const Navbar = ({ onToggleMenu }) => {
   return (
     <nav className={styles.navbar}>
       <div className={styles.logoContainer}>
-        <img src="images/garbia2.webp" alt="Logo" className={styles.logo} />
+        <img src="https://wotg.sgp1.cdn.digitaloceanspaces.com/videos/chatvideos/garbia2.webp" alt="Logo" className={styles.logo} />
       </div>
 
       <ul>

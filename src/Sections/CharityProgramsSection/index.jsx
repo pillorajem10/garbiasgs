@@ -10,7 +10,7 @@ const CharityProgramsSection = () => {
   const mainControls = useAnimation();
   const mainInView = useInView(mainRef, { threshold: 0.3 });
 
-  const imageUrl = "/images/programImages";
+  const imageUrl = "https://wotg.sgp1.cdn.digitaloceanspaces.com/videos/chatvideos/programImages";
   const [current, setCurrent] = useState(0);
 
   useEffect(() => {

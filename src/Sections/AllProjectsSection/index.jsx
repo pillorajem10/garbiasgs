@@ -8,7 +8,7 @@ import styles from './index.module.css';
 import { projectsData } from './data';
 
 const AllProjectsSection = ({ onOpenModal }) => {
-    const imageBaseUrl = '/images/projectsImages/';
+    const imageBaseUrl = 'https://wotg.sgp1.cdn.digitaloceanspaces.com/videos/chatvideos/projectsImages';
 
     return (
         <section className={styles.container}>

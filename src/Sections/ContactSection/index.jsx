@@ -20,7 +20,7 @@ const ContactBannerSection = () => {
             {/* Background Video */}
             <video
                 className={styles.videoBackground}
-                src="/videos/DJI_0237_clip2.mp4"
+                src="https://wotg.sgp1.cdn.digitaloceanspaces.com/videos/chatvideos/DJI_0237_clip2.mp4"
                 autoPlay
                 loop
                 muted
@@ -41,7 +41,7 @@ const ContactBannerSection = () => {
                 <div className={styles.grid}>
                     {/* Left Column */}
                     <div className={styles.qrSection}>
-                        <img src="images/qr-code.webp" alt="QR Code" className={styles.qrImage} />
+                        <img src="https://wotg.sgp1.cdn.digitaloceanspaces.com/videos/chatvideos/qr-code.webp" alt="QR Code" className={styles.qrImage} />
                         <h2 className={styles.qrCaption}>Scan To Send An Email</h2>
                     </div>
 

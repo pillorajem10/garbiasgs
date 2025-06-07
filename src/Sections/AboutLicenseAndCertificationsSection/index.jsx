@@ -1,8 +1,11 @@
 import { useState, useRef, useEffect, memo } from "react";
 import { motion, useAnimation, useInView } from "framer-motion";
 import styles from "./index.module.css";
+import { licenseImages } from "./data"; // Array of filenames like ['license1.webp', 'license2.webp', ...]
 
 const AboutLicenseAndCertificationsSection = () => {
+  const imageUrl = 'https://wotg.sgp1.cdn.digitaloceanspaces.com/videos/chatvideos/garbiaLicenses/';
+
   const leftRef = useRef(null);
   const rightRef = useRef(null);
 
@@ -22,17 +25,14 @@ const AboutLicenseAndCertificationsSection = () => {
     else rightControls.start({ x: 80, opacity: 0 });
   }, [rightInView, rightControls]);
 
-  const licenseImages = Array.from({ length: 6 }, (_, i) => `/images/garbiaLicenses/license${i + 1}.webp`);
   const [current, setCurrent] = useState(0);
 
-  // 🔁 Auto-play every 5 seconds
   useEffect(() => {
     const interval = setInterval(() => {
       setCurrent((prev) => (prev + 1) % licenseImages.length);
-    }, 5000); // 5 seconds
-
+    }, 5000);
     return () => clearInterval(interval);
-  }, [licenseImages.length]);
+  }, []);
 
   return (
     <section className={styles.container}>
@@ -69,8 +69,8 @@ const AboutLicenseAndCertificationsSection = () => {
       >
         <div className={styles.slideshow}>
           <motion.img
-            key={current} // Re-mount to re-trigger animation
-            src={licenseImages[current]}
+            key={current}
+            src={`${imageUrl}${licenseImages[current]}`}
             alt={`License ${current + 1}`}
             className={styles.mainImage}
             initial={{ opacity: 0 }}
@@ -78,10 +78,10 @@ const AboutLicenseAndCertificationsSection = () => {
             transition={{ duration: 0.5 }}
           />
           <div className={styles.thumbnailRow}>
-            {licenseImages.map((src, idx) => (
+            {licenseImages.map((filename, idx) => (
               <img
                 key={idx}
-                src={src}
+                src={`${imageUrl}${filename}`}
                 alt={`Thumbnail ${idx + 1}`}
                 className={`${styles.thumbnail} ${current === idx ? styles.active : ""}`}
                 onClick={() => setCurrent(idx)}

@@ -71,7 +71,7 @@ const HomeMissionVisionSection = () => {
                 transition={{ type: 'spring', stiffness: 60, damping: 15, delay: 0.2 }}
             >
                 <div className={styles.imageContainer1}>
-                    <img src="images/d4f1eb50-a4af-48f7-bc8c-98033be69fed.webp" alt="GIF" />
+                    <img src="https://wotg.sgp1.cdn.digitaloceanspaces.com/videos/chatvideos/d4f1eb50-a4af-48f7-bc8c-98033be69fed.webp" alt="GIF" />
                 </div>
             </motion.div>
         </section>

@@ -1,8 +1,11 @@
 import { useState, useRef, useEffect, memo } from "react";
 import { motion, useAnimation, useInView } from "framer-motion";
 import styles from "./index.module.css";
+import { officeImages } from "./data"; // ➜ Example: ['office1.webp', 'office2.webp', ...]
 
 const AboutOfficesSection = () => {
+  const imageUrl = 'https://wotg.sgp1.cdn.digitaloceanspaces.com/videos/chatvideos/garbiaOffices/';
+
   const mainRef = useRef(null);
   const mainControls = useAnimation();
   const mainInView = useInView(mainRef, { threshold: 0.3 });
@@ -12,15 +15,14 @@ const AboutOfficesSection = () => {
     else mainControls.start({ opacity: 0 });
   }, [mainInView, mainControls]);
 
-  const licenseImages = Array.from({ length: 12 }, (_, i) => `/images/garbiaOffices/office${i + 1}.webp`);
   const [current, setCurrent] = useState(0);
 
   useEffect(() => {
     const interval = setInterval(() => {
-      setCurrent((prev) => (prev + 1) % licenseImages.length);
+      setCurrent((prev) => (prev + 1) % officeImages.length);
     }, 5000);
     return () => clearInterval(interval);
-  }, [licenseImages.length]);
+  }, [officeImages.length]);
 
   return (
     <section className={styles.container}>
@@ -36,7 +38,7 @@ const AboutOfficesSection = () => {
         <div className={styles.slideshow}>
           <motion.img
             key={current}
-            src={licenseImages[current]}
+            src={`${imageUrl}${officeImages[current]}`}
             alt={`Office ${current + 1}`}
             className={styles.mainImage}
             initial={{ opacity: 0 }}
@@ -44,10 +46,10 @@ const AboutOfficesSection = () => {
             transition={{ duration: 0.5 }}
           />
           <div className={styles.thumbnailRow}>
-            {licenseImages.map((src, idx) => (
+            {officeImages.map((filename, idx) => (
               <img
                 key={idx}
-                src={src}
+                src={`${imageUrl}${filename}`}
                 loading="lazy"
                 alt={`Thumbnail ${idx + 1}`}
                 className={`${styles.thumbnail} ${current === idx ? styles.active : ""}`}

@@ -20,7 +20,7 @@ const ProgramServiceSection = () => {
             {/* Background Video */}
             <video
                 className={styles.videoBackground}
-                src="/videos/DJI_0224_clip.mp4"
+                src="https://wotg.sgp1.cdn.digitaloceanspaces.com/videos/chatvideos/DJI_0224_clip.mp4"
                 autoPlay
                 loop
                 muted

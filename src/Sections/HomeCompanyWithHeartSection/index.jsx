@@ -1,8 +1,11 @@
 import { motion, useAnimation, useInView } from 'framer-motion';
 import { useEffect, useRef, useState, memo } from 'react';
 import styles from './index.module.css';
+import { companyWithHeartData } from './data'; // This should be an array of filenames
 
 const HomeCompanyWithHeartSection = () => {
+    const imageUrl = 'https://wotg.sgp1.cdn.digitaloceanspaces.com/videos/chatvideos/homeHeartCarousel/';
+    
     const leftRef = useRef(null);
     const rightRef = useRef(null);
 
@@ -12,31 +15,23 @@ const HomeCompanyWithHeartSection = () => {
     const leftInView = useInView(leftRef, { threshold: 0.3 });
     const rightInView = useInView(rightRef, { threshold: 0.3 });
 
-    // Carousel logic
-    const images = Array.from({ length: 21 }, (_, i) => `/images/homeHeartCarousel/commitment${i + 1}.webp`);
     const [currentImage, setCurrentImage] = useState(0);
 
     useEffect(() => {
         const interval = setInterval(() => {
-            setCurrentImage((prev) => (prev + 1) % images.length);
-        }, 3000); // Change every 3 seconds
+            setCurrentImage((prev) => (prev + 1) % companyWithHeartData.length);
+        }, 3000);
         return () => clearInterval(interval);
-    }, [images.length]);
+    }, [companyWithHeartData.length]);
 
     useEffect(() => {
-        if (leftInView) {
-            leftControls.start({ x: 0, opacity: 1 });
-        } else {
-            leftControls.start({ x: -80, opacity: 0 });
-        }
+        if (leftInView) leftControls.start({ x: 0, opacity: 1 });
+        else leftControls.start({ x: -80, opacity: 0 });
     }, [leftInView, leftControls]);
 
     useEffect(() => {
-        if (rightInView) {
-            rightControls.start({ x: 0, opacity: 1 });
-        } else {
-            rightControls.start({ x: 80, opacity: 0 });
-        }
+        if (rightInView) rightControls.start({ x: 0, opacity: 1 });
+        else rightControls.start({ x: 80, opacity: 0 });
     }, [rightInView, rightControls]);
 
     return (
@@ -54,6 +49,7 @@ const HomeCompanyWithHeartSection = () => {
                     others."
                 </p>
             </motion.div>
+
             <div className={styles.content}>
                 <motion.div
                     ref={leftRef}
@@ -64,7 +60,7 @@ const HomeCompanyWithHeartSection = () => {
                 >
                     <img
                         key={currentImage}
-                        src={images[currentImage]}
+                        src={`${imageUrl}${companyWithHeartData[currentImage]}`}
                         alt={`Commitment ${currentImage + 1}`}
                         className={styles.fadeImage}
                     />
@@ -78,7 +74,7 @@ const HomeCompanyWithHeartSection = () => {
                     transition={{ type: 'spring', stiffness: 60, damping: 15 }}
                 >
                     <video
-                        src="/videos/garbiaCharity.mp4"
+                        src="https://wotg.sgp1.cdn.digitaloceanspaces.com/videos/chatvideos/garbiaCharity.mp4"
                         className={styles.video}
                         autoPlay
                         muted
