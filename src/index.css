@@ -30,6 +30,7 @@ html, body {
   flex: 1; /* Makes this section take up remaining space */
   display: flex;
   align-items: center;
+  overflow-x: hidden;
   justify-content: center; /* Centers content in the middle */
   text-align: center;
   margin: 0;

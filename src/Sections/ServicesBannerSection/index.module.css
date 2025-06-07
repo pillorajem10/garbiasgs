@@ -1,7 +1,7 @@
 .banner {
     position: relative;
     height: 91.6svh;
-    width: 100vw;
+    width: 100svw;
     overflow: hidden;
     display: flex;
     align-items: center;

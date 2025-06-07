@@ -3,7 +3,7 @@
   position: fixed;
   top: 0;
   left: 0;
-  height: 100svh;
+  min-height: 100svh;
   width: 100svw;
   background: rgba(0, 10, 25, 0.9);
   backdrop-filter: blur(6px);

@@ -1,13 +1,12 @@
-import HomeBannerSection from '../../Sections/HomeBannerSection';
-import HomeMissionVisionSection from '../../Sections/HomeMissionVisionSection';
-import HomeObjectivesSection from '../../Sections/HomeObjectivesSection';
-import HomeCompanyWithHeartSection from '../../Sections/HomeCompanyWithHeartSection';
-
-import styles from './index.module.css';
+// SECTIONS
+import HomeBannerSection from "@sections/HomeBannerSection";
+import HomeMissionVisionSection from "@sections/HomeMissionVisionSection";
+import HomeObjectivesSection from "@sections/HomeObjectivesSection";
+import HomeCompanyWithHeartSection from "@sections/HomeCompanyWithHeartSection";
 
 const Page = () => {
     return (
-        <div className={styles.container}>
+        <div>
             {/* Banner Section */}
             <HomeBannerSection />
 

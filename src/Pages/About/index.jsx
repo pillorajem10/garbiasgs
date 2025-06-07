@@ -1,7 +1,7 @@
 // SECTIONS
-import AboutBannerSection from "../../Sections/AboutBannerSection";
-import AboutLicenseAndCertificationsSection from "../../Sections/AboutLicenseAndCertificationsSection";
-import AboutOfficesSection from "../../Sections/AboutOfficesSection";
+import AboutBannerSection from "@sections/AboutBannerSection";
+import AboutLicenseAndCertificationsSection from "@sections/AboutLicenseAndCertificationsSection";
+import AboutOfficesSection from "@sections/AboutOfficesSection";
 
 const Page = () => {
     return (

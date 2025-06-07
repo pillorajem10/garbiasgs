@@ -1,8 +1,6 @@
 // SECTIONS
-import ServicesBannerSection from '../../Sections/ServicesBannerSection';
-import ServicesSection from '../../Sections/ServicesSection';
-
-import styles from './index.module.css';
+import ServicesBannerSection from "@sections/ServicesBannerSection";
+import ServicesSection from "@sections/ServicesSection";
 
 const Page = () => {
     return (

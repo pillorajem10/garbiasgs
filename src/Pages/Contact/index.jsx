@@ -1,4 +1,4 @@
-import ContactSection from "../../Sections/ContactSection";
+import ContactSection from "@sections/ContactSection";
 
 const Page = () => {
     return (

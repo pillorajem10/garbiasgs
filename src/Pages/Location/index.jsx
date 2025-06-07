@@ -1,10 +1,9 @@
-import LocationBannerSection from '../../Sections/LocationBannerSection';
-
-import styles from './index.module.css';
+// SECTIONS
+import LocationBannerSection from '@sections/LocationBannerSection';
 
 const Page = () => {
     return (
-        <div className={styles.container}>
+        <div>
             {/* Banner Section */}
             <LocationBannerSection />
         </div>

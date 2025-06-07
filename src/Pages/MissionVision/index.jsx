@@ -1,13 +1,12 @@
 
-import MissionVisionBannerSection from '../../Sections/MissionVisionBannerSection';
-import MissionVisionMissionSection from '../../Sections/MissionVisionMissionSection';
-import MissionVisionVisionSection from '../../Sections/MissionVisionVisionSection';
-
-import styles from './index.module.css';
+// SECTIONS
+import MissionVisionBannerSection from "@sections/MissionVisionBannerSection";
+import MissionVisionMissionSection from "@sections/MissionVisionMissionSection";
+import MissionVisionVisionSection from "@sections/MissionVisionVisionSection";
 
 const Page = () => {
     return (
-        <div className={styles.container}>
+        <div>
           {/* Banner Section */}
           <MissionVisionBannerSection />
 

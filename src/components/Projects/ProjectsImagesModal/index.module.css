@@ -1,0 +1,138 @@
+.modalOverlay {
+  animation: fadeIn 0.3s ease forwards;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.85);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+}
+
+.modalContent {
+  padding: 1rem;
+  border-radius: 10px;
+  position: relative;
+  width: 100%;
+  max-width: 1000px;
+  animation: fadeIn 0.4s ease;
+}
+
+.imageWrapper {
+  position: relative;
+  display: inline-block;
+}
+
+.closeButton {
+  position: absolute;
+  top: -15px;
+  right: -15px;
+  font-size: 1.8rem;
+  color: white;
+  background: rgba(0, 0, 0, 0.6);
+  border: none;
+  border-radius: 50%;
+  width: 32px;
+  height: 32px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+
+.closeButton:hover {
+  background: rgba(255, 255, 255, 0.2);
+}
+
+.slideShow {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 1rem;
+}
+
+.navButton {
+  background: transparent;
+  color: white;
+  font-size: 2rem;
+  border: none;
+  cursor: pointer;
+}
+
+.mainImage {
+  max-height: 500px;
+  width: auto;
+  border-radius: 6px;
+  animation: imageFade 0.4s ease;
+}
+
+/* === Thumbnail Strip Wrapper with Scroll Buttons === */
+.thumbnailWrapper {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-top: 1rem;
+  position: relative;
+}
+
+/* Scroll buttons for thumbnail strip */
+.thumbnailNavButton {
+  background: none;
+  border: none;
+  font-size: 2rem;
+  cursor: pointer;
+  padding: 0 10px;
+  color: white;
+  user-select: none;
+}
+
+/* Scrollable thumbnail container */
+.thumbnailContainer {
+  display: flex;
+  overflow-x: auto;
+  scrollbar-width: none; /* Firefox */
+  -ms-overflow-style: none; /* IE 10+ */
+  scroll-behavior: smooth;
+  max-width: 600px;
+  padding: 5px 0;
+  gap: 0.5rem;
+}
+
+/* Hide scrollbar (WebKit) */
+.thumbnailContainer::-webkit-scrollbar {
+  display: none;
+}
+
+/* Thumbnail image style */
+.thumbnail {
+  width: 80px;
+  height: 50px;
+  object-fit: cover;
+  opacity: 0.5;
+  cursor: pointer;
+  border: 2px solid transparent;
+  border-radius: 4px;
+  flex-shrink: 0;
+  transition: all 0.2s ease;
+}
+
+/* Active thumbnail */
+.thumbnail.active {
+  opacity: 1;
+  border-color: white;
+}
+
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: scale(0.98); }
+  to { opacity: 1; transform: scale(1); }
+}
+
+@keyframes imageFade {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
