@@ -16,6 +16,7 @@ import Contact from "@pages/Contact";
 import MissionVision from "@pages/MissionVision";
 import Location from "@pages/Location";
 import Projects from "@pages/Projects";
+import Program from "@pages/Program";
 import DefaultPage from "@pages/DefaultPage";
 
 
@@ -42,6 +43,7 @@ function App() {
           <Route path="/mission-vision" element={<MissionVision />} />
           <Route path="/location" element={<Location />} />
           <Route path="/projects" element={<Projects />} />
+          <Route path="/program" element={<Program />} />
           <Route path="*" element={<DefaultPage />} />
         </Routes>
       </div>

@@ -51,19 +51,17 @@ const ProjectsImagesModal = ({ imagesRoute, onClose }) => {
         {imageList.length > 0 && (
           <>
             <div className={styles.slideShow}>
-                <button className={styles.navButton} onClick={handlePrev}>←</button>
-
                 <div className={styles.imageWrapper}>
-                    <img
-                        key={fadeKey}
-                        src={imageList[currentIndex]}
-                        alt={`Slide ${currentIndex + 1}`}
-                        className={styles.mainImage}
-                    />
-                    <button className={styles.closeButton} onClick={onClose}>✕</button>
+                  <img
+                    key={fadeKey}
+                    src={imageList[currentIndex]}
+                    alt={`Slide ${currentIndex + 1}`}
+                    className={styles.mainImage}
+                  />
+                  <button className={`${styles.arrowButton} ${styles.left}`} onClick={handlePrev}>←</button>
+                  <button className={`${styles.arrowButton} ${styles.right}`} onClick={handleNext}>→</button>
+                  <button className={styles.closeButton} onClick={onClose}>✕</button>
                 </div>
-
-                <button className={styles.navButton} onClick={handleNext}>→</button>
             </div>
 
             <div className={styles.thumbnailWrapper}>

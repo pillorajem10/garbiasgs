@@ -30,7 +30,7 @@ const BurgerMenu = ({ onClose }) => {
         <Link to="/about" className={styles.menuItem} onClick={onClose}>About</Link>
         <Link to="/mission-vision" className={styles.menuItem} onClick={onClose}>Mission And Vision</Link>
         <Link to="/projects" className={styles.menuItem} onClick={onClose}>Projects</Link>
-        <Link to="#" className={styles.menuItem} onClick={onClose}>Program</Link>
+        <Link to="/home" className={styles.menuItem} onClick={onClose}>Program</Link>
         <Link to="/location" className={styles.menuItem} onClick={onClose}>Location</Link>
         <Link to="/contact" className={styles.menuItem} onClick={onClose}>Contact Us</Link>
       </nav>
