@@ -40,7 +40,7 @@ const HomeMissionVisionSection = () => {
                 transition={{ type: 'spring', stiffness: 60, damping: 15 }}
             >
                 <div className={styles.imageContainer}>
-                    <img src="https://wotg.sgp1.cdn.digitaloceanspaces.com/videos/chatvideos/DJI_0103.webp" alt="GIF" />
+                    <img src="https://wotg.sgp1.cdn.digitaloceanspaces.com/videos/chatvideos/DJI_0226.webp" alt="GIF" />
                 </div>
 
                 <h2>Mission</h2>

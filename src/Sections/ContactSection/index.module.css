@@ -1,6 +1,6 @@
 .banner {
   position: relative;
-  min-height: 87.3svh;
+  min-height: 100svh;
   min-width: 100svw;
   overflow: hidden;
   display: flex;
