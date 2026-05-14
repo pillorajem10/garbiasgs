@@ -40,7 +40,7 @@ const ProgramServiceSection = () => {
             >
                 <h1>Charity Programs</h1>
                 <p>
-                    At GarBia Structural and Geotechnical Solutions, 
+                    At GarBia Group, 
                     we believe that success is not just measured by the structures we build, 
                     but by the lives we touch. Our charity programs are rooted in compassion and community empowerment. 
                     We regularly organize outreach efforts that provide food, educational supplies, 

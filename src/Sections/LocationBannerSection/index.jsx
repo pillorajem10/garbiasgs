@@ -41,7 +41,7 @@ const LocationBannerSection = () => {
                 <div className={styles.textContainer}>
                     <h1>Location</h1>
                     <p>
-                        GarBia Structural and Geotechnical Solutions is located at Lot 10 Block 7 Jasmine Street, Cainta, Rizal—
+                        GarBia Group is located at Lot 10 Block 7 Jasmine Street, Cainta, Rizal—
                         easily accessible from key areas in Metro Manila and nearby provinces. Whether you're visiting for consultations,
                         project discussions, or testing services, our office is positioned for your convenience. Secure parking is available, 
                         and we’re just a few minutes away from major roads and public transport terminals.

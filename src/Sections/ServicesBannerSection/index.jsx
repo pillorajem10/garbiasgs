@@ -40,7 +40,7 @@ const ServicesBannerSection = () => {
             >
                 <h1>Our Services</h1>
                 <p>
-                    GarBia Structural and Geotechnical Solutions offers technical services ranging from geotechnical engineering, 
+                    GarBia Group offers technical services ranging from geotechnical engineering, 
                     sub-surface soil exploration, laboratory testing, and micro-piling for foundations, 
                     in support to engineering design of residential and institutional buildings, roads, and government infrastructures.
                 </p>

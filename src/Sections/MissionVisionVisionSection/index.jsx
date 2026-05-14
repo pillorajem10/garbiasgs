@@ -58,7 +58,7 @@ const MissionVisionVisionSection = () => {
             >
                 <h2>Vision</h2>
                 <p>
-                    GarBia Structural and Geotechnical Solutions aims to 
+                    GarBia Group aims to 
                     be one of the preferred and trusted service provider 
                     for geotechnical services with the highest quality 
                     standards and competitive rates, 

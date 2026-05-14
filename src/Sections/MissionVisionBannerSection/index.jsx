@@ -40,7 +40,7 @@ const MissionVisionBannerSection = () => {
             >
                 <h1>Mission And Vision</h1>
                 <p>
-                    GarBia Structural and Geotechnical Solutions strives to be the leading provider 
+                    GarBia Group strives to be the leading provider 
                     of high-quality geotechnical services in Luzon, offering competitive rates 
                     and timely delivery. Our mission is to contribute to the 
                     Philippines' transition towards superior construction standards and safe infrastructure 

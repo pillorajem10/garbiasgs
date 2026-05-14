@@ -68,7 +68,7 @@ const HomeMissionVisionSection = () => {
             >
                 <h2>Vision</h2>
                 <p>
-                    GarBia Structural and Geotechnical Solutions aims to be one of the preferred and trusted service provider 
+                    GarBia Group aims to be one of the preferred and trusted service provider 
                     for geotechnical services with the highest quality standards and competitive rates, delivered in a timely manner in Luzon.
                 </p>
                 <div className={styles.imageContainer1}>
