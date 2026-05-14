@@ -1,10 +1,10 @@
 import { useState, useRef, useEffect, memo } from "react";
 import { motion, useAnimation, useInView } from "framer-motion";
 import styles from "./index.module.css";
-import { officeImages } from "./data"; // ➜ Example: ['office1.webp', 'office2.webp', ...]
+import { officeImages } from "./data";
 
 const AboutOfficesSection = () => {
-  const imageUrl = 'https://garbia.sgp1.cdn.digitaloceanspaces.com/images/office/';
+  const imageUrl = "https://garbia.sgp1.cdn.digitaloceanspaces.com/images/office/";
 
   const mainRef = useRef(null);
   const mainControls = useAnimation();
@@ -22,7 +22,7 @@ const AboutOfficesSection = () => {
       setCurrent((prev) => (prev + 1) % officeImages.length);
     }, 5000);
     return () => clearInterval(interval);
-  }, [officeImages.length]);
+  }, []);
 
   return (
     <section className={styles.container}>
@@ -39,23 +39,35 @@ const AboutOfficesSection = () => {
           <motion.img
             key={current}
             src={`${imageUrl}${officeImages[current]}`}
-            alt={`Office ${current + 1}`}
+            alt={`GarBia office photo ${current + 1} of ${officeImages.length}`}
             className={styles.mainImage}
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ duration: 0.5 }}
+            loading="lazy"
+            decoding="async"
           />
           <div className={styles.thumbnailRow}>
             {officeImages.map((filename, idx) => (
-              <img
-                key={idx}
-                src={`${imageUrl}${filename}`}
-                loading="lazy"
-                alt={`Thumbnail ${idx + 1}`}
-                className={`${styles.thumbnail} ${current === idx ? styles.active : ""}`}
+              <button
+                key={filename}
+                type="button"
+                className={`${styles.thumbnailButton} ${current === idx ? styles.active : ""}`}
                 onClick={() => setCurrent(idx)}
-                onError={(e) => (e.currentTarget.src = "/images/fallback.webp")}
-              />
+                aria-label={`Show office photo ${idx + 1}`}
+                aria-current={current === idx ? "true" : undefined}
+              >
+                <img
+                  src={`${imageUrl}${filename}`}
+                  alt=""
+                  className={styles.thumbnailImg}
+                  loading="lazy"
+                  decoding="async"
+                  onError={(e) => {
+                    e.currentTarget.src = "/images/fallback.webp";
+                  }}
+                />
+              </button>
             ))}
           </div>
         </div>

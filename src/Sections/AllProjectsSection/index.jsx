@@ -20,7 +20,7 @@ const AllProjectsSection = ({ onOpenModal }) => {
                         onOpenModal(project.images);
                     }}
                 >
-                    <img src={`${imageBaseUrl}/${project.thumbnail}`} alt={project.title} className={styles.thumbnail} />
+                    <img src={`${imageBaseUrl}/${project.thumbnail}`} alt={`${project.title} project thumbnail`} className={styles.thumbnail} loading="lazy" decoding="async" />
                     <h3>{project.title}</h3>
                 </div>
             ))}

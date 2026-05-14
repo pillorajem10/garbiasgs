@@ -22,7 +22,7 @@ const HomeCompanyWithHeartSection = () => {
             setCurrentImage((prev) => (prev + 1) % companyWithHeartData.length);
         }, 3000);
         return () => clearInterval(interval);
-    }, [companyWithHeartData.length]);
+    }, []);
 
     useEffect(() => {
         if (leftInView) leftControls.start({ x: 0, opacity: 1 });
@@ -61,8 +61,10 @@ const HomeCompanyWithHeartSection = () => {
                     <img
                         key={currentImage}
                         src={`${imageUrl}${companyWithHeartData[currentImage]}`}
-                        alt={`Commitment ${currentImage + 1}`}
+                        alt={`Community and charity work by GarBia, image ${currentImage + 1} of ${companyWithHeartData.length}`}
                         className={styles.fadeImage}
+                        loading="lazy"
+                        decoding="async"
                     />
                 </motion.div>
 

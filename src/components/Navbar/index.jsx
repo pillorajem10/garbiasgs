@@ -1,30 +1,60 @@
 import { Link } from "react-router-dom";
 import styles from "./index.module.css";
 
-const Navbar = ({ onToggleMenu }) => {
+const Navbar = ({ menuOpen, onToggleMenu }) => {
   return (
-    <nav className={styles.navbar}>
+    <nav className={styles.navbar} aria-label="Primary">
       <div className={styles.logoContainer}>
-        <img src="https://garbia.sgp1.cdn.digitaloceanspaces.com/images/garbiaLogo.jpg" alt="Logo" className={styles.logo} />
+        <img
+          src="https://garbia.sgp1.cdn.digitaloceanspaces.com/images/garbiaLogo.jpg"
+          alt="GarBia logo"
+          className={styles.logo}
+          width={160}
+          height={48}
+          decoding="async"
+          fetchPriority="high"
+        />
       </div>
 
       <ul>
-        <li><Link to="/">Home</Link></li>
-        <li><Link to="/services">Services</Link></li>
-        <li><Link to="/about">About</Link></li>
-        <li><Link to="/mission-vision">Mission And Vision</Link></li>
-        <li><Link to="/projects">Projects</Link></li>
-        <li><Link to="/program">Program</Link></li>
-        <li><Link to="/location">Location</Link></li>
-        {/*<li><Link to="/contact">Contact Us</Link></li>*/}
+        <li>
+          <Link to="/">Home</Link>
+        </li>
+        <li>
+          <Link to="/services">Services</Link>
+        </li>
+        <li>
+          <Link to="/about">About</Link>
+        </li>
+        <li>
+          <Link to="/mission-vision">Mission And Vision</Link>
+        </li>
+        <li>
+          <Link to="/projects">Projects</Link>
+        </li>
+        <li>
+          <Link to="/program">Program</Link>
+        </li>
+        <li>
+          <Link to="/location">Location</Link>
+        </li>
+        <li>
+          <Link to="/contact">Contact</Link>
+        </li>
       </ul>
 
-      
-      <div className={styles.burger} onClick={onToggleMenu}>
-        <span></span>
-        <span></span>
-        <span></span>
-      </div>
+      <button
+        type="button"
+        className={styles.burger}
+        onClick={onToggleMenu}
+        aria-expanded={menuOpen}
+        aria-controls="site-mobile-menu"
+        aria-label="Open menu"
+      >
+        <span />
+        <span />
+        <span />
+      </button>
     </nav>
   );
 };

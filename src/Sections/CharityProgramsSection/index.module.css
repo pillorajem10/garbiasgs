@@ -90,30 +90,45 @@
   border-radius: 4px;
 }
 
-.thumbnail {
+.thumbnailButton {
   flex: 0 0 auto;
+  padding: 0;
+  margin: 0;
+  border: 2px solid transparent;
+  border-radius: 6px;
+  background: transparent;
+  cursor: pointer;
+  line-height: 0;
+  transition: border-color 0.2s ease, transform 0.2s ease;
+}
+
+.thumbnailButton:focus-visible {
+  outline: 3px solid #14b8a6;
+  outline-offset: 2px;
+}
+
+.thumbnailImg {
+  display: block;
   width: 70px;
   height: 70px;
   object-fit: cover;
   border-radius: 4px;
   opacity: 0.6;
-  cursor: pointer;
   transition: opacity 0.2s ease, transform 0.2s ease;
 }
 
-.thumbnail:hover {
+.thumbnailButton:hover .thumbnailImg,
+.thumbnailButton:focus-visible .thumbnailImg {
   opacity: 1;
   transform: scale(1.05);
 }
 
-.thumbnail.active {
-  opacity: 1;
-  border: 2px solid #00bfff;
+.thumbnailButton.active {
+  border-color: #00bfff;
 }
 
-.thumbnail.active img {
+.thumbnailButton.active .thumbnailImg {
   opacity: 1;
-  border: 2px solid #00bfff;
 }
 
 /* Scroll Arrows */
@@ -127,11 +142,16 @@
   height: 32px;
   cursor: pointer;
   user-select: none;
-  transition: background 0.2s ease;
+  transition: background 0.2s ease, transform 0.2s ease;
 }
 
 .scrollButton:hover {
   background: rgba(255, 255, 255, 0.3);
+}
+
+.scrollButton:focus-visible {
+  outline: 3px solid #14b8a6;
+  outline-offset: 2px;
 }
 
 /* 🔁 Responsive */
@@ -144,7 +164,7 @@
     width: 100%;
   }
 
-  .thumbnail {
+  .thumbnailImg {
     width: 60px;
     height: 60px;
   }
@@ -166,7 +186,7 @@
     font-size: 1.7rem;
   }
 
-  .thumbnail {
+  .thumbnailImg {
     width: 50px;
     height: 50px;
   }

@@ -40,7 +40,13 @@ const ServiceBlock = ({ title, image, items }) => {
       transition={{ type: 'spring', stiffness: 60, damping: 15 }}
     >
       <div className={styles.imageContainer}>
-        <img src={image} alt={title} className={styles.image} />
+        <img
+          src={image}
+          alt={`${title} — illustrative photo`}
+          className={styles.image}
+          loading="lazy"
+          decoding="async"
+        />
       </div>
 
       <div className={styles.textContainer}>

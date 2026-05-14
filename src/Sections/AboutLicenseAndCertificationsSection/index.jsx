@@ -1,10 +1,10 @@
 import { useState, useRef, useEffect, memo } from "react";
 import { motion, useAnimation, useInView } from "framer-motion";
 import styles from "./index.module.css";
-import { licenseImages } from "./data"; // Array of filenames like ['license1.webp', 'license2.webp', ...]
+import { licenseImages } from "./data";
 
 const AboutLicenseAndCertificationsSection = () => {
-  const imageUrl = 'https://garbia.sgp1.cdn.digitaloceanspaces.com/images/licenses/';
+  const imageUrl = "https://garbia.sgp1.cdn.digitaloceanspaces.com/images/licenses/";
 
   const leftRef = useRef(null);
   const rightRef = useRef(null);
@@ -45,18 +45,29 @@ const AboutLicenseAndCertificationsSection = () => {
       >
         <h2>Licenses, Accreditations and Memberships</h2>
         <ul>
-          <li><p>ISO 9001:2015 Certified</p></li>
-          <li><p>DPWH-BRS Accredited</p></li>
+          <li>
+            <p>ISO 9001:2015 Certified</p>
+          </li>
+          <li>
+            <p>DPWH-BRS Accredited</p>
+          </li>
           <li>
             <p>ASTM Organizational Member</p>
             <ul className={styles.subList}>
               <li>
-                <p>Our laboratory equipment and testing methods are in accordance with ASTM standards & specifications.</p>
+                <p>
+                  Our laboratory equipment and testing methods are in accordance with ASTM standards &
+                  specifications.
+                </p>
               </li>
             </ul>
           </li>
-          <li><p>Category "A" PCAB License</p></li>
-          <li><p>Philgeps Platinum Membership</p></li>
+          <li>
+            <p>Category &quot;A&quot; PCAB License</p>
+          </li>
+          <li>
+            <p>Philgeps Platinum Membership</p>
+          </li>
         </ul>
       </motion.div>
 
@@ -71,21 +82,32 @@ const AboutLicenseAndCertificationsSection = () => {
           <motion.img
             key={current}
             src={`${imageUrl}${licenseImages[current]}`}
-            alt={`License ${current + 1}`}
+            alt={`License or accreditation document ${current + 1} of ${licenseImages.length}`}
             className={styles.mainImage}
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ duration: 0.5 }}
+            loading="lazy"
+            decoding="async"
           />
           <div className={styles.thumbnailRow}>
             {licenseImages.map((filename, idx) => (
-              <img
-                key={idx}
-                src={`${imageUrl}${filename}`}
-                alt={`Thumbnail ${idx + 1}`}
-                className={`${styles.thumbnail} ${current === idx ? styles.active : ""}`}
+              <button
+                key={filename}
+                type="button"
+                className={`${styles.thumbnailButton} ${current === idx ? styles.active : ""}`}
                 onClick={() => setCurrent(idx)}
-              />
+                aria-label={`Show license image ${idx + 1}`}
+                aria-current={current === idx ? "true" : undefined}
+              >
+                <img
+                  src={`${imageUrl}${filename}`}
+                  alt=""
+                  className={styles.thumbnailImg}
+                  loading="lazy"
+                  decoding="async"
+                />
+              </button>
             ))}
           </div>
         </div>

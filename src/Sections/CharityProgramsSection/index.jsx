@@ -1,12 +1,12 @@
 import { useState, useRef, useEffect, memo } from "react";
 import { motion, useAnimation, useInView } from "framer-motion";
 import styles from "./index.module.css";
-import { images } from "./data"; // now using this array of filenames like 'charity1.webp'
+import { images } from "./data";
 
 const CharityProgramsSection = () => {
   const mainRef = useRef(null);
   const scrollRef = useRef(null);
-  
+
   const mainControls = useAnimation();
   const mainInView = useInView(mainRef, { threshold: 0.3 });
 
@@ -28,13 +28,12 @@ const CharityProgramsSection = () => {
   const scrollThumbnails = (direction) => {
     const container = scrollRef.current;
     if (container) {
-        container.scrollBy({
-        left: direction === 'left' ? -200 : 200,
-        behavior: 'smooth',
-        });
+      container.scrollBy({
+        left: direction === "left" ? -200 : 200,
+        behavior: "smooth",
+      });
     }
-};
-
+  };
 
   return (
     <section className={styles.container}>
@@ -51,27 +50,52 @@ const CharityProgramsSection = () => {
           <motion.img
             key={current}
             src={`${imageUrl}/${images[current]}`}
-            alt={`Charity ${current + 1}`}
+            alt={`Charity program photo ${current + 1} of ${images.length}`}
             className={styles.mainImage}
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ duration: 0.5 }}
+            loading="lazy"
+            decoding="async"
           />
-            <div className={styles.thumbnailWrapper}>
-                <button className={styles.scrollButton} onClick={() => scrollThumbnails('left')}>‹</button>
-                <div className={styles.thumbnailRow} ref={scrollRef}>
-                    {images.map((filename, idx) => (
-                    <img
-                        key={idx}
-                        src={`${imageUrl}/${filename}`}
-                        alt={`Thumbnail ${idx + 1}`}
-                        className={`${styles.thumbnail} ${current === idx ? styles.active : ""}`}
-                        onClick={() => setCurrent(idx)}
-                    />
-                    ))}
-                </div>
-                <button className={styles.scrollButton} onClick={() => scrollThumbnails('right')}>›</button>
+          <div className={styles.thumbnailWrapper}>
+            <button
+              type="button"
+              className={styles.scrollButton}
+              onClick={() => scrollThumbnails("left")}
+              aria-label="Scroll thumbnails left"
+            >
+              ‹
+            </button>
+            <div className={styles.thumbnailRow} ref={scrollRef}>
+              {images.map((filename, idx) => (
+                <button
+                  key={filename}
+                  type="button"
+                  className={`${styles.thumbnailButton} ${current === idx ? styles.active : ""}`}
+                  onClick={() => setCurrent(idx)}
+                  aria-label={`Show charity photo ${idx + 1}`}
+                  aria-current={current === idx ? "true" : undefined}
+                >
+                  <img
+                    src={`${imageUrl}/${filename}`}
+                    alt=""
+                    className={styles.thumbnailImg}
+                    loading="lazy"
+                    decoding="async"
+                  />
+                </button>
+              ))}
             </div>
+            <button
+              type="button"
+              className={styles.scrollButton}
+              onClick={() => scrollThumbnails("right")}
+              aria-label="Scroll thumbnails right"
+            >
+              ›
+            </button>
+          </div>
         </div>
       </motion.div>
     </section>

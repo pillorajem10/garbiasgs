@@ -89,7 +89,7 @@ export const projectsData = [
             'marikina/DJI_0202.jpg'
         ],
         title: 'Marikina Science High School',
-        thumbnail: 'marikina/20250411_130752.jpg'
+        thumbnail: 'marikina/20250408_134832.jpg'
     },
     {
         images: [

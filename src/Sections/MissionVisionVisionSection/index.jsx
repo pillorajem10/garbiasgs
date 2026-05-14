@@ -40,7 +40,12 @@ const MissionVisionVisionSection = () => {
                 transition={{ type: 'spring', stiffness: 60, damping: 15 }}
             >
                 <div className={styles.imageContainer1}>
-                    <img src="https://garbia.sgp1.cdn.digitaloceanspaces.com/images/DJI_0059.jpg" alt="GIF" />
+                    <img
+                        src="https://garbia.sgp1.cdn.digitaloceanspaces.com/images/DJI_0059.jpg"
+                        alt="GarBia vision — quality geotechnical services in practice"
+                        loading="lazy"
+                        decoding="async"
+                    />
                 </div>
             </motion.div>
 

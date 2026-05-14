@@ -1,10 +1,24 @@
 import { defineConfig } from 'vite';
 import react from '@vitejs/plugin-react';
 import path from 'path';
+import { fileURLToPath } from 'node:url';
 
-export default defineConfig({
-  plugins: [react()],
+const __dirname = path.dirname(fileURLToPath(import.meta.url));
+
+export default defineConfig({  plugins: [react()],
   base: '/',
+  build: {
+    minify: 'esbuild',
+    cssMinify: true,
+    target: 'es2018',
+    rollupOptions: {
+      output: {
+        manualChunks: {
+          motion: ['framer-motion'],
+        },
+      },
+    },
+  },
   resolve: {
     alias: {
       '@': path.resolve(__dirname, 'src'),

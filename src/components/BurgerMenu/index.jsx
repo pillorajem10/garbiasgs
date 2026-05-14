@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 import { motion } from "framer-motion";
 import styles from "./index.module.css";
 
-const BurgerMenu = ({ onClose }) => {
+const BurgerMenu = ({ id = "site-mobile-menu", onClose }) => {
   // Prevent background scroll when menu is open
   useEffect(() => {
     document.body.style.overflow = "hidden";
@@ -14,25 +14,50 @@ const BurgerMenu = ({ onClose }) => {
 
   return (
     <motion.div
+      id={id}
       className={styles.burgerMenuOverlay}
+      role="dialog"
+      aria-modal="true"
+      aria-label="Site navigation"
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
       exit={{ opacity: 0 }}
       transition={{ duration: 0.3, ease: "easeInOut" }}
     >
-      <button className={styles.closeButton} onClick={onClose}>
+      <button
+        type="button"
+        className={styles.closeButton}
+        onClick={onClose}
+        aria-label="Close navigation menu"
+      >
         &times;
       </button>
 
-      <nav className={styles.menuNav}>
-        <Link to="/" className={styles.menuItem} onClick={onClose}>Home</Link>
-        <Link to="/services" className={styles.menuItem} onClick={onClose}>Services</Link>
-        <Link to="/about" className={styles.menuItem} onClick={onClose}>About</Link>
-        <Link to="/mission-vision" className={styles.menuItem} onClick={onClose}>Mission And Vision</Link>
-        <Link to="/projects" className={styles.menuItem} onClick={onClose}>Projects</Link>
-        <Link to="/home" className={styles.menuItem} onClick={onClose}>Program</Link>
-        <Link to="/location" className={styles.menuItem} onClick={onClose}>Location</Link>
-        {/*<Link to="/contact" className={styles.menuItem} onClick={onClose}>Contact Us</Link>*/}
+      <nav className={styles.menuNav} aria-label="Mobile">
+        <Link to="/" className={styles.menuItem} onClick={onClose}>
+          Home
+        </Link>
+        <Link to="/services" className={styles.menuItem} onClick={onClose}>
+          Services
+        </Link>
+        <Link to="/about" className={styles.menuItem} onClick={onClose}>
+          About
+        </Link>
+        <Link to="/mission-vision" className={styles.menuItem} onClick={onClose}>
+          Mission And Vision
+        </Link>
+        <Link to="/projects" className={styles.menuItem} onClick={onClose}>
+          Projects
+        </Link>
+        <Link to="/program" className={styles.menuItem} onClick={onClose}>
+          Program
+        </Link>
+        <Link to="/location" className={styles.menuItem} onClick={onClose}>
+          Location
+        </Link>
+        <Link to="/contact" className={styles.menuItem} onClick={onClose}>
+          Contact
+        </Link>
       </nav>
     </motion.div>
   );
@@ -40,5 +65,8 @@ const BurgerMenu = ({ onClose }) => {
 
 // ✅ Memoize with custom comparison to avoid re-renders
 export default memo(BurgerMenu, (prevProps, nextProps) => {
-  return prevProps.onClose === nextProps.onClose;
+  return (
+    prevProps.onClose === nextProps.onClose &&
+    prevProps.id === nextProps.id
+  );
 });
