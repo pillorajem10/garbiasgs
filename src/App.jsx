@@ -102,7 +102,7 @@ function RoutedMain() {
           <Route path="/" element={<Home />} />
           <Route path="/services" element={<Services />} />
           <Route path="/about" element={<About />} />
-          <Route path="/contact" element={<Contact />} />
+          {/*<Route path="/contact" element={<Contact />} />*/}
           <Route path="/mission-vision" element={<MissionVision />} />
           <Route path="/location" element={<Location />} />
           <Route path="/projects" element={<Projects />} />

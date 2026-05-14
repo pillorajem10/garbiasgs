@@ -55,9 +55,9 @@ const BurgerMenu = ({ id = "site-mobile-menu", onClose }) => {
         <Link to="/location" className={styles.menuItem} onClick={onClose}>
           Location
         </Link>
-        <Link to="/contact" className={styles.menuItem} onClick={onClose}>
+        {/*<Link to="/contact" className={styles.menuItem} onClick={onClose}>
           Contact
-        </Link>
+        </Link>*/}
       </nav>
     </motion.div>
   );

@@ -38,9 +38,9 @@ const Navbar = ({ menuOpen, onToggleMenu }) => {
         <li>
           <Link to="/location">Location</Link>
         </li>
-        <li>
+        {/*<li>
           <Link to="/contact">Contact</Link>
-        </li>
+        </li>*/}
       </ul>
 
       <button
