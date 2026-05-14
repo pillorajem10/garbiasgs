@@ -2,7 +2,7 @@ import React, { useState, useEffect, useRef } from 'react';
 import styles from './index.module.css';
 
 const ProjectsImagesModal = ({ imagesRoute, onClose }) => {
-  const imageBaseUrl = 'https://wotg.sgp1.cdn.digitaloceanspaces.com/videos/chatvideos/projectsImages/';
+  const imageBaseUrl = 'https://garbia.sgp1.cdn.digitaloceanspaces.com/images/projectsImages/';
   const [currentIndex, setCurrentIndex] = useState(0);
   const [fadeKey, setFadeKey] = useState(0); // Used to trigger fade animation
   const scrollRef = useRef(null);

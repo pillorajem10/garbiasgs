@@ -20,7 +20,7 @@ const MissionVisionBannerSection = () => {
             {/* Background Video */}
             <video
                 className={styles.videoBackground}
-                src="https://wotg.sgp1.cdn.digitaloceanspaces.com/videos/chatvideos/DJI_0237_clip1.mp4"
+                src="https://garbia.sgp1.cdn.digitaloceanspaces.com/videos/DJI_0237_trimmed.mp4"
                 autoPlay
                 loop
                 muted

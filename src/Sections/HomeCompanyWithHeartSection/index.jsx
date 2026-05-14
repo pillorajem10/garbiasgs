@@ -4,7 +4,7 @@ import styles from './index.module.css';
 import { companyWithHeartData } from './data'; // This should be an array of filenames
 
 const HomeCompanyWithHeartSection = () => {
-    const imageUrl = 'https://wotg.sgp1.cdn.digitaloceanspaces.com/videos/chatvideos/homeHeartCarousel/';
+    const imageUrl = 'https://garbia.sgp1.cdn.digitaloceanspaces.com/images/homeHeartCarousel/';
     
     const leftRef = useRef(null);
     const rightRef = useRef(null);
@@ -74,7 +74,7 @@ const HomeCompanyWithHeartSection = () => {
                     transition={{ type: 'spring', stiffness: 60, damping: 15 }}
                 >
                     <video
-                        src="https://wotg.sgp1.cdn.digitaloceanspaces.com/videos/chatvideos/garbiaCharity.mp4"
+                        src="https://garbia.sgp1.cdn.digitaloceanspaces.com/videos/garbiaCharity.mp4"
                         className={styles.video}
                         autoPlay
                         muted
