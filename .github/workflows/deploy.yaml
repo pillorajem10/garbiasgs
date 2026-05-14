@@ -1,0 +1,58 @@
+name: CI/CD Pipeline
+
+on:
+  push:
+    branches:
+      - master  # Trigger deployment on push to master branch
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v2
+        with:
+          node-version: '20.11.1'
+
+      - name: Install dependencies
+        run: npm install
+
+      - name: Build React app
+        run: npm run build
+
+      - name: Build Docker image
+        run: docker build -t garbiagroup-react-app .
+
+      - name: Deploy to VPS via SSH
+        uses: appleboy/ssh-action@v0.1.5
+        with:
+          host: ${{ secrets.VPS_IP }}  # VPS IP address (GitHub secret)
+          username: ${{ secrets.VPS_USER }}  # SSH username (GitHub secret)
+          key: ${{ secrets.SSH_PRIVATE_KEY }}  # SSH private key (GitHub secret)
+          port: 22
+          script: |
+            # SSH into VPS and deploy the app
+            cd /var/www/garbiagroup.com/garbiagroup-react-app
+
+            # Pull the latest changes from GitHub
+            git pull origin master
+
+            # Install dependencies and build on the VPS
+            npm install
+            npm run build
+
+            # Stop and remove the old container (blue container)
+            docker stop garbiagroup-react-app-blue || true
+            docker rm garbiagroup-react-app-blue || true
+
+            # Run the new (green) container
+            docker run -d --name garbiagroup-react-app-green -p 5174:5173 garbiagroup-react-app
+
+            # Reload Nginx to serve the green container
+            sudo systemctl reload nginx
+
+            echo "Deployment successful!"

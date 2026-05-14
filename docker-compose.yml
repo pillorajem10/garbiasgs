@@ -1,13 +1,24 @@
 version: "3.8"
 
 services:
-  frontend:
-    container_name: garbiasgs
+  frontend-blue:
+    container_name: garbiagroup-react-app-blue
     build:
       context: .
       dockerfile: Dockerfile
     ports:
-      - "5173:5173"
+      - "5173:5173"  # Blue container on port 5173
+    restart: always
+    environment:
+      - NODE_ENV=production
+
+  frontend-green:
+    container_name: garbiagroup-react-app-green
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - "5174:5173"  # Green container on port 5174
     restart: always
     environment:
       - NODE_ENV=production
