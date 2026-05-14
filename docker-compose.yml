@@ -2,7 +2,7 @@ version: "3.8"
 
 services:
   frontend-blue:
-    container_name: garbiagroup-react-app-blue
+    container_name: garbiasgs-blue
     build:
       context: .
       dockerfile: Dockerfile
@@ -13,7 +13,7 @@ services:
       - NODE_ENV=production
 
   frontend-green:
-    container_name: garbiagroup-react-app-green
+    container_name: garbiasgs-green
     build:
       context: .
       dockerfile: Dockerfile
