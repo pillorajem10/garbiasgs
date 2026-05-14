@@ -3,7 +3,7 @@ name: CI/CD Pipeline
 on:
   push:
     branches:
-      - master  # Trigger deployment on push to master branch
+      - master
 
 jobs:
   deploy:
@@ -25,32 +25,35 @@ jobs:
         run: npm run build
 
       - name: Build Docker image
-        run: docker build -t garbiagroup-react-app .
+        run: docker build -t garbiasgs .
 
       - name: Deploy to VPS via SSH
         uses: appleboy/ssh-action@v0.1.5
         with:
-          host: ${{ secrets.VPS_IP }}  # VPS IP address (GitHub secret)
-          username: ${{ secrets.VPS_USER }}  # SSH username (GitHub secret)
-          key: ${{ secrets.SSH_PRIVATE_KEY }}  # SSH private key (GitHub secret)
+          host: ${{ secrets.VPS_IP }}
+          username: ${{ secrets.VPS_USER }}
+          key: ${{ secrets.SSH_PRIVATE_KEY }}
           port: 22
           script: |
-            # SSH into VPS and deploy the app
-            cd /var/www/garbiagroup.com/garbiagroup-react-app
+            # Ensure the directory exists
+            mkdir -p /var/www/garbiagroup.com/garbiasgs
 
             # Pull the latest changes from GitHub
+            cd /var/www/garbiagroup.com/garbiasgs
             git pull origin master
 
             # Install dependencies and build on the VPS
             npm install
             npm run build
 
-            # Stop and remove the old container (blue container)
-            docker stop garbiagroup-react-app-blue || true
-            docker rm garbiagroup-react-app-blue || true
+            # Stop and remove old containers
+            docker stop garbiasgs-blue || true
+            docker rm garbiasgs-blue || true
+            docker stop garbiasgs-green || true
+            docker rm garbiasgs-green || true
 
-            # Run the new (green) container
-            docker run -d --name garbiagroup-react-app-green -p 5174:5173 garbiagroup-react-app
+            # Run the new container
+            docker run -d --name garbiasgs-green -p 5174:5173 garbiasgs
 
             # Reload Nginx to serve the green container
             sudo systemctl reload nginx
