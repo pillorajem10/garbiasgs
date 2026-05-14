@@ -5,7 +5,7 @@ const Navbar = ({ onToggleMenu }) => {
   return (
     <nav className={styles.navbar}>
       <div className={styles.logoContainer}>
-        <img src="https://garbia.sgp1.cdn.digitaloceanspaces.com/images/garbia2.webp" alt="Logo" className={styles.logo} />
+        <img src="https://garbia.sgp1.cdn.digitaloceanspaces.com/images/garbiaLogo.jpg" alt="Logo" className={styles.logo} />
       </div>
 
       <ul>
@@ -16,7 +16,7 @@ const Navbar = ({ onToggleMenu }) => {
         <li><Link to="/projects">Projects</Link></li>
         <li><Link to="/program">Program</Link></li>
         <li><Link to="/location">Location</Link></li>
-        <li><Link to="/contact">Contact Us</Link></li>
+        {/*<li><Link to="/contact">Contact Us</Link></li>*/}
       </ul>
 
       

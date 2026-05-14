@@ -10,7 +10,7 @@ const CharityProgramsSection = () => {
   const mainControls = useAnimation();
   const mainInView = useInView(mainRef, { threshold: 0.3 });
 
-  const imageUrl = "https://garbia.sgp1.cdn.digitaloceanspaces.com/images/programImages";
+  const imageUrl = "https://garbia.sgp1.cdn.digitaloceanspaces.com/images/program_charity";
   const [current, setCurrent] = useState(0);
 
   useEffect(() => {

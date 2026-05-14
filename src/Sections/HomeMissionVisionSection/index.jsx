@@ -40,7 +40,7 @@ const HomeMissionVisionSection = () => {
                 transition={{ type: 'spring', stiffness: 60, damping: 15 }}
             >
                 <div className={styles.imageContainer}>
-                    <img src="https://garbia.sgp1.cdn.digitaloceanspaces.com/images/DJI_0226.webp" alt="GIF" />
+                    <img src="https://garbia.sgp1.cdn.digitaloceanspaces.com/images/DJI_0226.jpg" alt="GIF" />
                 </div>
 
                 <h2>Mission</h2>
@@ -67,7 +67,7 @@ const HomeMissionVisionSection = () => {
                     for geotechnical services with the highest quality standards and competitive rates, delivered in a timely manner in Luzon.
                 </p>
                 <div className={styles.imageContainer1}>
-                    <img src="https://garbia.sgp1.cdn.digitaloceanspaces.com/images/DJI_0059.webp" alt="GIF" />
+                    <img src="https://garbia.sgp1.cdn.digitaloceanspaces.com/images/DJI_0059.jpg" alt="GIF" />
                 </div>
             </motion.div>
         </section>

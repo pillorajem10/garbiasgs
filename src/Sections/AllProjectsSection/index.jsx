@@ -8,7 +8,7 @@ import styles from './index.module.css';
 import { projectsData } from './data';
 
 const AllProjectsSection = ({ onOpenModal }) => {
-    const imageBaseUrl = 'https://garbia.sgp1.cdn.digitaloceanspaces.com/images/projectsImages';
+    const imageBaseUrl = 'https://garbia.sgp1.cdn.digitaloceanspaces.com/images/projects';
 
     return (
         <section className={styles.container}>

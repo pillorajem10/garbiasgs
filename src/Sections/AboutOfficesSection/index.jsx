@@ -4,7 +4,7 @@ import styles from "./index.module.css";
 import { officeImages } from "./data"; // ➜ Example: ['office1.webp', 'office2.webp', ...]
 
 const AboutOfficesSection = () => {
-  const imageUrl = 'https://garbia.sgp1.cdn.digitaloceanspaces.com/images/garbiaOffices/';
+  const imageUrl = 'https://garbia.sgp1.cdn.digitaloceanspaces.com/images/office/';
 
   const mainRef = useRef(null);
   const mainControls = useAnimation();

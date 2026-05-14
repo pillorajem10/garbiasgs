@@ -57,7 +57,7 @@ const ServicesSection = () => {
       <div className={styles.serviceRow}>
         <ServiceBlock
           title="Services"
-          image="https://garbia.sgp1.cdn.digitaloceanspaces.com/images/servicesImages/p103_orig.webp"
+          image="https://garbia.sgp1.cdn.digitaloceanspaces.com/images/service1.jpg"
           items={[
             'Site Assessment',
             {
@@ -79,7 +79,7 @@ const ServicesSection = () => {
         />
         <ServiceBlock
           title="Laboratory Testing"
-          image="https://garbia.sgp1.cdn.digitaloceanspaces.com/images/66bc725f-c176-4ea9-8816-eb138ef6824e.webp"
+          image="https://garbia.sgp1.cdn.digitaloceanspaces.com/images/66bc725f-c176-4ea9-8816-eb138ef6824e.jpg"
           items={[
             'Soil Sample Analysis',
             'Moisture Content Testing',

@@ -4,7 +4,7 @@ import styles from './index.module.css';
 import { companyWithHeartData } from './data'; // This should be an array of filenames
 
 const HomeCompanyWithHeartSection = () => {
-    const imageUrl = 'https://garbia.sgp1.cdn.digitaloceanspaces.com/images/homeHeartCarousel/';
+    const imageUrl = 'https://garbia.sgp1.cdn.digitaloceanspaces.com/images/home_charity/';
     
     const leftRef = useRef(null);
     const rightRef = useRef(null);

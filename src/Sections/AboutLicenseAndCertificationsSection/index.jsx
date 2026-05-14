@@ -4,7 +4,7 @@ import styles from "./index.module.css";
 import { licenseImages } from "./data"; // Array of filenames like ['license1.webp', 'license2.webp', ...]
 
 const AboutLicenseAndCertificationsSection = () => {
-  const imageUrl = 'https://garbia.sgp1.cdn.digitaloceanspaces.com/images/garbiaLicenses/';
+  const imageUrl = 'https://garbia.sgp1.cdn.digitaloceanspaces.com/images/licenses/';
 
   const leftRef = useRef(null);
   const rightRef = useRef(null);
