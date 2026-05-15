@@ -39,21 +39,33 @@ jobs:
           script: |
             set -e
 
+            # Load NVM so node and npm are available
+            export NVM_DIR="$HOME/.nvm"
+            [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"
+            [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"
+
+            # Ensure directory exists and navigate
             mkdir -p /var/www/garbiagroup.com/garbiasgs
             cd /var/www/garbiagroup.com/garbiasgs
 
+            # Pull latest changes from GitHub
             git pull origin master
 
+            # Install dependencies and build
             npm install
             npm run build
 
+            # Build Docker image
             docker build -t garbiasgs .
 
+            # Stop and remove old containers
             docker stop garbiasgs-green || true
             docker rm garbiasgs-green || true
 
+            # Run new container
             docker run -d --name garbiasgs-green -p 5174:5173 garbiasgs
 
+            # Reload Nginx
             sudo systemctl reload nginx
 
             echo "Deployment successful!"
