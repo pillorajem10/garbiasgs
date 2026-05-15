@@ -9,7 +9,7 @@
   overflow: hidden;
   display: flex;
   align-items: center;
-  justify-content: center;
+  justify-content: flex-start;
   box-sizing: border-box;
 }
 
@@ -64,20 +64,15 @@
 
 @media screen and (max-width: 700px) {
   .bannerText {
-    padding: max(5rem, 8svh) 1.25rem 2rem;
+    padding: max(5rem, 8svh) 1.25rem 2rem max(1.25rem, env(safe-area-inset-left, 0px));
     max-width: 100%;
-    text-align: center;
-  }
-
-  .bannerText h1,
-  .bannerText p {
-    margin-inline: auto;
+    text-align: left;
   }
 }
 
 @media screen and (max-width: 500px) {
   .bannerText {
-    padding: max(4.75rem, 6svh) 1rem 1.5rem;
+    padding: max(4.75rem, 6svh) 1rem 1.5rem max(1rem, env(safe-area-inset-left, 0px));
   }
 
   .bannerText p {

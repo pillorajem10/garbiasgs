@@ -1,0 +1,11 @@
+/**
+ * Shared full-viewport section height.
+ * Import after index.css; apply via class or duplicate the min-height stack in modules.
+ */
+.sectionViewport {
+  min-height: 100vh;
+  min-height: 100dvh;
+  min-height: 100svh;
+  min-height: var(--section-min-height);
+  box-sizing: border-box;
+}
