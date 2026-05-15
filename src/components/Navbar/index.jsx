@@ -1,18 +1,18 @@
 import { Link } from "react-router-dom";
+import OptimizedImage from "@components/OptimizedImage";
 import styles from "./index.module.css";
 
 const Navbar = ({ menuOpen, onToggleMenu }) => {
   return (
     <nav className={styles.navbar} aria-label="Primary">
       <div className={styles.logoContainer}>
-        <img
+        <OptimizedImage
           src="https://garbia.sgp1.cdn.digitaloceanspaces.com/images/garbiaLogo.jpg"
-          alt="GarBia logo"
+          alt="GarBia Structural and Geotechnical Solutions logo"
           className={styles.logo}
           width={160}
           height={48}
-          decoding="async"
-          fetchPriority="high"
+          priority
         />
       </div>
 
@@ -38,9 +38,9 @@ const Navbar = ({ menuOpen, onToggleMenu }) => {
         <li>
           <Link to="/location">Location</Link>
         </li>
-        {/*<li>
+        <li>
           <Link to="/contact">Contact</Link>
-        </li>*/}
+        </li>
       </ul>
 
       <button

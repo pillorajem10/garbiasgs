@@ -1,17 +1,20 @@
 import { useState, useRef, useEffect, memo } from "react";
 import { motion, useAnimation, useInView } from "framer-motion";
+import LazyBackground from "@components/LazyBackground";
+import OptimizedImage from "@components/OptimizedImage";
+import { SECTION_BACKGROUNDS } from "@/seo/sectionBackgrounds";
 import styles from "./index.module.css";
 import { images } from "./data";
 
 const CharityProgramsSection = () => {
   const mainRef = useRef(null);
   const scrollRef = useRef(null);
-
   const mainControls = useAnimation();
   const mainInView = useInView(mainRef, { threshold: 0.3 });
 
   const imageUrl = "https://garbia.sgp1.cdn.digitaloceanspaces.com/images/program_charity";
   const [current, setCurrent] = useState(0);
+  const slides = images.map((f) => `${imageUrl}/${f}`);
 
   useEffect(() => {
     if (mainInView) mainControls.start({ opacity: 1 });
@@ -26,17 +29,18 @@ const CharityProgramsSection = () => {
   }, []);
 
   const scrollThumbnails = (direction) => {
-    const container = scrollRef.current;
-    if (container) {
-      container.scrollBy({
-        left: direction === "left" ? -200 : 200,
-        behavior: "smooth",
-      });
-    }
+    scrollRef.current?.scrollBy({
+      left: direction === "left" ? -200 : 200,
+      behavior: "smooth",
+    });
   };
 
   return (
-    <section className={styles.container}>
+    <LazyBackground
+      as="section"
+      className={styles.container}
+      backgroundUrl={SECTION_BACKGROUNDS.charityPrograms}
+    >
       <motion.div
         ref={mainRef}
         className={styles.mainContent}
@@ -45,11 +49,10 @@ const CharityProgramsSection = () => {
         transition={{ type: "spring", stiffness: 60, damping: 15 }}
       >
         <h2>Spreading Hope Through Every Act of Kindness</h2>
-
         <div className={styles.slideshow}>
           <motion.img
             key={current}
-            src={`${imageUrl}/${images[current]}`}
+            src={slides[current]}
             alt={`Charity program photo ${current + 1} of ${images.length}`}
             className={styles.mainImage}
             initial={{ opacity: 0 }}
@@ -77,12 +80,10 @@ const CharityProgramsSection = () => {
                   aria-label={`Show charity photo ${idx + 1}`}
                   aria-current={current === idx ? "true" : undefined}
                 >
-                  <img
+                  <OptimizedImage
                     src={`${imageUrl}/${filename}`}
                     alt=""
                     className={styles.thumbnailImg}
-                    loading="lazy"
-                    decoding="async"
                   />
                 </button>
               ))}
@@ -98,7 +99,7 @@ const CharityProgramsSection = () => {
           </div>
         </div>
       </motion.div>
-    </section>
+    </LazyBackground>
   );
 };
 

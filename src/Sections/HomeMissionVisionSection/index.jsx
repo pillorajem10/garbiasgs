@@ -1,5 +1,8 @@
 import { motion, useAnimation, useInView } from 'framer-motion';
 import { useEffect, useRef, memo } from 'react';
+import LazyBackground from '@components/LazyBackground';
+import OptimizedImage from '@components/OptimizedImage';
+import { SECTION_BACKGROUNDS } from '@/seo/sectionBackgrounds';
 import styles from './index.module.css';
 
 const HomeMissionVisionSection = () => {
@@ -31,7 +34,7 @@ const HomeMissionVisionSection = () => {
     }, [rightInView, rightControls]);
 
     return (
-        <section className={styles.container}>
+        <LazyBackground as="section" className={styles.container} backgroundUrl={SECTION_BACKGROUNDS.homeMissionVision}>
             <motion.div
                 ref={leftRef}
                 className={styles.leftContainer}
@@ -40,11 +43,9 @@ const HomeMissionVisionSection = () => {
                 transition={{ type: 'spring', stiffness: 60, damping: 15 }}
             >
                 <div className={styles.imageContainer}>
-                    <img
+                    <OptimizedImage
                         src="https://garbia.sgp1.cdn.digitaloceanspaces.com/images/DJI_0226.jpg"
                         alt="GarBia team at a project site illustrating the company mission"
-                        loading="lazy"
-                        decoding="async"
                     />
                 </div>
 
@@ -72,15 +73,13 @@ const HomeMissionVisionSection = () => {
                     for geotechnical services with the highest quality standards and competitive rates, delivered in a timely manner in Luzon.
                 </p>
                 <div className={styles.imageContainer1}>
-                    <img
+                    <OptimizedImage
                         src="https://garbia.sgp1.cdn.digitaloceanspaces.com/images/DJI_0059.jpg"
                         alt="Geotechnical field work representing GarBia vision for quality infrastructure"
-                        loading="lazy"
-                        decoding="async"
                     />
                 </div>
             </motion.div>
-        </section>
+        </LazyBackground>
     );
 };
 

@@ -1,6 +1,9 @@
 import { useRef, useEffect } from 'react';
 import { motion, useAnimation, useInView } from 'framer-motion';
+import LazyVideo from '@components/LazyVideo';
 import styles from './index.module.css';
+
+const HOME_VIDEO = 'https://garbia.sgp1.cdn.digitaloceanspaces.com/videos/DJI_0020_trimmed.mp4';
 
 const HomeBannerSection = () => {
     const bannerTextRef = useRef(null);
@@ -18,14 +21,7 @@ const HomeBannerSection = () => {
     return (
         <div className={styles.banner}>
             {/* Background Video */}
-            <video
-                className={styles.videoBackground}
-                src="https://garbia.sgp1.cdn.digitaloceanspaces.com/videos/DJI_0020_trimmed.mp4"
-                autoPlay
-                loop
-                muted
-                playsInline
-            />
+            <LazyVideo src={HOME_VIDEO} className={styles.videoBackground} />
 
             {/* Overlay */}
             <div className={styles.overlay}></div>

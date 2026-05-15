@@ -1,5 +1,8 @@
 import { motion, useAnimation, useInView } from 'framer-motion';
 import { useEffect, useRef, memo } from 'react';
+import LazyBackground from '@components/LazyBackground';
+import OptimizedImage from '@components/OptimizedImage';
+import { SECTION_BACKGROUNDS } from '@/seo/sectionBackgrounds';
 import styles from './index.module.css';
 
 const ServiceBlock = ({ title, image, items }) => {
@@ -40,13 +43,7 @@ const ServiceBlock = ({ title, image, items }) => {
       transition={{ type: 'spring', stiffness: 60, damping: 15 }}
     >
       <div className={styles.imageContainer}>
-        <img
-          src={image}
-          alt={`${title} — illustrative photo`}
-          className={styles.image}
-          loading="lazy"
-          decoding="async"
-        />
+        <OptimizedImage src={image} alt={`${title} — illustrative photo`} className={styles.image} />
       </div>
 
       <div className={styles.textContainer}>
@@ -59,7 +56,7 @@ const ServiceBlock = ({ title, image, items }) => {
 
 const ServicesSection = () => {
   return (
-    <section className={styles.container}>
+    <LazyBackground as="section" id="services-list" className={styles.container} backgroundUrl={SECTION_BACKGROUNDS.services} aria-label="GarBia geotechnical services list">
       <div className={styles.serviceRow}>
         <ServiceBlock
           title="Services"
@@ -102,7 +99,7 @@ const ServicesSection = () => {
           ]}
         />
       </div>
-    </section>
+    </LazyBackground>
   );
 };
 

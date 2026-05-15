@@ -5,31 +5,59 @@
   padding: 15px clamp(12px, 4vw, 20px);
   padding-bottom: calc(15px + env(safe-area-inset-bottom, 0px));
   font-size: clamp(0.75rem, 2.5vw, 1rem);
-  position: relative;
-  bottom: 0;
   width: 100%;
   max-width: 100%;
-  box-shadow: 0px -2px 6px rgba(0, 0, 0, 0.1);
   box-sizing: border-box;
 }
 
-.footer p {
+.nav {
+  margin-bottom: 0.75rem;
+}
+
+.linkList {
+  list-style: none;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 0.5rem 1.25rem;
+  margin: 0;
+  padding: 0;
+}
+
+.link {
+  color: #fff;
+  text-decoration: none;
+  font-weight: 500;
+  min-height: 44px;
+  display: inline-flex;
+  align-items: center;
+}
+
+.link:hover {
+  text-decoration: underline;
+}
+
+.contact {
+  margin: 0 0 0.75rem;
+  line-height: 1.6;
+  font-size: 0.95em;
+}
+
+.contactLink {
+  color: #fff;
+  text-decoration: none;
+  font-weight: 500;
+}
+
+.contactLink:hover {
+  text-decoration: underline;
+}
+
+.contactSep {
+  opacity: 0.85;
+}
+
+.copy {
   margin: 0;
   line-height: 1.5;
-  word-wrap: break-word;
-  overflow-wrap: anywhere;
-}
-
-@media (max-width: 768px) {
-  .footer {
-    padding: 12px clamp(10px, 3vw, 16px);
-    padding-bottom: calc(12px + env(safe-area-inset-bottom, 0px));
-  }
-}
-
-@media (max-width: 480px) {
-  .footer {
-    padding: 10px clamp(8px, 2.5vw, 12px);
-    padding-bottom: calc(10px + env(safe-area-inset-bottom, 0px));
-  }
 }

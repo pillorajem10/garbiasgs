@@ -141,6 +141,16 @@ img {
   height: auto;
 }
 
+picture {
+  display: block;
+  max-width: 100%;
+}
+
+picture img {
+  max-width: 100%;
+  height: auto;
+}
+
 video {
   max-width: 100%;
 }

@@ -1,31 +1,35 @@
-// react
-import React from 'react';
+import React from "react";
+import LazyBackground from "@components/LazyBackground";
+import OptimizedImage from "@components/OptimizedImage";
+import { SECTION_BACKGROUNDS } from "@/seo/sectionBackgrounds";
+import styles from "./index.module.css";
+import { projectsData } from "./data";
 
-// css
-import styles from './index.module.css';
+const imageBaseUrl = "https://garbia.sgp1.cdn.digitaloceanspaces.com/images/projects";
 
-// data
-import { projectsData } from './data';
-
-const AllProjectsSection = ({ onOpenModal }) => {
-    const imageBaseUrl = 'https://garbia.sgp1.cdn.digitaloceanspaces.com/images/projects';
-
-    return (
-        <section className={styles.container}>
-            {projectsData.map((project, index) => (
-                <div 
-                    className={styles.projectCard} 
-                    key={index}
-                    onClick={() => {
-                        onOpenModal(project.images);
-                    }}
-                >
-                    <img src={`${imageBaseUrl}/${project.thumbnail}`} alt={`${project.title} project thumbnail`} className={styles.thumbnail} loading="lazy" decoding="async" />
-                    <h3>{project.title}</h3>
-                </div>
-            ))}
-        </section>
-    );
-};
+const AllProjectsSection = ({ onOpenModal }) => (
+  <LazyBackground
+    as="section"
+    className={styles.container}
+    backgroundUrl={SECTION_BACKGROUNDS.allProjects}
+  >
+    {projectsData.map((project) => (
+      <button
+        type="button"
+        key={project.title}
+        className={styles.projectCard}
+        onClick={() => onOpenModal(project.images)}
+        aria-label={`View photos for ${project.title} project`}
+      >
+        <OptimizedImage
+          src={`${imageBaseUrl}/${project.thumbnail}`}
+          alt={`${project.title} geotechnical and construction project thumbnail`}
+          className={styles.thumbnail}
+        />
+        <h3>{project.title}</h3>
+      </button>
+    ))}
+  </LazyBackground>
+);
 
 export default React.memo(AllProjectsSection);

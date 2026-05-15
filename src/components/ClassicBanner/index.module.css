@@ -1,0 +1,158 @@
+/* Charity-style page hero: H1 → rule → body paragraph */
+.banner {
+  position: relative;
+  height: 91.6svh;
+  width: 100%;
+  max-width: 100%;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-sizing: border-box;
+}
+
+.bannerWithChildren {
+  flex-direction: column;
+  justify-content: flex-start;
+  min-height: auto;
+  height: auto;
+  min-height: 91.6svh;
+  padding-bottom: 2rem;
+}
+
+.videoBackground {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  z-index: 0;
+}
+
+.overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(2, 18, 51, 0.7);
+  z-index: 1;
+}
+
+.bannerTextOuter {
+  position: relative;
+  z-index: 2;
+  width: 100%;
+  display: flex;
+  justify-content: flex-start;
+  align-items: flex-start;
+  padding: max(5rem, calc(4rem + env(safe-area-inset-top, 0px)))
+    max(1.25rem, env(safe-area-inset-right, 0px))
+    1.5rem
+    max(8%, env(safe-area-inset-left, 0px));
+  box-sizing: border-box;
+}
+
+.bannerText {
+  position: relative;
+  color: white;
+  max-width: 45rem;
+  text-align: left;
+  padding: 20px;
+  box-sizing: border-box;
+}
+
+.headline {
+  font-family: var(--font-heading);
+  font-size: 3.5rem;
+  font-weight: bold;
+  margin: 0;
+  line-height: 1.15;
+}
+
+.titleRule {
+  width: 4.5rem;
+  height: 2px;
+  margin: 1rem 0 0;
+  background: rgba(255, 255, 255, 0.6);
+  border-radius: 1px;
+}
+
+.body {
+  font-size: 1.3rem;
+  margin-top: 1.75rem;
+  font-weight: bold;
+  line-height: 1.5;
+}
+
+.extra {
+  position: relative;
+  z-index: 2;
+  width: 100%;
+  max-width: 56rem;
+  margin: 0 auto;
+  padding: 0 1.25rem 1.5rem;
+  box-sizing: border-box;
+}
+
+@media screen and (max-width: 700px) {
+  .bannerTextOuter {
+    justify-content: center;
+    align-items: center;
+    padding-left: 1.25rem;
+    padding-right: 1.25rem;
+    padding-top: max(5rem, 8svh);
+  }
+
+  .bannerText {
+    padding: 12px 0;
+    max-width: 100%;
+    text-align: center;
+  }
+
+  .headline {
+    font-size: 2.5rem;
+  }
+
+  .titleRule {
+    margin: 1rem auto 0;
+  }
+
+  .body {
+    font-size: 1.1rem;
+    margin-top: 1.35rem;
+  }
+}
+
+@media screen and (max-width: 500px) {
+  .bannerTextOuter {
+    padding-top: max(4.75rem, 6svh);
+    padding-left: 1rem;
+    padding-right: 1rem;
+  }
+
+  .bannerText {
+    padding: 8px 0;
+  }
+
+  .headline {
+    font-size: 1.8rem;
+  }
+
+  .titleRule {
+    width: 3.25rem;
+    margin-top: 0.85rem;
+  }
+
+  .body {
+    font-size: 1rem;
+    margin-top: 1.1rem;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .bannerText {
+    animation: none !important;
+  }
+}

@@ -1,19 +1,21 @@
 import { useState, useRef, useEffect, memo } from "react";
 import { motion, useAnimation, useInView } from "framer-motion";
+import LazyBackground from "@components/LazyBackground";
+import OptimizedImage from "@components/OptimizedImage";
+import { SECTION_BACKGROUNDS } from "@/seo/sectionBackgrounds";
 import styles from "./index.module.css";
 import { licenseImages } from "./data";
 
 const AboutLicenseAndCertificationsSection = () => {
   const imageUrl = "https://garbia.sgp1.cdn.digitaloceanspaces.com/images/licenses/";
-
   const leftRef = useRef(null);
   const rightRef = useRef(null);
-
   const leftControls = useAnimation();
   const rightControls = useAnimation();
-
   const leftInView = useInView(leftRef, { threshold: 0.3 });
   const rightInView = useInView(rightRef, { threshold: 0.3 });
+  const [current, setCurrent] = useState(0);
+  const slides = licenseImages.map((f) => `${imageUrl}${f}`);
 
   useEffect(() => {
     if (leftInView) leftControls.start({ x: 0, opacity: 1 });
@@ -25,8 +27,6 @@ const AboutLicenseAndCertificationsSection = () => {
     else rightControls.start({ x: 80, opacity: 0 });
   }, [rightInView, rightControls]);
 
-  const [current, setCurrent] = useState(0);
-
   useEffect(() => {
     const interval = setInterval(() => {
       setCurrent((prev) => (prev + 1) % licenseImages.length);
@@ -35,7 +35,7 @@ const AboutLicenseAndCertificationsSection = () => {
   }, []);
 
   return (
-    <section className={styles.container}>
+    <LazyBackground as="section" className={styles.container} backgroundUrl={SECTION_BACKGROUNDS.aboutLicense}>
       <motion.div
         ref={leftRef}
         className={styles.leftContainer}
@@ -45,32 +45,23 @@ const AboutLicenseAndCertificationsSection = () => {
       >
         <h2>Licenses, Accreditations and Memberships</h2>
         <ul>
-          <li>
-            <p>ISO 9001:2015 Certified</p>
-          </li>
-          <li>
-            <p>DPWH-BRS Accredited</p>
-          </li>
+          <li><p>ISO 9001:2015 Certified</p></li>
+          <li><p>DPWH-BRS Accredited</p></li>
           <li>
             <p>ASTM Organizational Member</p>
             <ul className={styles.subList}>
               <li>
                 <p>
-                  Our laboratory equipment and testing methods are in accordance with ASTM standards &
-                  specifications.
+                  Our laboratory equipment and testing methods are in accordance with ASTM standards
+                  &amp; specifications.
                 </p>
               </li>
             </ul>
           </li>
-          <li>
-            <p>Category &quot;A&quot; PCAB License</p>
-          </li>
-          <li>
-            <p>Philgeps Platinum Membership</p>
-          </li>
+          <li><p>Category &quot;A&quot; PCAB License</p></li>
+          <li><p>Philgeps Platinum Membership</p></li>
         </ul>
       </motion.div>
-
       <motion.div
         ref={rightRef}
         className={styles.rightContainer}
@@ -81,7 +72,7 @@ const AboutLicenseAndCertificationsSection = () => {
         <div className={styles.slideshow}>
           <motion.img
             key={current}
-            src={`${imageUrl}${licenseImages[current]}`}
+            src={slides[current]}
             alt={`License or accreditation document ${current + 1} of ${licenseImages.length}`}
             className={styles.mainImage}
             initial={{ opacity: 0 }}
@@ -100,19 +91,17 @@ const AboutLicenseAndCertificationsSection = () => {
                 aria-label={`Show license image ${idx + 1}`}
                 aria-current={current === idx ? "true" : undefined}
               >
-                <img
+                <OptimizedImage
                   src={`${imageUrl}${filename}`}
                   alt=""
                   className={styles.thumbnailImg}
-                  loading="lazy"
-                  decoding="async"
                 />
               </button>
             ))}
           </div>
         </div>
       </motion.div>
-    </section>
+    </LazyBackground>
   );
 };
 

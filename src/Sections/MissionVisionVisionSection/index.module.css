@@ -4,7 +4,7 @@
     align-items: center;
     min-height: 100svh;
     background-color: blue; /* Fallback color */
-    background-image: url('https://garbia.sgp1.cdn.digitaloceanspaces.com/images/20250526_110504.jpg');
+    background-image: var(--lazy-bg, none);
     background-size: cover; /* Ensures the image covers the whole container */
     background-position: center; /* Centers the background image */
     background-repeat: no-repeat; /* Prevents the image from repeating */

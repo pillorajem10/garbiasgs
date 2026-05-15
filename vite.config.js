@@ -5,16 +5,19 @@ import { fileURLToPath } from 'node:url';
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 
-export default defineConfig({  plugins: [react()],
+export default defineConfig({
+  plugins: [react()],
   base: '/',
   build: {
     minify: 'esbuild',
     cssMinify: true,
     target: 'es2018',
+    modulePreload: { polyfill: true },
     rollupOptions: {
       output: {
         manualChunks: {
           motion: ['framer-motion'],
+          router: ['react-router', 'react-router-dom'],
         },
       },
     },

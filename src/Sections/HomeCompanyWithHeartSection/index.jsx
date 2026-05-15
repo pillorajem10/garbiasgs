@@ -1,7 +1,11 @@
 import { motion, useAnimation, useInView } from 'framer-motion';
 import { useEffect, useRef, useState, memo } from 'react';
+import LazyBackground from '@components/LazyBackground';
+import LazyVideo from '@components/LazyVideo';
+import OptimizedImage from '@components/OptimizedImage';
+import { SECTION_BACKGROUNDS } from '@/seo/sectionBackgrounds';
 import styles from './index.module.css';
-import { companyWithHeartData } from './data'; // This should be an array of filenames
+import { companyWithHeartData } from './data';
 
 const HomeCompanyWithHeartSection = () => {
     const imageUrl = 'https://garbia.sgp1.cdn.digitaloceanspaces.com/images/home_charity/';
@@ -16,6 +20,7 @@ const HomeCompanyWithHeartSection = () => {
     const rightInView = useInView(rightRef, { threshold: 0.3 });
 
     const [currentImage, setCurrentImage] = useState(0);
+    const slides = companyWithHeartData.map((f) => `${imageUrl}${f}`);
 
     useEffect(() => {
         const interval = setInterval(() => {
@@ -35,7 +40,7 @@ const HomeCompanyWithHeartSection = () => {
     }, [rightInView, rightControls]);
 
     return (
-        <section className={styles.container}>
+        <LazyBackground as="section" className={styles.container} backgroundUrl={SECTION_BACKGROUNDS.homeCompanyHeart}>
             <motion.div
                 className={styles.intro}
                 initial={{ y: -50, opacity: 0 }}
@@ -58,13 +63,11 @@ const HomeCompanyWithHeartSection = () => {
                     animate={leftControls}
                     transition={{ type: 'spring', stiffness: 60, damping: 15 }}
                 >
-                    <img
+                    <OptimizedImage
                         key={currentImage}
-                        src={`${imageUrl}${companyWithHeartData[currentImage]}`}
+                        src={slides[currentImage]}
                         alt={`Community and charity work by GarBia, image ${currentImage + 1} of ${companyWithHeartData.length}`}
                         className={styles.fadeImage}
-                        loading="lazy"
-                        decoding="async"
                     />
                 </motion.div>
 
@@ -75,18 +78,14 @@ const HomeCompanyWithHeartSection = () => {
                     animate={rightControls}
                     transition={{ type: 'spring', stiffness: 60, damping: 15 }}
                 >
-                    <video
+                    <LazyVideo
                         src="https://garbia.sgp1.cdn.digitaloceanspaces.com/videos/garbiaCharity.mp4"
                         className={styles.video}
-                        autoPlay
-                        muted
-                        loop
-                        playsInline
                         controls
                     />
                 </motion.div>
             </div>
-        </section>
+        </LazyBackground>
     );
 };
 

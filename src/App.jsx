@@ -13,6 +13,7 @@ import BurgerMenu from "@components/BurgerMenu";
 import ScrollToTop from "@components/ScrollToTop";
 import OfflineScreen from "@components/OfflineScreen";
 import BrandedPageLoader from "@components/BrandedPageLoader";
+import RouteSEO from "@components/SEO/RouteSEO";
 
 const Home = lazy(() => import("@pages/Home"));
 const About = lazy(() => import("@pages/About"));
@@ -102,7 +103,7 @@ function RoutedMain() {
           <Route path="/" element={<Home />} />
           <Route path="/services" element={<Services />} />
           <Route path="/about" element={<About />} />
-          {/*<Route path="/contact" element={<Contact />} />*/}
+          <Route path="/contact" element={<Contact />} />
           <Route path="/mission-vision" element={<MissionVision />} />
           <Route path="/location" element={<Location />} />
           <Route path="/projects" element={<Projects />} />
@@ -117,6 +118,7 @@ function RoutedMain() {
 function AppShell({ menuOpen, setMenuOpen }) {
   return (
     <>
+      <RouteSEO />
       <ScrollToTop />
       <a href="#main-content" className="skip-link">
         Skip to main content

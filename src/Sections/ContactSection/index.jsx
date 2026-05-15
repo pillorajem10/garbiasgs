@@ -1,98 +1,128 @@
-import { useRef, useEffect, useId } from "react";
+import { useRef, useEffect } from "react";
 import { motion, useAnimation, useInView } from "framer-motion";
+import { Link } from "react-router-dom";
+import LazyVideo from "@components/LazyVideo";
+import OptimizedImage from "@components/OptimizedImage";
+import { BUSINESS } from "@/seo/constants";
 import styles from "./index.module.css";
 
-const ContactBannerSection = () => {
-  const bannerTextRef = useRef(null);
+const VIDEO =
+  "https://garbia.sgp1.cdn.digitaloceanspaces.com/videos/DJI_0237_trimmed_clip2.mp4";
+
+const ContactSection = () => {
+  const contentRef = useRef(null);
   const controls = useAnimation();
-  const inView = useInView(bannerTextRef, { threshold: 0.3 });
-  const formId = useId();
+  const inView = useInView(contentRef, { once: true, amount: 0.2 });
 
   useEffect(() => {
     if (inView) {
       controls.start({ y: 0, opacity: 1 });
-    } else {
-      controls.start({ y: 50, opacity: 0 });
     }
   }, [inView, controls]);
 
-  const field = (name) => `${formId}-${name}`;
-
   return (
     <div className={styles.banner}>
-      <video
-        className={styles.videoBackground}
-        src="https://garbia.sgp1.cdn.digitaloceanspaces.com/videos/DJI_0237_trimmed_clip2.mp4"
-        autoPlay
-        loop
-        muted
-        playsInline
-        preload="metadata"
-        aria-hidden="true"
-      />
-
+      <LazyVideo src={VIDEO} className={styles.videoBackground} />
       <div className={styles.overlay} aria-hidden="true" />
 
       <motion.div
-        className={styles.bannerText}
-        ref={bannerTextRef}
-        initial={{ y: 50, opacity: 0 }}
+        className={styles.content}
+        ref={contentRef}
+        initial={{ y: 40, opacity: 0 }}
         animate={controls}
         transition={{ type: "spring", stiffness: 50, damping: 14 }}
       >
+        <header className={styles.intro}>
+          <h1>Contact Us</h1>
+          <p>
+            Reach GarBia Structural and Geotechnical Solutions for soil investigation, foundation
+            engineering, and construction inquiries. Our team is ready to discuss your project and
+            schedule a consultation at our Cainta office or on site.
+          </p>
+        </header>
+
         <div className={styles.grid}>
-          <div className={styles.qrSection}>
-            <img
-              src="https://garbia.sgp1.cdn.digitaloceanspaces.com/images/qr-code.webp"
-              alt="QR code to email GarBia"
-              className={styles.qrImage}
-              loading="lazy"
-              decoding="async"
-            />
-            <h2 className={styles.qrCaption}>Scan To Send An Email</h2>
-          </div>
+          <aside className={styles.qrBlock} aria-labelledby="qr-heading">
+            <h2 id="qr-heading" className={styles.blockTitle}>
+              Visit Our Website
+            </h2>
+            <p className={styles.blockText}>
+              Scan the QR code to open our website for company updates, services, and project
+              information.
+            </p>
+            <a
+              href={BUSINESS.websiteUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+              className={styles.qrLink}
+            >
+              <OptimizedImage
+                src={BUSINESS.qrCodeUrl}
+                alt="QR code linking to GarBia Structural and Geotechnical Solutions website"
+                className={styles.qrImage}
+              />
+            </a>
+            <p className={styles.qrUrl}>{BUSINESS.websiteUrl}</p>
+          </aside>
 
-          <div className={styles.formSection}>
-            <h1 id={field("heading")} className={styles.contactHeader}>
-              Message Us
-            </h1>
-            <form className={styles.form} aria-labelledby={field("heading")}>
-              <div className={styles.formRow}>
-                <div className={styles.formGroup}>
-                  <label htmlFor={field("first")}>First Name *</label>
-                  <input id={field("first")} name="firstName" type="text" autoComplete="given-name" required />
-                </div>
-                <div className={styles.formGroup}>
-                  <label htmlFor={field("last")}>Last Name</label>
-                  <input id={field("last")} name="lastName" type="text" autoComplete="family-name" />
-                </div>
-              </div>
+          <div className={styles.details}>
+            <section className={styles.detailBlock} aria-labelledby="email-heading">
+              <h2 id="email-heading" className={styles.blockTitle}>
+                Email
+              </h2>
+              <p className={styles.blockText}>
+                Send project drawings, site details, or general questions—we respond to every
+                inquiry as soon as possible.
+              </p>
+              <a href={`mailto:${BUSINESS.email}`} className={styles.contactLink}>
+                {BUSINESS.email}
+              </a>
+            </section>
 
-              <div className={styles.formGroup}>
-                <label htmlFor={field("email")}>Email *</label>
-                <input id={field("email")} name="email" type="email" autoComplete="email" required />
-              </div>
+            <section className={styles.detailBlock} aria-labelledby="tel-heading">
+              <h2 id="tel-heading" className={styles.blockTitle}>
+                Tel. No.
+              </h2>
+              <p className={styles.blockText}>
+                Call our office line during business hours for appointments, quotations, and
+                coordination with our geotechnical team.
+              </p>
+              <a href={`tel:${BUSINESS.telephone}`} className={styles.contactLink}>
+                {BUSINESS.telephoneDisplay}
+              </a>
+            </section>
 
-              <div className={styles.formGroup}>
-                <label htmlFor={field("phone")}>Phone Number *</label>
-                <input id={field("phone")} name="phone" type="tel" autoComplete="tel" required />
-              </div>
+            <section className={styles.detailBlock} aria-labelledby="mobile-heading">
+              <h2 id="mobile-heading" className={styles.blockTitle}>
+                Mobile Nos.
+              </h2>
+              <p className={styles.blockText}>
+                For urgent site concerns or field coordination, contact us on any of the mobile
+                numbers below.
+              </p>
+              <ul className={styles.phoneList}>
+                {BUSINESS.mobileNumbers.map(({ tel, display }) => (
+                  <li key={tel}>
+                    <a href={`tel:${tel}`} className={styles.contactLink}>
+                      {display}
+                    </a>
+                  </li>
+                ))}
+              </ul>
+            </section>
 
-              <div className={styles.formGroup}>
-                <label htmlFor={field("message")}>Message *</label>
-                <textarea id={field("message")} name="message" rows={3} required />
-              </div>
-
-              <div className={styles.formGroup}>
-                <label htmlFor={field("file")}>Upload File</label>
-                <input id={field("file")} name="attachment" type="file" />
-                <p className={styles.fileNote}>Max file size: 20MB</p>
-              </div>
-
-              <button type="submit" className={styles.submitBtn}>
-                Submit
-              </button>
-            </form>
+            <section className={styles.detailBlock} aria-labelledby="office-heading">
+              <h2 id="office-heading" className={styles.blockTitle}>
+                Office
+              </h2>
+              <p className={styles.blockText}>
+                Lot 10 Block 7 Jasmine Street, Cainta, Rizal—parking available for consultations and
+                sample drop-offs.
+              </p>
+              <Link to="/location" className={styles.officeLink}>
+                View map &amp; directions →
+              </Link>
+            </section>
           </div>
         </div>
       </motion.div>
@@ -100,4 +130,4 @@ const ContactBannerSection = () => {
   );
 };
 
-export default ContactBannerSection;
+export default ContactSection;
