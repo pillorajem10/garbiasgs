@@ -55,7 +55,7 @@
 
 .rightContainer {
   width: 100%;
-  max-width: min(24rem, 100%);
+  max-width: min(36rem, 100%);
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -93,17 +93,17 @@
   flex-direction: column;
   align-items: center;
   width: 100%;
-  max-width: min(22rem, 100%);
+  max-width: min(30rem, 100%);
   margin-inline: auto;
   gap: var(--space-md, 1rem);
 }
 
 .mainImage {
   display: block;
-  width: auto;
+  width: 100%;
   max-width: 100%;
   height: auto;
-  max-height: min(42vh, 22rem);
+  max-height: min(55vh, 30rem);
   margin-inline: auto;
   object-fit: contain;
   border-radius: var(--radius-md, 8px);
@@ -191,11 +191,11 @@
   }
 
   .slideshow {
-    max-width: min(20rem, 92vw);
+    max-width: min(26rem, 94vw);
   }
 
   .mainImage {
-    max-height: min(38vh, 18rem);
+    max-height: min(50vh, 26rem);
   }
 }
 
@@ -223,11 +223,11 @@
   }
 
   .slideshow {
-    max-width: min(18rem, 88vw);
+    max-width: min(22rem, 92vw);
   }
 
   .mainImage {
-    max-height: min(36vh, 15rem);
+    max-height: min(48vh, 22rem);
     border-radius: var(--radius-md, 8px);
     object-fit: contain;
   }
@@ -242,5 +242,104 @@
     flex: 0 0 3.75rem;
     width: 3.75rem;
     height: 3.75rem;
+  }
+}
+
+@media (min-width: 900px) {
+  .container {
+    gap: var(--section-gap-xl, 5rem);
+  }
+
+  .leftContainer {
+    max-width: 40rem;
+  }
+
+  .rightContainer {
+    max-width: 28rem;
+  }
+
+  .leftContainer h2,
+  .rightContainer h2 {
+    font-size: clamp(2rem, 2.5vw, 2.75rem);
+  }
+
+  .leftContainer p,
+  .rightContainer p,
+  .leftContainer li {
+    font-size: clamp(1.125rem, 1.5vw, 1.35rem);
+  }
+
+  .subList li p {
+    font-size: clamp(1rem, 1.25vw, 1.15rem);
+  }
+}
+
+@media (min-width: 1014px) {
+  .rightContainer {
+    max-width: min(40rem, 46vw);
+  }
+
+  .slideshow {
+    max-width: min(38rem, 100%);
+  }
+
+  .mainImage {
+    max-height: min(65vh, 38rem);
+  }
+
+  .thumbnailButton {
+    flex: 0 0 5.25rem;
+    width: 5.25rem;
+    height: 5.25rem;
+  }
+}
+
+@media (min-width: 1400px) {
+  .container {
+    gap: 6rem;
+    padding-inline: var(--section-padding-x-lg, 2.5rem);
+  }
+
+  .leftContainer {
+    max-width: 44rem;
+  }
+
+  .rightContainer {
+    max-width: min(48rem, 44vw);
+  }
+
+  .leftContainer h2,
+  .rightContainer h2 {
+    font-size: 3rem;
+  }
+
+  .leftContainer p,
+  .rightContainer p,
+  .leftContainer li {
+    font-size: 1.45rem;
+  }
+
+  .subList li p {
+    font-size: 1.2rem;
+  }
+
+  .leftContainer ul {
+    margin-top: var(--space-lg, 1.5rem);
+    padding-left: 1.5rem;
+  }
+
+  .slideshow {
+    max-width: min(44rem, 100%);
+    gap: var(--space-lg, 1.25rem);
+  }
+
+  .mainImage {
+    max-height: min(72vh, 44rem);
+  }
+
+  .thumbnailButton {
+    flex: 0 0 6rem;
+    width: 6rem;
+    height: 6rem;
   }
 }

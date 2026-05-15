@@ -8,11 +8,11 @@
   border-bottom: solid 5px #05438a;
   height: 5rem;
   width: 100%;
-  position: sticky;
+  position: fixed;
   top: 0;
   left: 0;
   right: 0;
-  z-index: 100;
+  z-index: 1000;
   transition: height 0.3s ease, padding 0.3s ease;
   /* Flush logo to the left; only inset on notched devices */
   padding-left: max(0px, env(safe-area-inset-left, 0px));

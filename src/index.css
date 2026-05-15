@@ -22,6 +22,8 @@
   --radius-md: 8px;
   --leading-body: 1.65;
   --leading-prose: 1.7;
+
+  --nav-height: 5rem;
 }
 
 * {
@@ -111,6 +113,8 @@ p:last-child {
   display: flex;
   flex-direction: column;
   min-height: calc(var(--vh, 1vh) * 100);
+  /* Offset fixed navbar so page content is not hidden underneath */
+  padding-top: var(--nav-height);
 }
 
 .main-content {
