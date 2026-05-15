@@ -30,16 +30,18 @@ const ProgramServiceSection = () => {
             {/* Overlay */}
             <div className={styles.overlay}></div>
 
-            {/* Animated Banner Text */}
-            <motion.div
-                className={styles.bannerText}
-                ref={bannerTextRef}
-                initial={{ y: 50, opacity: 0 }}
-                animate={controls}
-                transition={{ type: 'spring', stiffness: 50, damping: 14 }}
-            >
-                <h1>Charity Programs</h1>
-                <p>
+            {/* Animated Banner Text — outer positions; inner animates (avoids transform clash) */}
+            <div className={styles.bannerTextOuter}>
+                <motion.div
+                    className={styles.bannerText}
+                    ref={bannerTextRef}
+                    initial={{ y: 50, opacity: 0 }}
+                    animate={controls}
+                    transition={{ type: 'spring', stiffness: 50, damping: 14 }}
+                >
+                    <h1>Charity Programs</h1>
+                    <div className={styles.titleRule} role="separator" aria-hidden="true" />
+                    <p>
                     At GarBia Group, 
                     we believe that success is not just measured by the structures we build, 
                     but by the lives we touch. Our charity programs are rooted in compassion and community empowerment. 
@@ -49,8 +51,9 @@ const ProgramServiceSection = () => {
                     we ensure that our programs are relevant, respectful, and impactful. Whether it's supporting schoolchildren, 
                     helping displaced families, or responding to calamities, 
                     we are committed to sharing our blessings and building hope—one act of kindness at a time.
-                </p>
-            </motion.div>
+                    </p>
+                </motion.div>
+            </div>
         </div>
     );
 };

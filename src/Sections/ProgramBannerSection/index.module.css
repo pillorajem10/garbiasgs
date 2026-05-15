@@ -1,11 +1,13 @@
 .banner {
     position: relative;
     height: 91.6svh;
-    width: 100svw;
+    width: 100%;
+    max-width: 100%;
     overflow: hidden;
     display: flex;
     align-items: center;
     justify-content: center;
+    box-sizing: border-box;
 }
 
 /* Background Video */
@@ -30,57 +32,105 @@
     z-index: 1;
 }
 
-/* Banner text styling */
-.bannerText {
+/* Positions block; motion.div inside only animates y/opacity */
+.bannerTextOuter {
     position: absolute;
     z-index: 2;
+    left: 0;
+    right: 0;
+    top: 30%;
+    display: flex;
+    justify-content: flex-start;
+    align-items: flex-start;
+    padding-left: 8%;
+    padding-right: 1.5rem;
+    box-sizing: border-box;
+}
+
+/* Banner text styling */
+.bannerText {
+    position: relative;
     color: white;
     max-width: 45rem;
     text-align: left;
-    top: 30%;
-    left: 8%;
     padding: 20px;
+    box-sizing: border-box;
 }
 
 .bannerText h1 {
     font-size: 3.5rem;
     font-weight: bold;
+    margin: 0 0 0.15em;
+    line-height: 1.15;
+}
+
+.titleRule {
+    width: 4.5rem;
+    height: 2px;
+    margin: 1rem 0 0;
+    background: rgba(255, 255, 255, 0.6);
+    border-radius: 1px;
 }
 
 .bannerText p {
     font-size: 1.3rem;
-    margin-top: 40px;
+    margin-top: 1.75rem;
     font-weight: bold;
+    line-height: 1.5;
 }
 
 @media screen and (max-width: 700px) {
+    .bannerTextOuter {
+        justify-content: center;
+        align-items: center;
+        padding-left: 1.25rem;
+        padding-right: 1.25rem;
+        /* Sit just under the sticky header instead of mid-screen */
+        top: max(5rem, 8svh);
+    }
+
     .bannerText {
-        padding: 15px;
-        max-width: 90%;
+        padding: 12px 0;
+        max-width: 100%;
+        text-align: center;
     }
 
     .bannerText h1 {
         font-size: 2.5rem;
     }
 
+    .titleRule {
+        margin: 1rem auto 0;
+    }
+
     .bannerText p {
         font-size: 1.1rem;
-        margin-top: 30px;
+        margin-top: 1.35rem;
     }
 }
 
 @media screen and (max-width: 500px) {
+    .bannerTextOuter {
+        top: max(4.75rem, 6svh);
+        padding-left: 1rem;
+        padding-right: 1rem;
+    }
+
     .bannerText {
-        padding: 10px;
-        max-width: 100%;
+        padding: 8px 0;
     }
 
     .bannerText h1 {
         font-size: 1.8rem;
     }
 
+    .titleRule {
+        width: 3.25rem;
+        margin-top: 0.85rem;
+    }
+
     .bannerText p {
         font-size: 1rem;
-        margin-top: 20px;
+        margin-top: 1.1rem;
     }
 }

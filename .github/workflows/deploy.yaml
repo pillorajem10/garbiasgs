@@ -28,34 +28,32 @@ jobs:
         run: docker build -t garbiasgs .
 
       - name: Deploy to VPS via SSH
-        uses: appleboy/ssh-action@v0.1.5
+        uses: appleboy/ssh-action@v1.0.3
         with:
           host: ${{ secrets.VPS_IP }}
           username: ${{ secrets.VPS_USER }}
           key: ${{ secrets.SSH_PRIVATE_KEY }}
           port: 22
+          timeout: 10m
+          command_timeout: 30m
           script: |
-            # Ensure the directory exists
-            mkdir -p /var/www/garbiagroup.com/garbiasgs
+            set -e
 
-            # Pull the latest changes from GitHub
+            mkdir -p /var/www/garbiagroup.com/garbiasgs
             cd /var/www/garbiagroup.com/garbiasgs
+
             git pull origin master
 
-            # Install dependencies and build on the VPS
             npm install
             npm run build
 
-            # Stop and remove old containers
-            docker stop garbiasgs-blue || true
-            docker rm garbiasgs-blue || true
+            docker build -t garbiasgs .
+
             docker stop garbiasgs-green || true
             docker rm garbiasgs-green || true
 
-            # Run the new container
             docker run -d --name garbiasgs-green -p 5174:5173 garbiasgs
 
-            # Reload Nginx to serve the green container
             sudo systemctl reload nginx
 
             echo "Deployment successful!"
