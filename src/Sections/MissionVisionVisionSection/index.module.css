@@ -48,6 +48,7 @@
 
 .rightContainer {
     max-width: 30rem;
+    margin-left: 1rem;
 }
 
 .leftContainer {
@@ -86,7 +87,7 @@
     }
 
     .rightContainer, .leftContainer {
-        max-width: 35rem;
+        max-width: 30rem;
     }
 
     .rightContainer h2, .leftContainer h2 {

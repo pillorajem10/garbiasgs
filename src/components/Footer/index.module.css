@@ -1,4 +1,6 @@
 .footer {
+  position: relative;
+  z-index: 2;
   background-color: #0081b8;
   color: white;
   text-align: center;
@@ -8,6 +10,7 @@
   width: 100%;
   max-width: 100%;
   box-sizing: border-box;
+  flex-shrink: 0;
 }
 
 .nav {

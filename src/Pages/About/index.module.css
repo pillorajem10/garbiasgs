@@ -1,0 +1,14 @@
+/* Fill main column so the last section can extend flush to the footer */
+.page {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  width: 100%;
+  min-height: 100%;
+}
+
+.page > :last-child {
+  flex: 1 1 auto;
+  display: flex;
+  flex-direction: column;
+}

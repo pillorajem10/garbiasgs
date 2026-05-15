@@ -1,117 +1,154 @@
 .container {
   display: flex;
-  justify-content: center;
+  flex: 1 1 auto;
+  flex-direction: column;
   align-items: center;
-  min-height: 100svh;
-  background-color: #0c4a6e;
+  justify-content: flex-start;
+  width: 100%;
+  max-width: 100%;
+  min-height: auto;
+  margin: 0;
+  /* Solid base so no light page background shows through before/at footer */
+  background-color: #021233;
   background-image: var(--lazy-bg, none);
   background-position: center;
   background-size: cover;
   background-repeat: no-repeat;
   position: relative;
-  padding: 40px 20px;
+  isolation: isolate;
+  z-index: 0;
+  padding: var(--section-padding-y, 2.5rem) var(--section-padding-x, 1.25rem);
+  padding-bottom: max(var(--space-2xl, 3rem), calc(var(--section-padding-y, 2.5rem) + 1rem));
   box-sizing: border-box;
   overflow: hidden;
-  flex-wrap: wrap;
-  gap: 3rem;
 }
 
 .container::before {
-  content: '';
+  content: "";
   position: absolute;
   inset: 0;
-  background: rgba(2, 18, 51, 0.7);
-  z-index: 1;
-}
-
-.container > * {
-  z-index: 2;
+  background: var(--overlay-dark, rgba(2, 18, 51, 0.7));
+  z-index: 0;
+  pointer-events: none;
 }
 
 .mainContent {
+  position: relative;
+  z-index: 1;
+  flex: 1 1 auto;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
   color: white;
-  z-index: 2;
   width: 100%;
-  max-width: 1000px;
+  max-width: min(62.5rem, 100%);
   text-align: center;
-  padding: 0 1rem;
+  padding: 0 var(--space-sm, 1rem);
   box-sizing: border-box;
 }
 
 .mainContent h2 {
-  font-size: 2.5rem;
+  font-size: var(--text-section-title-lg, clamp(1.5rem, 4vw, 2.5rem));
   font-style: italic;
   font-weight: 500;
-  color: #96b7ff;
-  margin-bottom: 2rem;
+  color: var(--text-accent, #96b7ff);
+  margin: 0 0 var(--space-lg, 1.5rem);
 }
 
 .slideshow {
   display: flex;
+  flex-direction: column;
   align-items: center;
-  flex-wrap: wrap;
-  gap: 1.5rem;
-  justify-content: center;
+  gap: var(--space-lg, 1.25rem);
+  width: 100%;
+  min-height: 0;
 }
 
 .mainImage {
+  flex-shrink: 0;
   width: 100%;
-  max-width: 500px;
-  border-radius: 8px;
+  max-width: min(31.25rem, 100%);
+  /* Leave room for title + thumb strip on short viewports */
+  max-height: min(42vh, 26rem);
+  height: auto;
+  border-radius: var(--radius-md, 8px);
+  object-fit: contain;
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
-  object-fit: cover;
+}
+
+/* Single-line carousel — contained inside section */
+.thumbnailStrip {
+  flex-shrink: 0;
+  width: 100%;
+  max-width: 100%;
+  padding-bottom: 0.35rem;
+  box-sizing: border-box;
 }
 
 .thumbnailRow {
   display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-  gap: 0.5rem;
-  padding: 0.5rem;
+  flex-wrap: nowrap;
+  justify-content: flex-start;
+  align-items: center;
+  gap: var(--space-sm, 0.75rem);
   width: 100%;
+  max-width: 100%;
+  margin: 0;
+  padding: var(--space-xs, 0.5rem) 0;
   box-sizing: border-box;
+  overflow-x: auto;
+  overflow-y: hidden;
+  overscroll-behavior-x: contain;
+  scroll-snap-type: x proximity;
+  scroll-behavior: smooth;
+  -webkit-overflow-scrolling: touch;
+  scrollbar-width: thin;
+  scrollbar-color: rgba(255, 255, 255, 0.35) transparent;
 }
 
 .thumbnailRow::-webkit-scrollbar {
-  width: 4px;
+  height: 5px;
 }
+
 .thumbnailRow::-webkit-scrollbar-thumb {
-  background: rgba(255, 255, 255, 0.3);
+  background: rgba(255, 255, 255, 0.35);
   border-radius: 4px;
 }
 
 .thumbnailButton {
-  flex: 1 1 70px;
-  max-width: 76px;
+  flex: 0 0 4.5rem;
+  width: 4.5rem;
+  height: 4.5rem;
+  max-width: 4.5rem;
+  scroll-snap-align: center;
   padding: 0;
-  margin: 0;
   border: 2px solid transparent;
-  border-radius: 6px;
+  border-radius: var(--radius-sm, 6px);
   background: transparent;
   cursor: pointer;
   line-height: 0;
-  transition: border-color 0.2s ease, transform 0.2s ease;
+  overflow: hidden;
+  transition: border-color 0.2s ease;
 }
 
 .thumbnailButton:focus-visible {
-  outline: 3px solid #14b8a6;
+  outline: 3px solid var(--color-accent, #14b8a6);
   outline-offset: 2px;
 }
 
 .thumbnailImg {
   width: 100%;
-  aspect-ratio: 1 / 1;
+  height: 100%;
   object-fit: cover;
   border-radius: 4px;
   opacity: 0.6;
   display: block;
-  transition: opacity 0.2s ease, transform 0.2s ease;
+  transition: opacity 0.2s ease;
 }
 
 .thumbnailButton:hover .thumbnailImg,
 .thumbnailButton:focus-visible .thumbnailImg {
   opacity: 1;
-  transform: scale(1.05);
 }
 
 .thumbnailButton.active {
@@ -122,59 +159,43 @@
   opacity: 1;
 }
 
-/* 🔁 Responsive */
-@media screen and (max-width: 768px) {
-  .mainContent h2 {
-    font-size: 2rem;
-  }
-
-  .slideshow {
-    flex-direction: column;
-  }
-
+@media (min-width: 900px) {
   .mainImage {
-    width: 100%;
-  }
-
-  .thumbnailRow {
-    flex-direction: row;
-    overflow-x: auto;
-    overflow-y: hidden;
-    scroll-snap-type: x mandatory;
-    -webkit-overflow-scrolling: touch;
-    gap: 0.75rem;
+    max-height: min(48vh, 30rem);
   }
 
   .thumbnailButton {
-    scroll-snap-align: start;
-    flex: 0 0 80px;
-    max-width: 80px;
-  }
-
-  .thumbnailImg {
-    width: 80px;
-    height: 80px;
-    aspect-ratio: auto;
+    flex: 0 0 5rem;
+    width: 5rem;
+    height: 5rem;
+    max-width: 5rem;
   }
 }
 
-@media screen and (max-width: 500px) {
+@media (max-width: 500px) {
   .container {
-    gap: 2rem;
-    padding: 20px;
+    padding-bottom: max(2.5rem, calc(var(--section-padding-y, 2rem) + 0.75rem));
   }
 
-  .mainContent h2 {
-    font-size: 1.7rem;
+  .mainImage {
+    max-height: min(38vh, 20rem);
   }
 
   .thumbnailButton {
-    flex: 0 0 70px;
-    max-width: 70px;
+    flex: 0 0 4rem;
+    width: 4rem;
+    height: 4rem;
+    max-width: 4rem;
+  }
+}
+
+/* Short laptop / landscape phones: tighter hero image */
+@media (max-height: 700px) {
+  .mainImage {
+    max-height: min(32vh, 16rem);
   }
 
-  .thumbnailImg {
-    width: 70px;
-    height: 70px;
+  .slideshow {
+    gap: var(--space-md, 1rem);
   }
 }
