@@ -1,108 +1,150 @@
 .container {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    min-height: 100svh;
-    background-color: blue; /* Fallback color */
-    background-image: var(--lazy-bg, none);
-    background-size: cover; /* Ensures the image covers the whole container */
-    background-position: center; /* Centers the background image */
-    background-repeat: no-repeat; /* Prevents the image from repeating */
-    position: relative; /* Required to position the overlay */
-    gap: 10rem;
-    padding: 20px;
-    flex-wrap: wrap;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+  gap: var(--section-gap-lg, 4rem);
+  width: 100%;
+  max-width: 100%;
+  min-height: 100vh;
+  min-height: 100dvh;
+  min-height: 100svh;
+  min-height: var(--section-min-height);
+  background-color: var(--color-primary, #0c4a6e);
+  background-image: var(--lazy-bg, none);
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  position: relative;
+  padding: var(--section-padding-y, 2.5rem) var(--section-padding-x, 1.25rem);
+  box-sizing: border-box;
+  overflow-x: hidden;
 }
 
 .container::before {
-    content: ''; /* Necessary to create a pseudo-element */
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: rgba(2, 18, 51, 0.7); /* Blue overlay with 70% opacity */
-    z-index: 1; /* Makes sure the overlay sits above the background but below content */
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: var(--overlay-dark, rgba(2, 18, 51, 0.7));
+  z-index: 1;
+  pointer-events: none;
 }
 
 .container > * {
-    z-index: 2; /* Makes sure the content (children of .container) sits above the overlay */
+  z-index: 2;
 }
 
 .imageContainer1 {
-    width: 100%;
-    max-width: 30rem;
-    border-radius: 5px;
+  width: 100%;
+  max-width: min(30rem, 100%);
+  border-radius: var(--radius-md, 8px);
 }
 
 .imageContainer1 img {
-    width: 100%;
-    border-radius: 5px;
+  width: 100%;
+  border-radius: var(--radius-md, 8px);
 }
 
-.rightContainer, .leftContainer {
-    color: white;
-    z-index: 2;
-    max-width: 35rem;
-    text-align: left;
+.leftContainer,
+.rightContainer {
+  flex: 1 1 min(100%, 18rem);
+  color: var(--text-on-dark, #fff);
+  max-width: 35rem;
+  text-align: left;
 }
 
-.rightContainer h2, .leftContainer h2 {
-    font-size: 2.5rem;
-    color: #96b7ff; /* Specific heading color */
+.rightContainer {
+  width: 100%;
+  max-width: min(24rem, 100%);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 
-.rightContainer p, .leftContainer p {
-    font-size: 1.5rem;
-    margin-top: 2rem;
+.leftContainer h2,
+.rightContainer h2 {
+  font-size: var(--text-section-title, clamp(1.5rem, 4vw, 2.5rem));
+  color: var(--text-accent, #96b7ff);
+}
+
+.leftContainer p,
+.rightContainer p,
+.leftContainer li {
+  font-size: var(--text-section-body, clamp(1rem, 2vw, 1.25rem));
+}
+
+.leftContainer ul {
+  margin-top: var(--space-md, 1rem);
+  padding-left: 1.25rem;
 }
 
 .subList {
-    list-style-type: none;
+  list-style-type: none;
+  padding-left: 0;
 }
 
 .subList li p {
-    font-size: 1rem;
-    font-style: italic;
+  font-size: var(--text-section-body-sm, 1rem);
+  font-style: italic;
 }
 
 .slideshow {
   display: flex;
   flex-direction: column;
   align-items: center;
+  width: 100%;
+  max-width: min(22rem, 100%);
+  margin-inline: auto;
+  gap: var(--space-md, 1rem);
 }
 
 .mainImage {
+  display: block;
+  width: auto;
   max-width: 100%;
   height: auto;
-  border-radius: 8px;
-  margin-bottom: 1rem;
+  max-height: min(42vh, 22rem);
+  margin-inline: auto;
+  object-fit: contain;
+  border-radius: var(--radius-md, 8px);
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
 }
 
 .thumbnailRow {
   display: flex;
-  flex-wrap: wrap;
-  gap: 0.5rem;
-  justify-content: center;
+  flex-wrap: nowrap;
+  gap: var(--space-xs, 0.5rem);
+  justify-content: flex-start;
+  overflow-x: auto;
+  overflow-y: hidden;
+  scroll-snap-type: x proximity;
+  -webkit-overflow-scrolling: touch;
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+  width: 100%;
+  padding: var(--space-xs, 0.5rem) 0;
+}
+
+.thumbnailRow::-webkit-scrollbar {
+  display: none;
 }
 
 .thumbnailButton {
-  width: 70px;
-  height: 70px;
+  flex: 0 0 4.25rem;
+  width: 4.25rem;
+  height: 4.25rem;
   padding: 0;
-  margin: 0;
   border: 2px solid transparent;
-  border-radius: 6px;
+  border-radius: var(--radius-sm, 6px);
   background: transparent;
   cursor: pointer;
   line-height: 0;
-  flex-shrink: 0;
-  transition: border-color 0.2s ease, transform 0.2s ease;
+  scroll-snap-align: center;
+  transition: border-color 0.2s ease;
 }
 
 .thumbnailButton:focus-visible {
-  outline: 3px solid #14b8a6;
+  outline: 3px solid var(--color-accent, #14b8a6);
   outline-offset: 2px;
 }
 
@@ -113,13 +155,12 @@
   border-radius: 4px;
   opacity: 0.6;
   display: block;
-  transition: opacity 0.2s ease, transform 0.2s ease;
+  transition: opacity 0.2s ease;
 }
 
 .thumbnailButton:hover .thumbnailImg,
 .thumbnailButton:focus-visible .thumbnailImg {
   opacity: 1;
-  transform: scale(1.05);
 }
 
 .thumbnailButton.active {
@@ -130,70 +171,76 @@
   opacity: 1;
 }
 
-@media screen and (max-width: 1360px) {
-    .rightContainer, .leftContainer {
-        max-width: 24rem;
-    }
+@media (max-width: 1013px) {
+  .container {
+    flex-direction: column;
+    gap: var(--section-gap, 3rem);
+    align-items: stretch;
+  }
 
-    .rightContainer h2,
-    .leftContainer h2 {
-        font-size: 2rem;
-    }
+  .leftContainer,
+  .rightContainer {
+    max-width: 100%;
+    text-align: center;
+  }
 
-    .rightContainer p,
-    .leftContainer p {
-        font-size: 1.1rem;
-    }
+  .leftContainer ul {
+    text-align: left;
+    max-width: 28rem;
+    margin-inline: auto;
+  }
+
+  .slideshow {
+    max-width: min(20rem, 92vw);
+  }
+
+  .mainImage {
+    max-height: min(38vh, 18rem);
+  }
 }
 
-@media screen and (max-width: 1013px) {
-    .container {
-        flex-direction: column;
-        gap: 5rem;
-        padding: 30px 20px;
-        background-position: top;
-    }
+/* Phone: full-width sections */
+@media (max-width: 767px) {
+  .container {
+    padding-inline: 0;
+    padding-top: 2rem;
+    padding-bottom: 2.5rem;
+    gap: 2rem;
+  }
 
-    .imageContainer1 {
-        max-width: 90%;
-        margin-top: 2rem;
-    }
+  .leftContainer {
+    padding-inline: max(1rem, env(safe-area-inset-left, 0px))
+      max(1rem, env(safe-area-inset-right, 0px));
+  }
 
-    .rightContainer,
-    .leftContainer {
-        max-width: 100%;
-        text-align: center;
-    }
+  .rightContainer {
+    max-width: none;
+    padding-inline: 0;
+  }
 
-    .rightContainer h2,
-    .leftContainer h2 {
-        font-size: 2rem;
-    }
+  .slideshow {
+    gap: 0.75rem;
+  }
 
-    .rightContainer p,
-    .leftContainer p {
-        font-size: 1.1rem;
-    }
+  .slideshow {
+    max-width: min(18rem, 88vw);
+  }
+
+  .mainImage {
+    max-height: min(36vh, 15rem);
+    border-radius: var(--radius-md, 8px);
+    object-fit: contain;
+  }
+
+  .thumbnailRow {
+    padding-inline: max(0.75rem, env(safe-area-inset-left, 0px));
+  }
 }
 
-@media screen and (max-width: 500px) {
-    .container {
-        gap: 3rem;
-        padding: 30px;
-    }
-
-    .imageContainer1 {
-        max-width: 100%;
-        margin-top: 1.5rem;
-    }
-
-    .rightContainer h2,
-    .leftContainer h2 {
-        font-size: 1.7rem;
-    }
-
-    .rightContainer p,
-    .leftContainer p {
-        font-size: 1rem;
-    }
+@media (max-width: 500px) {
+  .thumbnailButton {
+    flex: 0 0 3.75rem;
+    width: 3.75rem;
+    height: 3.75rem;
+  }
 }

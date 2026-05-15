@@ -2,8 +2,10 @@
   position: relative;
   width: 100%;
   max-width: 100%;
-  min-height: 100svh;
+  min-height: 100vh;
   min-height: 100dvh;
+  min-height: 100svh;
+  min-height: var(--section-min-height);
   overflow-x: hidden;
   box-sizing: border-box;
 }

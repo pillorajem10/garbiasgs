@@ -1,9 +1,12 @@
 /* Charity-style page hero: H1 → rule → body paragraph */
 .banner {
   position: relative;
-  height: 91.6svh;
   width: 100%;
   max-width: 100%;
+  min-height: 100vh;
+  min-height: 100dvh;
+  min-height: 100svh;
+  min-height: var(--section-min-height);
   overflow: hidden;
   display: flex;
   align-items: center;
@@ -14,16 +17,17 @@
 .bannerWithChildren {
   flex-direction: column;
   justify-content: flex-start;
-  min-height: auto;
   height: auto;
-  min-height: 91.6svh;
+  min-height: 100vh;
+  min-height: 100dvh;
+  min-height: 100svh;
+  min-height: var(--section-min-height);
   padding-bottom: 2rem;
 }
 
 .videoBackground {
   position: absolute;
-  top: 0;
-  left: 0;
+  inset: 0;
   width: 100%;
   height: 100%;
   object-fit: cover;
@@ -32,10 +36,7 @@
 
 .overlay {
   position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
+  inset: 0;
   background: rgba(2, 18, 51, 0.7);
   z-index: 1;
 }
@@ -65,7 +66,7 @@
 
 .headline {
   font-family: var(--font-heading);
-  font-size: 3.5rem;
+  font-size: clamp(1.75rem, 2.2vw + 1rem, 3.5rem);
   font-weight: bold;
   margin: 0;
   line-height: 1.15;
@@ -80,7 +81,7 @@
 }
 
 .body {
-  font-size: 1.3rem;
+  font-size: clamp(1rem, 0.45vw + 0.9rem, 1.3rem);
   margin-top: 1.75rem;
   font-weight: bold;
   line-height: 1.5;
@@ -109,10 +110,6 @@
     padding: 12px 0;
     max-width: 100%;
     text-align: center;
-  }
-
-  .headline {
-    font-size: 2.5rem;
   }
 
   .titleRule {

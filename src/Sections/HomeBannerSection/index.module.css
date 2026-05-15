@@ -1,98 +1,86 @@
 .banner {
-    position: relative;
-    height: 91.6svh;
-    width: 100svw;
-    overflow: hidden;
-    display: flex;
-    align-items: center;
-    justify-content: center;
+  position: relative;
+  width: 100%;
+  max-width: 100%;
+  min-height: 100vh;
+  min-height: 100dvh;
+  min-height: 100svh;
+  min-height: var(--section-min-height);
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-sizing: border-box;
 }
 
-/* Background video */
 .videoBackground {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    z-index: 0;
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  z-index: 0;
 }
 
-/* Overlay with blue transparency */
 .overlay {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: rgba(2, 18, 51, 0.7);
-    z-index: 1;
+  position: absolute;
+  inset: 0;
+  background: rgba(2, 18, 51, 0.7);
+  z-index: 1;
 }
 
-/* Banner text styling */
 .bannerText {
-    position: absolute;
-    z-index: 2;
-    color: white;
-    max-width: 50rem;
-    text-align: left;
-    top: 25%;
-    left: 8%;
-    padding: 20px;
+  position: relative;
+  z-index: 2;
+  color: white;
+  max-width: 50rem;
+  text-align: left;
+  width: 100%;
+  padding: max(5rem, calc(4rem + env(safe-area-inset-top, 0px)))
+    max(1.25rem, env(safe-area-inset-right, 0px))
+    2rem
+    max(8%, env(safe-area-inset-left, 0px));
+  box-sizing: border-box;
 }
 
 .bannerText h1 {
-    font-size: 3.5rem;
-    font-weight: bold;
-    line-height: 1.15;
+  font-size: clamp(1.75rem, 2.2vw + 1rem, 3.5rem);
+  font-weight: bold;
+  line-height: 1.15;
 }
 
 .bannerText p {
-    font-size: 1.3rem;
-    margin-top: 40px;
-    line-height: 1.65;
-    max-width: 42rem;
+  font-size: clamp(1rem, 0.45vw + 0.9rem, 1.3rem);
+  margin-top: clamp(1.5rem, 4vw, 2.5rem);
+  line-height: 1.65;
+  max-width: 42rem;
 }
 
 .bannerText .strongFoundations {
-    color: #00e1ff;
-    font-weight: bold;
-    font-style: italic;
+  color: #00e1ff;
+  font-weight: bold;
+  font-style: italic;
 }
 
 @media screen and (max-width: 700px) {
-    .bannerText {
-        padding: 15px;
-        max-width: 90%;
-    }
+  .bannerText {
+    padding: max(5rem, 8svh) 1.25rem 2rem;
+    max-width: 100%;
+    text-align: center;
+  }
 
-    .bannerText h1 {
-        font-size: 2.5rem;
-    }
-
-    .bannerText p {
-        font-size: 1.1rem;
-        margin-top: 30px;
-    }
+  .bannerText h1,
+  .bannerText p {
+    margin-inline: auto;
+  }
 }
 
 @media screen and (max-width: 500px) {
-    .bannerText {
-        padding: 10px;
-        max-width: 100%;
-    }
+  .bannerText {
+    padding: max(4.75rem, 6svh) 1rem 1.5rem;
+  }
 
-    .bannerText h1 {
-        font-size: 1.8rem;
-    }
-
-    .bannerText p {
-        font-size: 1rem;
-        margin-top: 20px;
-    }
-
-    .bannerText .strongFoundations {
-        font-size: 1rem;
-    }
+  .bannerText p {
+    margin-top: 1.25rem;
+  }
 }

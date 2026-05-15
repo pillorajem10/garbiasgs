@@ -15,6 +15,10 @@
   --color-surface: #ffffff;
 
   --space-section: clamp(2rem, 5vw, 4rem);
+  /* Full-viewport section height — use on every page section */
+  --section-min-height: 100vh;
+  --section-min-height: 100dvh;
+  --section-min-height: 100svh;
   --radius-md: 8px;
   --leading-body: 1.65;
   --leading-prose: 1.7;
@@ -50,6 +54,14 @@ body {
   html,
   body {
     overflow-x: hidden;
+  }
+}
+
+/* Mobile: sections use full viewport width (content may inset text only) */
+@media (max-width: 767px) {
+  .main-content {
+    width: 100%;
+    max-width: 100%;
   }
 }
 

@@ -6,8 +6,11 @@
   justify-content: center;
   gap: 4rem;
   padding: 40px 20px;
+  min-height: 100vh;
+  min-height: 100dvh;
   min-height: 100svh;
-  background-color: blue;
+  min-height: var(--section-min-height);
+background-color: blue;
   background-image: var(--lazy-bg, none);
   background-size: cover;
   background-position: center;
