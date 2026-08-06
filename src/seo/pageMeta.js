@@ -48,7 +48,7 @@ export const PAGE_META = {
   "/contact": {
     title: "Contact GarBia | Geotechnical Engineering Philippines",
     description:
-      "Email garbia.strucgeotech@gmail.com or call +63 (02) 8280-1763. Mobile lines available for site inquiries and geotechnical consultations.",
+      "Email inquiries@garbiagroup.com or call +63 (02) 8280-1763. Mobile lines available for site inquiries and geotechnical consultations.",
     keywords:
       "Contact GarBia, Geotechnical Services Philippines, soil investigation quote, " +
       PRIMARY_KEYWORDS,

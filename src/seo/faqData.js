@@ -30,6 +30,6 @@ export const SERVICES_FAQ = [
   {
     question: "How do I request a geotechnical engineering quote?",
     answer:
-      "Email garbia.strucgeotech@gmail.com, call +63 (02) 8280-1763, or use any mobile number on our Contact page. Visit the Location page for office directions and project consultations.",
+      "Email inquiries@garbiagroup.com, call +63 (02) 8280-1763, or use any mobile number on our Contact page. Visit the Location page for office directions and project consultations.",
   },
 ];
