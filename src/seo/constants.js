@@ -9,9 +9,8 @@ export const TWITTER_HANDLE = "@garbiagroup";
 
 export const BUSINESS = {
   legalName: "GarBia Structural and Geotechnical Solutions",
-  email: "garbia.strucgeotech@gmail.com",
-  websiteUrl: "https://garbiastrucgeotech.com/",
-  qrCodeUrl: "https://garbia.sgp1.cdn.digitaloceanspaces.com/images/qr-code%20(1).jpg",
+  email: "inquiries@garbiagroup.com",
+  websiteUrl: "https://garbiagroup.com/",
   telephone: "+63282801763",
   telephoneDisplay: "+63 (02) 8280-1763",
   mobileNumbers: [

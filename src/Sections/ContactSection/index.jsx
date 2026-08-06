@@ -2,7 +2,6 @@ import { useRef, useEffect } from "react";
 import { motion, useAnimation, useInView } from "framer-motion";
 import { Link } from "react-router-dom";
 import LazyVideo from "@components/LazyVideo";
-import OptimizedImage from "@components/OptimizedImage";
 import { BUSINESS } from "@/seo/constants";
 import styles from "./index.module.css";
 
@@ -41,32 +40,25 @@ const ContactSection = () => {
           </p>
         </header>
 
-        <div className={styles.grid}>
-          <aside className={styles.qrBlock} aria-labelledby="qr-heading">
-            <h2 id="qr-heading" className={styles.blockTitle}>
+        <div className={styles.details}>
+          <section className={styles.detailBlock} aria-labelledby="website-heading">
+            <h2 id="website-heading" className={styles.blockTitle}>
               Visit Our Website
             </h2>
             <p className={styles.blockText}>
-              Scan the QR code to open our website for company updates, services, and project
-              information.
+              Explore our website for company updates, services, and project information.
             </p>
             <a
               href={BUSINESS.websiteUrl}
               target="_blank"
               rel="noopener noreferrer"
-              className={styles.qrLink}
+              className={styles.contactLink}
             >
-              <OptimizedImage
-                src={BUSINESS.qrCodeUrl}
-                alt="QR code linking to GarBia Structural and Geotechnical Solutions website"
-                className={styles.qrImage}
-              />
+              {BUSINESS.websiteUrl}
             </a>
-            <p className={styles.qrUrl}>{BUSINESS.websiteUrl}</p>
-          </aside>
+          </section>
 
-          <div className={styles.details}>
-            <section className={styles.detailBlock} aria-labelledby="email-heading">
+          <section className={styles.detailBlock} aria-labelledby="email-heading">
               <h2 id="email-heading" className={styles.blockTitle}>
                 Email
               </h2>
@@ -123,7 +115,6 @@ const ContactSection = () => {
                 View map &amp; directions →
               </Link>
             </section>
-          </div>
         </div>
       </motion.div>
     </div>
