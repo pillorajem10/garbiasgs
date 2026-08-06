@@ -1,8 +1,7 @@
 name: CI/CD Pipeline
 
-# Build the static site on GitHub's runners (NOT on the VPS), then ship the
-# pre-built dist/ to the VPS where nginx serves it directly. The VPS never runs
-# npm, a build, Docker, or a Node process for this site.
+# Build the Docker image on GitHub's runners (NOT on the VPS), ship it over SSH,
+# and replace the running container. The VPS never runs npm or a build.
 
 on:
   push:
@@ -10,10 +9,10 @@ on:
       - master
 
 env:
-  # nginx document root on the VPS. Files land here; nginx serves them directly.
-  WEB_ROOT: /var/www/garbiagroup.com/html
-  # Temporary upload location on the VPS, swapped into WEB_ROOT atomically.
-  INCOMING: /var/www/garbiagroup.com/_incoming
+  IMAGE: garbiasgs:latest
+  CONTAINER: garbiasgs-green
+  HOST_PORT: "5174"
+  CONTAINER_PORT: "5173"
 
 jobs:
   deploy:
@@ -23,32 +22,24 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v4
 
-      - name: Set up Node.js
-        uses: actions/setup-node@v4
-        with:
-          node-version: '20.11.1'
-          cache: 'npm'
+      - name: Build Docker image
+        run: docker build -t "$IMAGE" .
 
-      - name: Install dependencies
-        run: npm ci
+      - name: Save image to compressed tar
+        run: docker save "$IMAGE" | gzip > image.tar.gz
 
-      - name: Build static site
-        run: npm run build
-
-      - name: Upload dist/ to VPS staging dir
+      - name: Upload image to VPS
         uses: appleboy/scp-action@v0.1.7
         with:
           host: ${{ secrets.VPS_IP }}
           username: ${{ secrets.VPS_USER }}
           key: ${{ secrets.SSH_PRIVATE_KEY }}
           port: 22
-          source: "dist/"
-          target: ${{ env.INCOMING }}
-          strip_components: 1
+          source: image.tar.gz
+          target: /tmp/garbiasgs
           overwrite: true
-          rm: true
 
-      - name: Swap into web root and reload nginx
+      - name: Load image and replace container
         uses: appleboy/ssh-action@v1.0.3
         with:
           host: ${{ secrets.VPS_IP }}
@@ -57,23 +48,26 @@ jobs:
           port: 22
           timeout: 5m
           command_timeout: 10m
-          envs: WEB_ROOT,INCOMING
+          envs: IMAGE,CONTAINER,HOST_PORT,CONTAINER_PORT
           script: |
             set -e
 
-            # Keep the previous release for instant rollback.
-            rm -rf "${WEB_ROOT}.old"
-            if [ -d "$WEB_ROOT" ]; then
-              cp -a "$WEB_ROOT" "${WEB_ROOT}.old"
-            fi
+            # Load the freshly built image shipped from CI.
+            gunzip -f /tmp/garbiasgs/image.tar.gz
+            docker load -i /tmp/garbiasgs/image.tar
+            rm -f /tmp/garbiasgs/image.tar
 
-            # Sync the freshly uploaded build into the web root.
-            mkdir -p "$WEB_ROOT"
-            rsync -a --delete "$INCOMING/" "$WEB_ROOT/"
-            rm -rf "$INCOMING"
+            # Replace the running container with the new image.
+            docker stop "$CONTAINER" 2>/dev/null || true
+            docker rm "$CONTAINER" 2>/dev/null || true
+            docker run -d --name "$CONTAINER" --restart always \
+              -p ${HOST_PORT}:${CONTAINER_PORT} "$IMAGE"
 
-            # Validate config, then hot-reload (zero downtime).
-            sudo nginx -t
-            sudo systemctl reload nginx
+            # Reclaim old dangling images so they don't pile up.
+            docker image prune -f
 
-            echo "Deployment successful!"
+            # Smoke test: container should answer through its published port.
+            sleep 2
+            curl -sf "http://127.0.0.1:${HOST_PORT}/" >/dev/null \
+              && echo "Deployment successful — container healthy" \
+              || (echo "Container did not respond" && exit 1)

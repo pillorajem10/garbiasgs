@@ -1,0 +1,15 @@
+# NOTE: Production deploys use the GitHub Actions workflow, which builds the
+# image in CI and runs a single `garbiasgs-green` container on the VPS.
+# This compose file is for LOCAL use only (docker compose up --build) and does
+# NOT build on the VPS. Keep it in sync with .github/workflows/deploy.yaml.
+
+services:
+  frontend-green:
+    container_name: garbiasgs-green
+    build:
+      context: .
+      dockerfile: Dockerfile
+    image: garbiasgs:latest
+    ports:
+      - "5174:5173" # host 5174 -> container nginx 5173
+    restart: always
