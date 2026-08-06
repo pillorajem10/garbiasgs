@@ -1,9 +1,19 @@
 name: CI/CD Pipeline
 
+# Build the static site on GitHub's runners (NOT on the VPS), then ship the
+# pre-built dist/ to the VPS where nginx serves it directly. The VPS never runs
+# npm, a build, Docker, or a Node process for this site.
+
 on:
   push:
     branches:
       - master
+
+env:
+  # nginx document root on the VPS. Files land here; nginx serves them directly.
+  WEB_ROOT: /var/www/garbiagroup.com/html
+  # Temporary upload location on the VPS, swapped into WEB_ROOT atomically.
+  INCOMING: /var/www/garbiagroup.com/_incoming
 
 jobs:
   deploy:
@@ -11,61 +21,59 @@ jobs:
 
     steps:
       - name: Checkout code
-        uses: actions/checkout@v2
+        uses: actions/checkout@v4
 
       - name: Set up Node.js
-        uses: actions/setup-node@v2
+        uses: actions/setup-node@v4
         with:
           node-version: '20.11.1'
+          cache: 'npm'
 
       - name: Install dependencies
-        run: npm install
+        run: npm ci
 
-      - name: Build React app
+      - name: Build static site
         run: npm run build
 
-      - name: Build Docker image
-        run: docker build -t garbiasgs .
+      - name: Upload dist/ to VPS staging dir
+        uses: appleboy/scp-action@v0.1.7
+        with:
+          host: ${{ secrets.VPS_IP }}
+          username: ${{ secrets.VPS_USER }}
+          key: ${{ secrets.SSH_PRIVATE_KEY }}
+          port: 22
+          source: "dist/"
+          target: ${{ env.INCOMING }}
+          strip_components: 1
+          overwrite: true
+          rm: true
 
-      - name: Deploy to VPS via SSH
+      - name: Swap into web root and reload nginx
         uses: appleboy/ssh-action@v1.0.3
         with:
           host: ${{ secrets.VPS_IP }}
           username: ${{ secrets.VPS_USER }}
           key: ${{ secrets.SSH_PRIVATE_KEY }}
           port: 22
-          timeout: 10m
-          command_timeout: 30m
+          timeout: 5m
+          command_timeout: 10m
+          envs: WEB_ROOT,INCOMING
           script: |
             set -e
 
-            # Load NVM so node and npm are available
-            export NVM_DIR="$HOME/.nvm"
-            [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"
-            [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"
+            # Keep the previous release for instant rollback.
+            rm -rf "${WEB_ROOT}.old"
+            if [ -d "$WEB_ROOT" ]; then
+              cp -a "$WEB_ROOT" "${WEB_ROOT}.old"
+            fi
 
-            # Ensure directory exists and navigate
-            mkdir -p /var/www/garbiagroup.com/garbiasgs
-            cd /var/www/garbiagroup.com/garbiasgs
+            # Sync the freshly uploaded build into the web root.
+            mkdir -p "$WEB_ROOT"
+            rsync -a --delete "$INCOMING/" "$WEB_ROOT/"
+            rm -rf "$INCOMING"
 
-            # Pull latest changes from GitHub
-            git pull origin master
-
-            # Install dependencies and build
-            npm install
-            npm run build
-
-            # Build Docker image
-            docker build -t garbiasgs .
-
-            # Stop and remove old containers
-            docker stop garbiasgs-green || true
-            docker rm garbiasgs-green || true
-
-            # Run new container
-            docker run -d --name garbiasgs-green -p 5174:5173 garbiasgs
-
-            # Reload Nginx
+            # Validate config, then hot-reload (zero downtime).
+            sudo nginx -t
             sudo systemctl reload nginx
 
             echo "Deployment successful!"
