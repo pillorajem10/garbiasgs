@@ -4,11 +4,6 @@ export function cdnImage(filename) {
   return `${CDN_IMAGES}/${filename}`;
 }
 
-export function toWebpUrl(url) {
-  if (!url || typeof url !== "string") return null;
-  return url.replace(/\.(jpe?g|png)(\?.*)?$/i, ".webp$2");
-}
-
 export function preloadImage(src) {
   return new Promise((resolve, reject) => {
     const img = new Image();

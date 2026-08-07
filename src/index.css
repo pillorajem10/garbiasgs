@@ -171,6 +171,48 @@ video {
   max-width: 100%;
 }
 
+/* ---- OptimizedImage: skeleton placeholder, fade-in, error fallback ---- */
+/* Applied to <img data-oi> and the error fallback <span data-oi-error>.
+   Scoped to those attributes so ordinary <img> elements are unaffected. */
+img[data-oi]:not([data-loaded]) {
+  background-color: #e7ecf1;
+  background-image: linear-gradient(
+    100deg,
+    #e7ecf1 30%,
+    #f2f5f8 50%,
+    #e7ecf1 70%
+  );
+  background-size: 200% 100%;
+  animation: oiShimmer 1.3s ease-in-out infinite;
+}
+
+img[data-oi][data-loaded] {
+  background: none;
+  animation: oiFadeIn 0.35s ease both;
+}
+
+[data-oi-error] {
+  display: inline-block;
+  background-color: #eaecef;
+  background-image: linear-gradient(135deg, #eef0f3 25%, #e4e7eb 25% 50%, #eef0f3 50% 75%, #e4e7eb 75%);
+  background-size: 16px 16px;
+}
+
+@keyframes oiShimmer {
+  from { background-position: 200% 0; }
+  to { background-position: -200% 0; }
+}
+
+@keyframes oiFadeIn {
+  from { opacity: 0.55; }
+  to { opacity: 1; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  img[data-oi]:not([data-loaded]) { animation: none; }
+  img[data-oi][data-loaded] { animation: none; }
+}
+
 @supports not (overflow: clip) {
   .main-content {
     overflow-x: hidden;
