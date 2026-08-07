@@ -61,7 +61,7 @@ jobs:
             docker stop "$CONTAINER" 2>/dev/null || true
             docker rm "$CONTAINER" 2>/dev/null || true
             docker run -d --name "$CONTAINER" --restart always \
-              -p ${HOST_PORT}:${CONTAINER_PORT} "$IMAGE"
+              -p 127.0.0.1:${HOST_PORT}:${CONTAINER_PORT} "$IMAGE"
 
             # Reclaim old dangling images so they don't pile up.
             docker image prune -f

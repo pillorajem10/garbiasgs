@@ -17,7 +17,7 @@ See [.github/workflows/deploy.yaml](.github/workflows/deploy.yaml):
    final stage `nginx:alpine`).
 2. `docker save | gzip` → `scp` the image tar to the VPS.
 3. VPS: `docker load`, then replace the `garbiasgs-green` container with the new
-   image (`docker run -d --restart always -p 5174:5173`).
+   image (`docker run -d --restart always -p 127.0.0.1:5174:5173`).
 4. `docker image prune -f` reclaims old layers, then a curl smoke test.
 
 ## Container / port model
@@ -36,7 +36,7 @@ git pull origin master
 docker build -t garbiasgs:latest .
 docker stop garbiasgs-green 2>/dev/null || true
 docker rm   garbiasgs-green 2>/dev/null || true
-docker run -d --name garbiasgs-green --restart always -p 5174:5173 garbiasgs:latest
+docker run -d --name garbiasgs-green --restart always -p 127.0.0.1:5174:5173 garbiasgs:latest
 docker image prune -f
 ```
 
@@ -47,7 +47,7 @@ fallback), or redeploy the last good commit:
 
 ```sh
 docker stop garbiasgs-green && docker rm garbiasgs-green
-docker run -d --name garbiasgs-green --restart always -p 5174:5173 <previous-image>
+docker run -d --name garbiasgs-green --restart always -p 127.0.0.1:5174:5173 <previous-image>
 ```
 
 ## Housekeeping
