@@ -1,73 +1,53 @@
 name: CI/CD Pipeline
 
-# Build the Docker image on GitHub's runners (NOT on the VPS), ship it over SSH,
-# and replace the running container. The VPS never runs npm or a build.
+# On push to master: SSH into the VPS, pull the latest code, rebuild the Docker
+# image from it, and replace the running container. Building happens once on the
+# VPS (measured peak ~900 MB, well within limits) — nothing large is shipped
+# over the network, so there's no image tar to transfer.
 
 on:
   push:
     branches:
       - master
 
-env:
-  IMAGE: garbiasgs:latest
-  CONTAINER: garbiasgs-green
-  HOST_PORT: "5174"
-  CONTAINER_PORT: "5173"
-
 jobs:
   deploy:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout code
-        uses: actions/checkout@v4
-
-      - name: Build Docker image
-        run: docker build -t "$IMAGE" .
-
-      - name: Save image to compressed tar
-        run: docker save "$IMAGE" | gzip > image.tar.gz
-
-      - name: Upload image to VPS
-        uses: appleboy/scp-action@v0.1.7
-        with:
-          host: ${{ secrets.VPS_IP }}
-          username: ${{ secrets.VPS_USER }}
-          key: ${{ secrets.SSH_PRIVATE_KEY }}
-          port: 22
-          source: image.tar.gz
-          target: /tmp/garbiasgs
-          overwrite: true
-
-      - name: Load image and replace container
+      - name: Deploy to VPS (pull + rebuild + restart)
         uses: appleboy/ssh-action@v1.0.3
         with:
           host: ${{ secrets.VPS_IP }}
           username: ${{ secrets.VPS_USER }}
           key: ${{ secrets.SSH_PRIVATE_KEY }}
           port: 22
-          timeout: 5m
-          command_timeout: 10m
-          envs: IMAGE,CONTAINER,HOST_PORT,CONTAINER_PORT
+          timeout: 60s
+          command_timeout: 15m
           script: |
             set -e
+            cd /var/www/garbiagroup.com/garbiasgs
 
-            # Load the freshly built image shipped from CI.
-            gunzip -f /tmp/garbiasgs/image.tar.gz
-            docker load -i /tmp/garbiasgs/image.tar
-            rm -f /tmp/garbiasgs/image.tar
+            # Pull the latest master exactly (discard any drift on the deploy box).
+            git fetch --prune origin master
+            git reset --hard origin/master
+            echo "Deploying commit: $(git rev-parse --short HEAD)"
 
-            # Replace the running container with the new image.
-            docker stop "$CONTAINER" 2>/dev/null || true
-            docker rm "$CONTAINER" 2>/dev/null || true
-            docker run -d --name "$CONTAINER" --restart always \
-              -p 127.0.0.1:${HOST_PORT}:${CONTAINER_PORT} "$IMAGE"
+            # Rebuild the image from the freshly pulled code.
+            docker build -t garbiasgs:latest .
+
+            # Replace the running container. Bound to localhost; host nginx
+            # reverse-proxies https://garbiagroup.com -> 127.0.0.1:5174.
+            docker stop garbiasgs-green 2>/dev/null || true
+            docker rm garbiasgs-green 2>/dev/null || true
+            docker run -d --name garbiasgs-green --restart always \
+              -p 127.0.0.1:5174:5173 garbiasgs:latest
 
             # Reclaim old dangling images so they don't pile up.
             docker image prune -f
 
-            # Smoke test: container should answer through its published port.
+            # Smoke test: the container must answer through its published port.
             sleep 2
-            curl -sf "http://127.0.0.1:${HOST_PORT}/" >/dev/null \
+            curl -sf http://127.0.0.1:5174/ >/dev/null \
               && echo "Deployment successful — container healthy" \
               || (echo "Container did not respond" && exit 1)
