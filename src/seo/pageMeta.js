@@ -1,54 +1,65 @@
 import { SITE_NAME, SITE_URL, DEFAULT_OG_IMAGE, PRIMARY_KEYWORDS } from "./constants";
 
+/**
+ * Per-route title and description.
+ *
+ * Titles lead with the distinguishing part of the page and close with the
+ * brand, so a branded search ("garbia group", "garbia sgs") has the brand to
+ * match on and a service search has the service term near the front. Both are
+ * kept short enough to survive Google's ~60-character truncation.
+ *
+ * Every title and description here must stay unique — duplicate metadata across
+ * routes is one of the things this file exists to prevent.
+ */
 export const PAGE_META = {
   "/": {
-    title: "Geotechnical & Construction Company Philippines | GarBia",
+    title: "GarBia Group | Geotechnical & Construction Services Philippines",
     description:
-      "GarBia Group delivers soil investigation, foundation engineering, pile driving, and geotechnical services across the Philippines. Request a site visit today.",
+      "GarBia Group — GarBia Structural and Geotechnical Solutions — provides soil investigation, geotechnical testing, and foundation works across Luzon, Philippines.",
     keywords: PRIMARY_KEYWORDS,
   },
   "/services": {
-    title: "Geotechnical & Site Investigation Services | GarBia",
+    title: "Geotechnical & Soil Investigation Services | GarBia Group",
     description:
-      "Soil investigation, deep foundation, micro-piling, and laboratory testing for residential, commercial, and government projects in Luzon. Get a quote.",
+      "Site assessment, soil exploration by SPT and coring, laboratory testing, geotechnical reports, micropiling, and grouting for buildings, roads, and infrastructure.",
     keywords:
       "Geotechnical Services, Site Investigation Services, Soil Investigation, Deep Foundation, " +
       PRIMARY_KEYWORDS,
   },
   "/about": {
-    title: "About GarBia | Geotechnical Engineering Company",
+    title: "About GarBia Group | Geotechnical Company in the Philippines",
     description:
-      "Founded in 2018, GarBia is a trusted Philippines construction and geotechnical firm specializing in soil testing and foundation assessments.",
+      "Founded in 2018 in Cainta, Rizal, GarBia Group is ISO 9001:2015 certified, DPWH-BRS accredited, PCAB Category A licensed, and a PhilGEPS Platinum member.",
     keywords: "Construction Company, Geotechnical Engineering, " + PRIMARY_KEYWORDS,
   },
   "/mission-vision": {
-    title: "Mission & Vision | GarBia Geotechnical Philippines",
+    title: "Mission & Vision | GarBia Group Geotechnical Solutions",
     description:
-      "GarBia's mission: leading geotechnical and foundation engineering in Luzon with safe, reliable construction standards for Filipino communities.",
+      "GarBia Group's mission and vision: accurate, high-quality geotechnical services supporting the Philippines' shift to quality construction and safe infrastructure.",
     keywords: PRIMARY_KEYWORDS,
   },
   "/projects": {
-    title: "Construction & Geotechnical Projects | GarBia",
+    title: "Geotechnical & Construction Projects | GarBia Group",
     description:
-      "Explore GarBia's completed soil investigation, foundation, and infrastructure projects across the Philippines.",
+      "Soil investigation and foundation projects delivered by GarBia Group in Antipolo, Marikina, Pasig, and Taguig — with site photos from each engagement.",
     keywords: PRIMARY_KEYWORDS,
   },
   "/program": {
     title: "Community Charity Programs | GarBia Group",
     description:
-      "GarBia gives back through outreach, education support, and disaster response in communities where we build.",
+      "GarBia Group's outreach work: food, educational supplies, and disaster response for communities near the sites where the company builds.",
     keywords: "Construction Company Philippines, GarBia charity",
   },
   "/location": {
-    title: "Office Location Cainta Rizal | GarBia Group",
+    title: "Office Location in Cainta, Rizal | GarBia Group",
     description:
-      "Visit GarBia at Lot 10 Block 7 Jasmine St., Cainta, Rizal—minutes from Metro Manila. Parking available.",
+      "Find GarBia Group at Lot 10 Block 7 Jasmine Street, Cainta, Rizal 1900 — minutes from Metro Manila, with parking for consultations and sample drop-offs.",
     keywords: "Geotechnical Services Philippines, GarBia office, Cainta Rizal",
   },
   "/contact": {
-    title: "Contact GarBia | Geotechnical Engineering Philippines",
+    title: "Contact GarBia Group | Geotechnical Services Philippines",
     description:
-      "Email inquiries@garbiagroup.com or call +63 (02) 8280-1763. Mobile lines available for site inquiries and geotechnical consultations.",
+      "Request soil investigation, geotechnical testing, or foundation works from GarBia Group. Email inquiries@garbiagroup.com or call +63 (02) 8280-1763.",
     keywords:
       "Contact GarBia, Geotechnical Services Philippines, soil investigation quote, " +
       PRIMARY_KEYWORDS,
@@ -56,20 +67,58 @@ export const PAGE_META = {
   "/404": {
     title: "Page Not Found | GarBia Group",
     description:
-      "The page you requested was not found. Return to GarBia for geotechnical engineering and construction services.",
+      "That page does not exist. Browse GarBia Group's geotechnical engineering, soil investigation, and construction services instead.",
     keywords: PRIMARY_KEYWORDS,
     noindex: true,
   },
 };
 
+/** Breadcrumb label for each non-home route. */
+export const BREADCRUMB_LABELS = {
+  "/services": "Services",
+  "/about": "About",
+  "/mission-vision": "Mission & Vision",
+  "/projects": "Projects",
+  "/program": "Charity Programs",
+  "/location": "Location",
+  "/contact": "Contact",
+};
+
+/**
+ * Indexable routes, in sitemap priority order. Drives the prerender, the
+ * sitemap, and nothing else — so adding a route in one place cannot leave it
+ * missing from the other two.
+ */
+export const INDEXABLE_ROUTES = [
+  { path: "/", changefreq: "weekly", priority: "1.0" },
+  { path: "/services", changefreq: "monthly", priority: "0.9" },
+  { path: "/projects", changefreq: "weekly", priority: "0.9" },
+  { path: "/contact", changefreq: "monthly", priority: "0.85" },
+  { path: "/about", changefreq: "monthly", priority: "0.8" },
+  { path: "/location", changefreq: "monthly", priority: "0.8" },
+  { path: "/mission-vision", changefreq: "monthly", priority: "0.7" },
+  { path: "/program", changefreq: "monthly", priority: "0.6" },
+];
+
 export function getPageMeta(pathname) {
-  const normalized = pathname.replace(/\/$/, "") || "/";
+  const normalized = normalizePath(pathname);
   return PAGE_META[normalized] ?? PAGE_META["/404"];
 }
 
+/** "/services/" and "/services" are the same page; "/" stays "/". */
+export function normalizePath(pathname) {
+  return pathname.replace(/\/+$/, "") || "/";
+}
+
+/**
+ * Absolute canonical URL on the preferred host, with no trailing slash except
+ * on the homepage. Canonicals must be absolute and must always name
+ * garbiagroup.com — that is the signal telling search engines which of the
+ * company's domains and host variants is authoritative.
+ */
 export function canonicalUrl(pathname) {
-  const path = pathname === "/" ? "" : pathname.replace(/\/$/, "");
-  return `${SITE_URL}${path || "/"}`;
+  const path = normalizePath(pathname);
+  return path === "/" ? `${SITE_URL}/` : `${SITE_URL}${path}`;
 }
 
 export { SITE_NAME, SITE_URL, DEFAULT_OG_IMAGE };

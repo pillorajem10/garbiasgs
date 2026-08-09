@@ -3,53 +3,74 @@
   <head>
     <meta charset="UTF-8" />
     <link rel="icon" type="image/x-icon" href="/garbia.ico" />
+    <link rel="apple-touch-icon" href="/garbia1.jpg" />
+    <link rel="manifest" href="/site.webmanifest" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link rel="preconnect" href="https://garbia.sgp1.cdn.digitaloceanspaces.com" crossorigin />
     <link rel="dns-prefetch" href="https://garbia.sgp1.cdn.digitaloceanspaces.com" />
+    <!--
+      Google Fonts is a third-party, render-blocking stylesheet on the critical
+      path — measured at ~900 ms of blocking time on a throttled mobile
+      connection. Loading it with media="print" lets the browser fetch it
+      without holding up first paint, and the onload handler promotes it to
+      all media the moment it arrives.
+
+      The end state is unchanged: the URL already carries display=swap, so text
+      was always going to paint in the fallback face first and swap when Lato
+      and Roboto land. This only stops the *rest of the page* waiting on it.
+    -->
+    <link
+      rel="preload"
+      as="style"
+      href="https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,400;0,700;1,400&family=Roboto:wght@400;500;700&display=swap"
+    />
     <link
       href="https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,400;0,700;1,400&family=Roboto:wght@400;500;700&display=swap"
       rel="stylesheet"
+      media="print"
+      onload="this.media='all';this.onload=null"
     />
+    <noscript>
+      <link
+        href="https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,400;0,700;1,400&family=Roboto:wght@400;500;700&display=swap"
+        rel="stylesheet"
+      />
+    </noscript>
     <meta name="theme-color" content="#0081b8" />
-    <meta name="robots" content="index, follow" />
+    <meta name="author" content="GarBia Group" />
 
-    <title>Geotechnical &amp; Construction Company Philippines | GarBia</title>
+    <!--
+      Everything between the markers is rewritten per route by
+      scripts/prerender.mjs at build time. The values below are the homepage's,
+      which is also what the SPA fallback should show if a URL is ever served
+      without a prerendered file. Edit src/seo/pageMeta.js, not this block.
+    -->
+    <!--seo:start-->
+    <title>GarBia Group | Geotechnical &amp; Construction Services Philippines</title>
     <meta
       name="description"
-      content="GarBia Group delivers soil investigation, foundation engineering, pile driving, and geotechnical services across the Philippines. Request a site visit today."
+      content="GarBia Group (GarBia Structural and Geotechnical Solutions) provides soil investigation, geotechnical testing, foundation engineering, and micropiling across Luzon, Philippines."
     />
-    <meta
-      name="keywords"
-      content="Construction Company, Geotechnical Engineering, Foundation Engineering, Soil Investigation, Deep Foundation, Pile Driving Contractor, Site Investigation Services, Geotechnical Services, Civil Engineering Philippines, Construction Services Philippines"
-    />
-
+    <meta name="robots" content="index, follow" />
+    <link rel="canonical" href="https://garbiagroup.com/" />
     <meta property="og:type" content="website" />
     <meta property="og:site_name" content="GarBia Group" />
-    <meta property="og:title" content="Geotechnical &amp; Construction Company Philippines | GarBia" />
+    <meta property="og:title" content="GarBia Group | Geotechnical &amp; Construction Services Philippines" />
     <meta
       property="og:description"
-      content="GarBia Group delivers soil investigation, foundation engineering, and geotechnical services across the Philippines."
+      content="GarBia Group (GarBia Structural and Geotechnical Solutions) provides soil investigation, geotechnical testing, foundation engineering, and micropiling across Luzon, Philippines."
     />
-    <meta property="og:image" content="https://garbia.sgp1.cdn.digitaloceanspaces.com/images/garbia1.jpg" />
-    <meta property="og:image:width" content="1200" />
-    <meta property="og:image:height" content="630" />
     <meta property="og:url" content="https://garbiagroup.com/" />
+    <meta property="og:image" content="https://garbiagroup.com/garbia1.jpg" />
     <meta property="og:locale" content="en_PH" />
-
     <meta name="twitter:card" content="summary_large_image" />
-    <meta name="twitter:title" content="Geotechnical &amp; Construction Company Philippines | GarBia" />
-    <meta
-      name="twitter:description"
-      content="GarBia Group delivers soil investigation, foundation engineering, and geotechnical services in the Philippines."
-    />
-    <meta name="twitter:image" content="https://garbia.sgp1.cdn.digitaloceanspaces.com/images/garbia1.jpg" />
-
-    <link rel="canonical" href="https://garbiagroup.com/" />
+    <meta name="twitter:image" content="https://garbiagroup.com/garbia1.jpg" />
+    <!--seo:end-->
   </head>
   <body>
-    <div id="root"></div>
+    <div id="root"><!--app-html--></div>
     <script type="module" src="/src/main.jsx"></script>
   </body>
 </html>

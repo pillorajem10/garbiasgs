@@ -22,8 +22,47 @@
   font-size: 1.125rem;
   line-height: var(--leading-prose, 1.7);
   max-width: 28rem;
+  margin-bottom: 1.75rem;
+  color: var(--color-text-muted, #475569);
+}
+
+.nav {
+  margin-bottom: 1.75rem;
+}
+
+.navList {
+  list-style: none;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 0.5rem 1.25rem;
+  margin: 0;
+  padding: 0;
+}
+
+.navLink {
+  color: var(--color-primary, #0c4a6e);
+  font-weight: 600;
+  text-decoration: none;
+  min-height: 44px;
+  display: inline-flex;
+  align-items: center;
+}
+
+.navLink:hover,
+.navLink:focus-visible {
+  text-decoration: underline;
+}
+
+.help {
   margin-bottom: 2rem;
   color: var(--color-text-muted, #475569);
+  line-height: var(--leading-prose, 1.7);
+}
+
+.inlineLink {
+  color: var(--color-primary, #0c4a6e);
+  font-weight: 600;
 }
 
 .homeLink {

@@ -38,6 +38,10 @@ background-color: blue; /* Fallback color */
 }
 
 .imageContainer1 img {
+    /* Paired with the width/height attributes on the <img>: the browser
+       derives the aspect ratio from them and reserves the box before the file
+       arrives, so the section no longer reflows when each photo decodes. */
+    height: auto;
     width: 100%;
     border-radius: 5px;
 }

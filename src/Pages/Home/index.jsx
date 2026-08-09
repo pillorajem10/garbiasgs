@@ -1,4 +1,5 @@
 import HomeBannerSection from "@sections/HomeBannerSection";
+import HomeIntroSection from "@sections/HomeIntroSection";
 import HomeMissionVisionSection from "@sections/HomeMissionVisionSection";
 import HomeObjectivesSection from "@sections/HomeObjectivesSection";
 import HomeCompanyWithHeartSection from "@sections/HomeCompanyWithHeartSection";
@@ -8,6 +9,7 @@ import { HOME_FAQ } from "@/seo/faqData";
 const Page = () => (
   <>
     <HomeBannerSection />
+    <HomeIntroSection />
     <HomeMissionVisionSection />
     <HomeObjectivesSection />
     <HomeCompanyWithHeartSection />

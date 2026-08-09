@@ -4,9 +4,10 @@ import LazyBackground from '@components/LazyBackground';
 import OptimizedImage from '@components/OptimizedImage';
 import { SECTION_BACKGROUNDS } from '@/seo/sectionBackgrounds';
 import { cdnImage } from '@/utils/cdn';
+import { imageDims } from '@/utils/imageDimensions';
 import styles from './index.module.css';
 
-const ServiceBlock = ({ title, image, items }) => {
+const ServiceBlock = ({ title, image, imageFile, items }) => {
   const ref = useRef(null);
   const controls = useAnimation();
   const inView = useInView(ref);
@@ -44,7 +45,12 @@ const ServiceBlock = ({ title, image, items }) => {
       transition={{ type: 'spring', stiffness: 60, damping: 15 }}
     >
       <div className={styles.imageContainer}>
-        <OptimizedImage src={image} alt={`${title} — illustrative photo`} className={styles.image} />
+        <OptimizedImage
+          src={image}
+          {...imageDims(imageFile)}
+          alt={`${title} — illustrative photo`}
+          className={styles.image}
+        />
       </div>
 
       <div className={styles.textContainer}>
@@ -60,8 +66,9 @@ const ServicesSection = () => {
     <LazyBackground as="section" id="services-list" className={styles.container} backgroundUrl={SECTION_BACKGROUNDS.services} aria-label="GarBia geotechnical services list">
       <div className={styles.serviceRow}>
         <ServiceBlock
-          title="Services"
+          title="Geotechnical Engineering & Site Investigation"
           image={cdnImage("service1.jpg")}
+          imageFile="service1.jpg"
           items={[
             'Site Assessment',
             {
@@ -82,8 +89,9 @@ const ServicesSection = () => {
           ]}
         />
         <ServiceBlock
-          title="Laboratory Testing"
+          title="Soil Laboratory Testing"
           image={cdnImage("66bc725f-c176-4ea9-8816-eb138ef6824e.jpg")}
+          imageFile="66bc725f-c176-4ea9-8816-eb138ef6824e.jpg"
           items={[
             'Soil Sample Analysis',
             'Moisture Content Testing',

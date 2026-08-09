@@ -45,6 +45,11 @@ background-color: blue; /* Fallback color */
 .video {
     width: 100%;
     height: auto;
+    /* garbiaCharity.mp4 is 1280x720. Without this the element renders at the
+       UA default 300x150 box and jumps to 16:9 when metadata arrives — with
+       preload="none" that happens late, and everything below it (including the
+       footer) shifts. Reserving the ratio up front removes that shift. */
+    aspect-ratio: 16 / 9;
     max-width: 40rem;
     border-radius: 10px;
     box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);

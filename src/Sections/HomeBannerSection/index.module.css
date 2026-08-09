@@ -51,6 +51,18 @@
   line-height: 1.15;
 }
 
+/* Company name as a smaller line above the headline, inside the same <h1>, so
+   the page's main heading names the business as well as what it does. */
+.brandEyebrow {
+  display: block;
+  font-size: clamp(0.95rem, 0.35vw + 0.85rem, 1.25rem);
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: #00e1ff;
+  margin-bottom: 0.6rem;
+}
+
 .bannerText p {
   font-size: clamp(1rem, 0.45vw + 0.9rem, 1.3rem);
   margin-top: clamp(1.5rem, 4vw, 2.5rem);

@@ -1,1 +1,8 @@
-/*  /index.html  200
+# Netlify-style rules. Production runs on nginx (deploy/docker-nginx.conf), so
+# this file only matters if the build is ever hosted on Netlify/Cloudflare Pages.
+#
+# The catch-all deliberately serves 404.html with a 404 status. It used to be
+# `/*  /index.html  200`, which answers every unknown URL with the homepage
+# shell and a 200 — a soft 404. Real routes are prerendered to their own HTML
+# files and are matched before this rule.
+/*  /404.html  404

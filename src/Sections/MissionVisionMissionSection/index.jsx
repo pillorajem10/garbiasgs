@@ -4,6 +4,7 @@ import LazyBackground from '@components/LazyBackground';
 import OptimizedImage from '@components/OptimizedImage';
 import { SECTION_BACKGROUNDS } from '@/seo/sectionBackgrounds';
 import { cdnImage } from '@/utils/cdn';
+import { imageDims } from '@/utils/imageDimensions';
 import styles from './index.module.css';
 
 const MissionVisionMissionSection = () => {
@@ -68,6 +69,7 @@ const MissionVisionMissionSection = () => {
                 <div className={styles.imageContainer1}>
                     <OptimizedImage
                         src={cdnImage("DJI_0180.JPG")}
+                        {...imageDims("DJI_0180.JPG")}
                         alt="GarBia mission — engineering team and equipment in the field"
                     />
                 </div>

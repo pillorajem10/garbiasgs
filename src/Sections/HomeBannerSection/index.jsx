@@ -35,7 +35,10 @@ const HomeBannerSection = () => {
                 animate={controls}
                 transition={{ type: 'spring', stiffness: 50, damping: 14 }}
             >
-                <h1>Soil Testing, Engineering Consultancy, and Construction Works</h1>
+                <h1>
+                    <span className={styles.brandEyebrow}>GarBia Group</span>
+                    Soil Testing, Engineering Consultancy, and Construction Works
+                </h1>
                 <p>
                     Dreaming of your perfect home? Lay the groundwork for a lifetime of stability by prioritizing safety and securing a flawless foundation
                 </p>

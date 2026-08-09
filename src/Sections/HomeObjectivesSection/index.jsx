@@ -4,6 +4,7 @@ import LazyBackground from '@components/LazyBackground';
 import OptimizedImage from '@components/OptimizedImage';
 import { SECTION_BACKGROUNDS } from '@/seo/sectionBackgrounds';
 import { cdnImage } from '@/utils/cdn';
+import { imageDims } from '@/utils/imageDimensions';
 import styles from './index.module.css';
 
 const HomeObjectivesSection = () => {
@@ -53,6 +54,7 @@ const HomeObjectivesSection = () => {
         <div className={styles.imageContainer1}>
           <OptimizedImage
             src={cdnImage("home1.jpg")}
+            {...imageDims("home1.jpg")}
             alt="GarBia engineering and laboratory operations supporting company objectives"
           />
         </div>

@@ -26,8 +26,10 @@ const Program = lazy(() => import("@pages/Program"));
 const DefaultPage = lazy(() => import("@pages/DefaultPage"));
 
 function useNetworkGate() {
+  // Default to "ok" when there is no navigator (build-time prerender): the
+  // static HTML must contain the real page, never the offline screen.
   const [netMode, setNetMode] = useState(() =>
-    typeof navigator !== "undefined" && navigator.onLine ? "ok" : "offline"
+    typeof navigator === "undefined" || navigator.onLine ? "ok" : "offline"
   );
 
   const pingServer = useCallback(async () => {
@@ -136,7 +138,12 @@ function AppShell({ menuOpen, onOpenMenu, onCloseMenu }) {
   );
 }
 
-function App() {
+/**
+ * Everything below the router. Kept separate from `App` so the build-time
+ * prerender can mount the same tree under a StaticRouter — one component tree,
+ * no second copy of the shell to drift out of sync.
+ */
+export function AppRoot() {
   const [menuOpen, setMenuOpen] = useState(false);
   const { netMode, retry } = useNetworkGate();
 
@@ -146,22 +153,26 @@ function App() {
 
   if (netMode === "offline" || netMode === "unreachable") {
     return (
-      <Router>
-        <OfflineScreen
-          variant={netMode === "offline" ? "offline" : "unreachable"}
-          onRetry={retry}
-        />
-      </Router>
+      <OfflineScreen
+        variant={netMode === "offline" ? "offline" : "unreachable"}
+        onRetry={retry}
+      />
     );
   }
 
   return (
+    <AppShell
+      menuOpen={menuOpen}
+      onOpenMenu={openMenu}
+      onCloseMenu={closeMenu}
+    />
+  );
+}
+
+function App() {
+  return (
     <Router>
-      <AppShell
-        menuOpen={menuOpen}
-        onOpenMenu={openMenu}
-        onCloseMenu={closeMenu}
-      />
+      <AppRoot />
     </Router>
   );
 }

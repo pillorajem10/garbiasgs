@@ -27,7 +27,16 @@ function readPreference() {
 }
 
 export function useAutoplayAllowed() {
-  const [allowed, setAllowed] = useState(readPreference);
+  // Starts at the prerender's answer (`true`) rather than reading the media
+  // query during render, so the first client render matches the static HTML
+  // exactly and hydration has nothing to reconcile. The effect below corrects
+  // it immediately for reduced-motion and metered connections, before any
+  // video has had a chance to load.
+  const [allowed, setAllowed] = useState(true);
+
+  useEffect(() => {
+    setAllowed(readPreference());
+  }, []);
 
   useEffect(() => {
     const motionQuery = window.matchMedia?.(REDUCED_MOTION);

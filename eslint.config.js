@@ -4,9 +4,21 @@ import reactHooks from 'eslint-plugin-react-hooks'
 import reactRefresh from 'eslint-plugin-react-refresh'
 
 export default [
-  { ignores: ['dist'] },
+  // dist-ssr holds the build-time render bundle, same as dist: generated, minified.
+  { ignores: ['dist', 'dist-ssr'] },
+  {
+    // Build tooling runs under Node, not in the browser.
+    files: ['scripts/**/*.mjs', 'vite.config.js'],
+    languageOptions: {
+      ecmaVersion: 'latest',
+      globals: globals.node,
+      parserOptions: { sourceType: 'module' },
+    },
+    rules: js.configs.recommended.rules,
+  },
   {
     files: ['**/*.{js,jsx}'],
+    ignores: ['scripts/**/*.mjs', 'vite.config.js'],
     languageOptions: {
       ecmaVersion: 2020,
       globals: globals.browser,

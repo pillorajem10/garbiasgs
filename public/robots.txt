@@ -1,4 +1,11 @@
+# garbiagroup.com — GarBia Group (GarBia Structural and Geotechnical Solutions)
+# Every page on this site is intended to be crawled and indexed.
+
 User-agent: *
 Allow: /
+
+# Cache-busting query the app appends when probing connectivity. Crawling it
+# would produce endless duplicate URLs of the homepage.
+Disallow: /*?_alive=
 
 Sitemap: https://garbiagroup.com/sitemap.xml

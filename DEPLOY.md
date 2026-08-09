@@ -1,8 +1,29 @@
 # Deployment
 
-garbiasgs is a static Vite/React SPA run as a single Docker container. The
-container serves the static build with nginx; the **host nginx** terminates SSL
-and reverse-proxies to it.
+garbiasgs is a Vite/React app run as a single Docker container. The container
+serves the static build with nginx; the **host nginx** terminates SSL and
+reverse-proxies to it.
+
+## Build: three steps, not one
+
+`npm run build` now runs:
+
+1. `build:client` — the browser bundle (`dist/`).
+2. `build:ssr` — a Node-only render bundle (`dist-ssr/`), never shipped.
+3. `prerender` — [scripts/prerender.mjs](scripts/prerender.mjs) renders every
+   route in [src/seo/pageMeta.js](src/seo/pageMeta.js) to its own HTML file
+   (`dist/services.html`, `dist/about.html`, …) with that page's title,
+   description, canonical, social tags, and content, and regenerates
+   `dist/sitemap.xml`.
+
+The client **hydrates** that markup rather than replacing it, so the HTML a
+crawler or link previewer fetches is the page itself, not an empty shell.
+
+**Adding a route means three edits:** the `<Route>` in `src/App.jsx`, an entry
+in `PAGE_META` + `INDEXABLE_ROUTES` in `src/seo/pageMeta.js`, and the page
+module in `ROUTE_MODULES` in `scripts/prerender.mjs`. Miss the last one and the
+build fails with a clear message; miss the middle one and nginx returns 404 for
+the new URL, because unknown paths are no longer answered with the SPA shell.
 
 ## Pipeline (push to `master`)
 

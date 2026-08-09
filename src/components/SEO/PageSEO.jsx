@@ -1,57 +1,40 @@
 import { useMemo } from "react";
 import { useLocation } from "react-router-dom";
 import usePageSEO from "@/hooks/usePageSEO";
+import JsonLdGraph from "./JsonLd";
+import { canonicalUrl, getPageMeta } from "@/seo/pageMeta";
 import {
-  OrganizationJsonLd,
-  LocalBusinessJsonLd,
-  WebSiteJsonLd,
-  FaqPageJsonLd,
-  BreadcrumbJsonLd,
-  ServiceJsonLd,
-} from "./JsonLd";
-import { canonicalUrl } from "@/seo/pageMeta";
-
-const SERVICE_SCHEMA_ITEMS = [
-  {
-    name: "Soil Investigation & Site Investigation",
-    description:
-      "Sub-surface exploration, sampling, and laboratory testing for foundation and structural design.",
-  },
-  {
-    name: "Foundation Engineering & Deep Foundations",
-    description:
-      "Foundation recommendations, deep foundation design support, and pile driving contractor services.",
-  },
-  {
-    name: "Geotechnical Laboratory Testing",
-    description:
-      "Soil and material testing to support civil engineering and construction projects in the Philippines.",
-  },
-];
+  breadcrumbNode,
+  faqNode,
+  serviceNodes,
+  webPageNode,
+} from "@/seo/structuredData";
 
 export default function PageSEO({ faqs, breadcrumbLabel }) {
   const { pathname } = useLocation();
   usePageSEO();
 
-  // Stable identity so BreadcrumbJsonLd's memo holds between renders.
-  const breadcrumbs = useMemo(() => {
-    const trail = [{ name: "Home", url: canonicalUrl("/") }];
-    if (pathname !== "/" && breadcrumbLabel) {
-      trail.push({ name: breadcrumbLabel, url: canonicalUrl(pathname) });
-    }
-    return trail;
-  }, [pathname, breadcrumbLabel]);
+  const nodes = useMemo(() => {
+    const url = canonicalUrl(pathname);
+    const meta = getPageMeta(pathname);
+    const pageNodes = [
+      webPageNode({ url, title: meta.title, description: meta.description }),
+    ];
 
-  return (
-    <>
-      <OrganizationJsonLd />
-      <LocalBusinessJsonLd />
-      <WebSiteJsonLd />
-      {pathname === "/services" && <ServiceJsonLd services={SERVICE_SCHEMA_ITEMS} />}
-      {faqs?.length > 0 && <FaqPageJsonLd faqs={faqs} />}
-      {breadcrumbLabel && pathname !== "/" && (
-        <BreadcrumbJsonLd items={breadcrumbs} />
-      )}
-    </>
-  );
+    if (pathname !== "/" && breadcrumbLabel) {
+      pageNodes.push(
+        breadcrumbNode([
+          { name: "Home", url: canonicalUrl("/") },
+          { name: breadcrumbLabel, url },
+        ]),
+      );
+    }
+
+    if (pathname === "/services") pageNodes.push(...serviceNodes());
+    if (faqs?.length) pageNodes.push(faqNode(faqs));
+
+    return pageNodes;
+  }, [pathname, breadcrumbLabel, faqs]);
+
+  return <JsonLdGraph nodes={nodes} />;
 }

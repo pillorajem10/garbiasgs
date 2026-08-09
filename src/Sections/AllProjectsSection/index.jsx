@@ -11,7 +11,18 @@ const AllProjectsSection = ({ onOpenModal }) => (
     as="section"
     className={styles.container}
     backgroundUrl={SECTION_BACKGROUNDS.allProjects}
+    aria-labelledby="projects-heading"
   >
+    {/* The cards are <h3>. Without this the page jumped h1 → h3, which leaves
+        the outline (and assistive tech) with a missing level. */}
+    <header className={styles.sectionHeader}>
+      <h2 id="projects-heading">Completed projects</h2>
+      <p>
+        Soil investigation, geotechnical testing, and foundation works delivered
+        by GarBia Group. Select a project to view site photos.
+      </p>
+    </header>
+
     {projectsData.map((project) => (
       <button
         type="button"
