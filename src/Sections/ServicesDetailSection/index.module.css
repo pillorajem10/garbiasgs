@@ -1,0 +1,101 @@
+.section {
+  background: var(--color-surface);
+  padding: clamp(3rem, 7vw, 5.5rem) 1.25rem;
+}
+
+.inner {
+  max-width: 72rem;
+  margin: 0 auto;
+}
+
+.heading {
+  font-size: clamp(1.5rem, 1.4vw + 1.1rem, 2.25rem);
+  color: var(--color-primary);
+}
+
+.intro {
+  margin-top: 1rem;
+  max-width: 56rem;
+  color: var(--color-text-muted);
+  line-height: var(--leading-prose);
+}
+
+.grid {
+  margin-top: clamp(2rem, 4vw, 3rem);
+  display: grid;
+  gap: clamp(1.25rem, 3vw, 1.75rem);
+  grid-template-columns: repeat(auto-fit, minmax(19rem, 1fr));
+}
+
+.card {
+  background: var(--color-bg);
+  border-radius: var(--radius-md);
+  border-left: 3px solid var(--color-accent);
+  padding: clamp(1.25rem, 2.5vw, 1.75rem);
+  /* Anchored from the Service schema and from in-page links; offset so the
+     fixed navbar does not cover the heading when jumped to. */
+  scroll-margin-top: calc(var(--nav-height) + 1rem);
+}
+
+.cardTitle {
+  font-size: 1.1rem;
+  color: var(--color-primary-deep);
+}
+
+.cardBody {
+  margin-top: 0.6rem;
+  color: var(--color-text);
+  line-height: var(--leading-prose);
+}
+
+.meta {
+  margin-top: 1rem;
+  font-size: 0.94rem;
+}
+
+.meta dt {
+  font-weight: 700;
+  color: var(--color-primary);
+  margin-top: 0.75rem;
+}
+
+.meta dd {
+  color: var(--color-text-muted);
+  line-height: 1.6;
+}
+
+.process {
+  margin-top: clamp(2.5rem, 5vw, 3.5rem);
+}
+
+.processTitle {
+  font-size: 1.25rem;
+  color: var(--color-primary);
+}
+
+.processList {
+  margin-top: 1rem;
+  padding-left: 1.35rem;
+  display: grid;
+  gap: 0.6rem;
+  color: var(--color-text);
+  line-height: var(--leading-prose);
+  max-width: 56rem;
+}
+
+.cta {
+  margin-top: clamp(2rem, 4vw, 2.75rem);
+  padding-top: 1.5rem;
+  border-top: 1px solid rgba(15, 23, 42, 0.12);
+  line-height: var(--leading-prose);
+}
+
+.link {
+  color: var(--color-primary);
+  font-weight: 700;
+}
+
+.link:hover,
+.link:focus-visible {
+  text-decoration: underline;
+}
