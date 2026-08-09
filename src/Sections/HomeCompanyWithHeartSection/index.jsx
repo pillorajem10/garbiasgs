@@ -1,33 +1,31 @@
 import { motion, useAnimation, useInView } from 'framer-motion';
-import { useEffect, useRef, useState, memo } from 'react';
+import { useEffect, useRef, memo } from 'react';
 import LazyBackground from '@components/LazyBackground';
 import LazyVideo from '@components/LazyVideo';
 import OptimizedImage from '@components/OptimizedImage';
+import { useAutoAdvance } from '@/hooks/useAutoAdvance';
+import { cdnImage, cdnVideo } from '@/utils/cdn';
 import { SECTION_BACKGROUNDS } from '@/seo/sectionBackgrounds';
 import styles from './index.module.css';
 import { companyWithHeartData } from './data';
 
+const SLIDE_MS = 3000;
+const slides = companyWithHeartData.map((file) => cdnImage(`home_charity/${file}`));
+
 const HomeCompanyWithHeartSection = () => {
-    const imageUrl = 'https://garbia.sgp1.cdn.digitaloceanspaces.com/images/home_charity/';
-    
     const leftRef = useRef(null);
     const rightRef = useRef(null);
 
     const leftControls = useAnimation();
     const rightControls = useAnimation();
 
-    const leftInView = useInView(leftRef, { threshold: 0.3 });
-    const rightInView = useInView(rightRef, { threshold: 0.3 });
+    const leftInView = useInView(leftRef);
+    const rightInView = useInView(rightRef);
 
-    const [currentImage, setCurrentImage] = useState(0);
-    const slides = companyWithHeartData.map((f) => `${imageUrl}${f}`);
-
-    useEffect(() => {
-        const interval = setInterval(() => {
-            setCurrentImage((prev) => (prev + 1) % companyWithHeartData.length);
-        }, 3000);
-        return () => clearInterval(interval);
-    }, []);
+    // The rotating image is in the left column.
+    const [currentImage] = useAutoAdvance(slides.length, SLIDE_MS, {
+        active: leftInView,
+    });
 
     useEffect(() => {
         if (leftInView) leftControls.start({ x: 0, opacity: 1 });
@@ -64,9 +62,8 @@ const HomeCompanyWithHeartSection = () => {
                     transition={{ type: 'spring', stiffness: 60, damping: 15 }}
                 >
                     <OptimizedImage
-                        key={currentImage}
                         src={slides[currentImage]}
-                        alt={`Community and charity work by GarBia, image ${currentImage + 1} of ${companyWithHeartData.length}`}
+                        alt={`Community and charity work by GarBia, image ${currentImage + 1} of ${slides.length}`}
                         className={styles.fadeImage}
                     />
                 </motion.div>
@@ -79,7 +76,7 @@ const HomeCompanyWithHeartSection = () => {
                     transition={{ type: 'spring', stiffness: 60, damping: 15 }}
                 >
                     <LazyVideo
-                        src="https://garbia.sgp1.cdn.digitaloceanspaces.com/videos/garbiaCharity.mp4"
+                        src={cdnVideo("garbiaCharity.mp4")}
                         className={styles.video}
                         controls
                     />

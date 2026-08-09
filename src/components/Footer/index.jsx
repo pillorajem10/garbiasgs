@@ -1,20 +1,13 @@
 import { Link } from "react-router-dom";
 import { BUSINESS } from "@/seo/constants";
+import { FOOTER_NAV } from "@/constants/navigation";
 import styles from "./index.module.css";
-
-const LINKS = [
-  { to: "/services", label: "Services" },
-  { to: "/about", label: "About" },
-  { to: "/projects", label: "Projects" },
-  { to: "/location", label: "Location" },
-  { to: "/contact", label: "Contact" },
-];
 
 const Footer = () => (
   <footer className={styles.footer}>
     <nav className={styles.nav} aria-label="Footer">
       <ul className={styles.linkList}>
-        {LINKS.map(({ to, label }) => (
+        {FOOTER_NAV.map(({ to, label }) => (
           <li key={to}>
             <Link to={to} className={styles.link}>
               {label}

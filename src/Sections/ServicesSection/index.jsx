@@ -3,12 +3,13 @@ import { useEffect, useRef, memo } from 'react';
 import LazyBackground from '@components/LazyBackground';
 import OptimizedImage from '@components/OptimizedImage';
 import { SECTION_BACKGROUNDS } from '@/seo/sectionBackgrounds';
+import { cdnImage } from '@/utils/cdn';
 import styles from './index.module.css';
 
 const ServiceBlock = ({ title, image, items }) => {
   const ref = useRef(null);
   const controls = useAnimation();
-  const inView = useInView(ref, { threshold: 0.3 });
+  const inView = useInView(ref);
 
   useEffect(() => {
     if (inView) {
@@ -60,7 +61,7 @@ const ServicesSection = () => {
       <div className={styles.serviceRow}>
         <ServiceBlock
           title="Services"
-          image="https://garbia.sgp1.cdn.digitaloceanspaces.com/images/service1.jpg"
+          image={cdnImage("service1.jpg")}
           items={[
             'Site Assessment',
             {
@@ -82,7 +83,7 @@ const ServicesSection = () => {
         />
         <ServiceBlock
           title="Laboratory Testing"
-          image="https://garbia.sgp1.cdn.digitaloceanspaces.com/images/66bc725f-c176-4ea9-8816-eb138ef6824e.jpg"
+          image={cdnImage("66bc725f-c176-4ea9-8816-eb138ef6824e.jpg")}
           items={[
             'Soil Sample Analysis',
             'Moisture Content Testing',

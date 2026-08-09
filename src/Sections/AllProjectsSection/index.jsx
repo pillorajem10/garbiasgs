@@ -1,11 +1,10 @@
 import React from "react";
 import LazyBackground from "@components/LazyBackground";
 import OptimizedImage from "@components/OptimizedImage";
+import { cdnImage } from "@/utils/cdn";
 import { SECTION_BACKGROUNDS } from "@/seo/sectionBackgrounds";
 import styles from "./index.module.css";
 import { projectsData } from "./data";
-
-const imageBaseUrl = "https://garbia.sgp1.cdn.digitaloceanspaces.com/images/projects";
 
 const AllProjectsSection = ({ onOpenModal }) => (
   <LazyBackground
@@ -22,7 +21,7 @@ const AllProjectsSection = ({ onOpenModal }) => (
         aria-label={`View photos for ${project.title} project`}
       >
         <OptimizedImage
-          src={`${imageBaseUrl}/${project.thumbnail}`}
+          src={cdnImage(`projects/${project.thumbnail}`)}
           alt={`${project.title} geotechnical and construction project thumbnail`}
           className={styles.thumbnail}
         />

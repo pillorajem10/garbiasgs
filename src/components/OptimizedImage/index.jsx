@@ -4,12 +4,17 @@ import { useState } from "react";
  * Shared image component for CDN-served images.
  *
  * All images come straight from the CDN (DigitalOcean Spaces), which has no
- * on-the-fly resizing or webp variants, so this focuses on *perceived*
- * performance rather than responsive sources:
+ * on-the-fly resizing and no webp/avif negotiation, so this focuses on
+ * *perceived* performance rather than responsive sources:
  *   - an immediate skeleton placeholder (CSS only, see `img[data-oi]` in index.css)
  *   - a subtle fade-in once the image decodes
  *   - a neutral fallback box if the image fails
  *   - lazy loading by default; eager + high priority for above-the-fold images
+ *
+ * Load state is derived from `src` rather than stored as a plain flag, so a
+ * component that swaps `src` (the slideshows do, every few seconds) shows the
+ * placeholder for the *new* image instead of inheriting the old one's state.
+ * That removes the need for callers to force a remount with `key`.
  *
  * Layout shift is prevented by the fixed-height / aspect-ratio frames the call
  * sites already provide (the `className` is kept on the <img>, so existing CSS
@@ -27,16 +32,18 @@ export default function OptimizedImage({
   onError,
   ...rest
 }) {
-  const [status, setStatus] = useState("loading"); // loading | loaded | error
+  const [loadedSrc, setLoadedSrc] = useState(null);
+  const [failedSrc, setFailedSrc] = useState(null);
 
   if (!src) return null;
 
   // Failed load: render a neutral box that keeps the frame's size (same class),
   // instead of a broken-image icon.
-  if (status === "error") {
+  if (failedSrc === src) {
     return (
       <span
         className={className}
+        style={width && height ? { aspectRatio: `${width} / ${height}` } : undefined}
         data-oi-error="true"
         role="img"
         aria-label={alt || "Image unavailable"}
@@ -56,13 +63,13 @@ export default function OptimizedImage({
       decoding="async"
       className={className}
       data-oi=""
-      data-loaded={status === "loaded" ? "" : undefined}
+      data-loaded={loadedSrc === src ? "" : undefined}
       onLoad={(e) => {
-        setStatus("loaded");
+        setLoadedSrc(src);
         onLoad?.(e);
       }}
       onError={(e) => {
-        setStatus("error");
+        setFailedSrc(src);
         onError?.(e);
       }}
       {...rest}

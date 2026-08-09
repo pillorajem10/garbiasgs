@@ -1,18 +1,15 @@
-import { useEffect, useState } from "react";
 import { useInView } from "framer-motion";
 
-/** True once element has entered the viewport (with optional rootMargin). */
+/**
+ * True once the element has entered the viewport, and stays true afterwards.
+ *
+ * `margin` expands the observer root, so "150px" starts loading shortly before
+ * the element is actually visible. With `once: true`, framer-motion already
+ * latches the value permanently — no extra state is needed to hold it.
+ */
 export function useInViewOnce(ref, options = {}) {
   const { rootMargin = "120px", amount = 0.01, once = true } = options;
-  const inView = useInView(ref, { once, amount, margin: rootMargin });
-  // framer-motion `margin` expands the root viewport (e.g. "150px" preloads before visible)
-  const [hasBeenVisible, setHasBeenVisible] = useState(false);
-
-  useEffect(() => {
-    if (inView) setHasBeenVisible(true);
-  }, [inView]);
-
-  return hasBeenVisible || inView;
+  return useInView(ref, { once, amount, margin: rootMargin });
 }
 
 export default useInViewOnce;

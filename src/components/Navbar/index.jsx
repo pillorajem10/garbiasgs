@@ -1,5 +1,7 @@
 import { Link } from "react-router-dom";
 import OptimizedImage from "@components/OptimizedImage";
+import { PRIMARY_NAV } from "@/constants/navigation";
+import { cdnImage } from "@/utils/cdn";
 import styles from "./index.module.css";
 
 const Navbar = ({ menuOpen, onToggleMenu }) => {
@@ -7,7 +9,7 @@ const Navbar = ({ menuOpen, onToggleMenu }) => {
     <nav className={styles.navbar} aria-label="Primary">
       <div className={styles.logoContainer}>
         <OptimizedImage
-          src="https://garbia.sgp1.cdn.digitaloceanspaces.com/images/garbiaLogo.jpg"
+          src={cdnImage("garbiaLogo.jpg")}
           alt="GarBia Structural and Geotechnical Solutions logo"
           className={styles.logo}
           width={160}
@@ -17,30 +19,11 @@ const Navbar = ({ menuOpen, onToggleMenu }) => {
       </div>
 
       <ul>
-        <li>
-          <Link to="/">Home</Link>
-        </li>
-        <li>
-          <Link to="/services">Services</Link>
-        </li>
-        <li>
-          <Link to="/about">About</Link>
-        </li>
-        <li>
-          <Link to="/mission-vision">Mission And Vision</Link>
-        </li>
-        <li>
-          <Link to="/projects">Projects</Link>
-        </li>
-        <li>
-          <Link to="/program">Program</Link>
-        </li>
-        <li>
-          <Link to="/location">Location</Link>
-        </li>
-        <li>
-          <Link to="/contact">Contact</Link>
-        </li>
+        {PRIMARY_NAV.map(({ to, label }) => (
+          <li key={to}>
+            <Link to={to}>{label}</Link>
+          </li>
+        ))}
       </ul>
 
       <button

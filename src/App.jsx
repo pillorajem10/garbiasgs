@@ -115,7 +115,7 @@ function RoutedMain() {
   );
 }
 
-function AppShell({ menuOpen, setMenuOpen }) {
+function AppShell({ menuOpen, onOpenMenu, onCloseMenu }) {
   return (
     <>
       <RouteSEO />
@@ -123,12 +123,10 @@ function AppShell({ menuOpen, setMenuOpen }) {
       <a href="#main-content" className="skip-link">
         Skip to main content
       </a>
-      <Navbar menuOpen={menuOpen} onToggleMenu={() => setMenuOpen(true)} />
+      <Navbar menuOpen={menuOpen} onToggleMenu={onOpenMenu} />
 
       <AnimatePresence>
-        {menuOpen && (
-          <BurgerMenu id="site-mobile-menu" onClose={() => setMenuOpen(false)} />
-        )}
+        {menuOpen && <BurgerMenu id="site-mobile-menu" onClose={onCloseMenu} />}
       </AnimatePresence>
 
       <RoutedMain />
@@ -141,6 +139,10 @@ function AppShell({ menuOpen, setMenuOpen }) {
 function App() {
   const [menuOpen, setMenuOpen] = useState(false);
   const { netMode, retry } = useNetworkGate();
+
+  // Stable identities so BurgerMenu's memo() is not defeated on every render.
+  const openMenu = useCallback(() => setMenuOpen(true), []);
+  const closeMenu = useCallback(() => setMenuOpen(false), []);
 
   if (netMode === "offline" || netMode === "unreachable") {
     return (
@@ -155,7 +157,11 @@ function App() {
 
   return (
     <Router>
-      <AppShell menuOpen={menuOpen} setMenuOpen={setMenuOpen} />
+      <AppShell
+        menuOpen={menuOpen}
+        onOpenMenu={openMenu}
+        onCloseMenu={closeMenu}
+      />
     </Router>
   );
 }

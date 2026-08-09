@@ -2,11 +2,11 @@ import { useRef, useEffect } from "react";
 import { motion, useAnimation, useInView } from "framer-motion";
 import { Link } from "react-router-dom";
 import LazyVideo from "@components/LazyVideo";
+import { cdnVideo } from "@/utils/cdn";
 import { BUSINESS } from "@/seo/constants";
 import styles from "./index.module.css";
 
-const VIDEO =
-  "https://garbia.sgp1.cdn.digitaloceanspaces.com/videos/DJI_0237_trimmed_clip2.mp4";
+const VIDEO = cdnVideo("DJI_0237_trimmed_clip2.mp4");
 
 const ContactSection = () => {
   const contentRef = useRef(null);

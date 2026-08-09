@@ -1,5 +1,7 @@
 /* Charity-style page hero: H1 → rule → body paragraph */
 .banner {
+  /* Matches the loaded hero tone so the pre-video paint is not a light flash. */
+  background-color: var(--color-primary-deep);
   position: relative;
   width: 100%;
   max-width: 100%;

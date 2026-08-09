@@ -3,6 +3,7 @@ import { useEffect, useRef, memo } from 'react';
 import LazyBackground from '@components/LazyBackground';
 import OptimizedImage from '@components/OptimizedImage';
 import { SECTION_BACKGROUNDS } from '@/seo/sectionBackgrounds';
+import { cdnImage } from '@/utils/cdn';
 import styles from './index.module.css';
 
 const HomeObjectivesSection = () => {
@@ -10,8 +11,8 @@ const HomeObjectivesSection = () => {
   const rightRef = useRef(null);
   const leftControls = useAnimation();
   const rightControls = useAnimation();
-  const leftInView = useInView(leftRef, { threshold: 0.3 });
-  const rightInView = useInView(rightRef, { threshold: 0.3 });
+  const leftInView = useInView(leftRef);
+  const rightInView = useInView(rightRef);
 
   useEffect(() => {
     if (leftInView) leftControls.start({ x: 0, opacity: 1 });
@@ -51,7 +52,7 @@ const HomeObjectivesSection = () => {
       >
         <div className={styles.imageContainer1}>
           <OptimizedImage
-            src="https://garbia.sgp1.cdn.digitaloceanspaces.com/images/home1.jpg"
+            src={cdnImage("home1.jpg")}
             alt="GarBia engineering and laboratory operations supporting company objectives"
           />
         </div>

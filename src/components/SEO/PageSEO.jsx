@@ -1,3 +1,4 @@
+import { useMemo } from "react";
 import { useLocation } from "react-router-dom";
 import usePageSEO from "@/hooks/usePageSEO";
 import {
@@ -32,10 +33,14 @@ export default function PageSEO({ faqs, breadcrumbLabel }) {
   const { pathname } = useLocation();
   usePageSEO();
 
-  const breadcrumbs = [{ name: "Home", url: canonicalUrl("/") }];
-  if (pathname !== "/" && breadcrumbLabel) {
-    breadcrumbs.push({ name: breadcrumbLabel, url: canonicalUrl(pathname) });
-  }
+  // Stable identity so BreadcrumbJsonLd's memo holds between renders.
+  const breadcrumbs = useMemo(() => {
+    const trail = [{ name: "Home", url: canonicalUrl("/") }];
+    if (pathname !== "/" && breadcrumbLabel) {
+      trail.push({ name: breadcrumbLabel, url: canonicalUrl(pathname) });
+    }
+    return trail;
+  }, [pathname, breadcrumbLabel]);
 
   return (
     <>

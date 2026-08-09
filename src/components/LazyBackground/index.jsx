@@ -1,6 +1,6 @@
 import { useRef, useEffect } from "react";
 import { useInViewOnce } from "@/hooks/useInViewOnce";
-import { preloadImage } from "@/utils/images";
+import { preloadImage } from "@/utils/cdn";
 
 /**
  * Defers CSS background-image until the section is near the viewport.

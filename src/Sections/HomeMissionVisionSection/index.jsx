@@ -3,6 +3,7 @@ import { useEffect, useRef, memo } from 'react';
 import LazyBackground from '@components/LazyBackground';
 import OptimizedImage from '@components/OptimizedImage';
 import { SECTION_BACKGROUNDS } from '@/seo/sectionBackgrounds';
+import { cdnImage } from '@/utils/cdn';
 import styles from './index.module.css';
 
 const HomeMissionVisionSection = () => {
@@ -14,8 +15,8 @@ const HomeMissionVisionSection = () => {
     const leftControls = useAnimation();
     const rightControls = useAnimation();
 
-    const leftInView = useInView(leftRef, { threshold: 0.3 });
-    const rightInView = useInView(rightRef, { threshold: 0.3 });
+    const leftInView = useInView(leftRef);
+    const rightInView = useInView(rightRef);
 
     useEffect(() => {
         if (leftInView) {
@@ -44,7 +45,7 @@ const HomeMissionVisionSection = () => {
             >
                 <div className={styles.imageContainer}>
                     <OptimizedImage
-                        src="https://garbia.sgp1.cdn.digitaloceanspaces.com/images/DJI_0226.jpg"
+                        src={cdnImage("DJI_0226.jpg")}
                         alt="GarBia team at a project site illustrating the company mission"
                     />
                 </div>
@@ -74,7 +75,7 @@ const HomeMissionVisionSection = () => {
                 </p>
                 <div className={styles.imageContainer1}>
                     <OptimizedImage
-                        src="https://garbia.sgp1.cdn.digitaloceanspaces.com/images/DJI_0059.jpg"
+                        src={cdnImage("DJI_0059.jpg")}
                         alt="Geotechnical field work representing GarBia vision for quality infrastructure"
                     />
                 </div>

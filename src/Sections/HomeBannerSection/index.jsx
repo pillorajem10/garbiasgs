@@ -1,14 +1,15 @@
 import { useRef, useEffect } from 'react';
 import { motion, useAnimation, useInView } from 'framer-motion';
 import LazyVideo from '@components/LazyVideo';
+import { cdnVideo } from '@/utils/cdn';
 import styles from './index.module.css';
 
-const HOME_VIDEO = 'https://garbia.sgp1.cdn.digitaloceanspaces.com/videos/DJI_0020_trimmed.mp4';
+const HOME_VIDEO = cdnVideo("DJI_0020_trimmed.mp4");
 
 const HomeBannerSection = () => {
     const bannerTextRef = useRef(null);
     const controls = useAnimation();
-    const inView = useInView(bannerTextRef, { threshold: 0.3 });
+    const inView = useInView(bannerTextRef);
 
     useEffect(() => {
         if (inView) {

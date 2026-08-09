@@ -10,106 +10,85 @@ function JsonLdScript({ data }) {
   );
 }
 
+// Schema that never varies is built once at module scope rather than memoised
+// per component instance — same JSON, no per-render work and no memo cache.
+const CONTACT_POINTS = [
+  {
+    "@type": "ContactPoint",
+    telephone: BUSINESS.telephone,
+    contactType: "customer service",
+    areaServed: "PH",
+    availableLanguage: ["English", "Filipino"],
+  },
+  ...BUSINESS.mobileNumbers.map((m) => ({
+    "@type": "ContactPoint",
+    telephone: m.tel,
+    contactType: "customer service",
+    areaServed: "PH",
+  })),
+];
+
+const POSTAL_ADDRESS = {
+  "@type": "PostalAddress",
+  streetAddress: BUSINESS.streetAddress,
+  addressLocality: BUSINESS.addressLocality,
+  addressRegion: BUSINESS.addressRegion,
+  postalCode: BUSINESS.postalCode,
+  addressCountry: BUSINESS.addressCountry,
+};
+
+const ORGANIZATION = {
+  "@context": "https://schema.org",
+  "@type": "Organization",
+  name: SITE_NAME,
+  legalName: BUSINESS.legalName,
+  url: SITE_URL,
+  logo: `${CDN_IMAGES}/garbiaLogo.jpg`,
+  image: `${SITE_URL}/garbia1.jpg`,
+  foundingDate: String(BUSINESS.foundingYear),
+  email: BUSINESS.email,
+  telephone: BUSINESS.telephone,
+  contactPoint: CONTACT_POINTS,
+  address: POSTAL_ADDRESS,
+};
+
+const LOCAL_BUSINESS = {
+  "@context": "https://schema.org",
+  "@type": "LocalBusiness",
+  name: BUSINESS.legalName,
+  image: `${SITE_URL}/garbia1.jpg`,
+  url: SITE_URL,
+  email: BUSINESS.email,
+  telephone: BUSINESS.telephone,
+  contactPoint: CONTACT_POINTS,
+  priceRange: BUSINESS.priceRange,
+  address: POSTAL_ADDRESS,
+  geo: {
+    "@type": "GeoCoordinates",
+    latitude: BUSINESS.geo.latitude,
+    longitude: BUSINESS.geo.longitude,
+  },
+  areaServed: { "@type": "Country", name: "Philippines" },
+};
+
+const WEB_SITE = {
+  "@context": "https://schema.org",
+  "@type": "WebSite",
+  name: SITE_NAME,
+  url: SITE_URL,
+  inLanguage: "en-PH",
+};
+
 export function OrganizationJsonLd() {
-  const data = useMemo(
-    () => ({
-      "@context": "https://schema.org",
-      "@type": "Organization",
-      name: SITE_NAME,
-      legalName: BUSINESS.legalName,
-      url: SITE_URL,
-      logo: `${CDN_IMAGES}/garbiaLogo.jpg`,
-      image: `${SITE_URL}/garbia1.jpg`,
-      foundingDate: String(BUSINESS.foundingYear),
-      email: BUSINESS.email,
-      telephone: BUSINESS.telephone,
-      contactPoint: [
-        {
-          "@type": "ContactPoint",
-          telephone: BUSINESS.telephone,
-          contactType: "customer service",
-          areaServed: "PH",
-          availableLanguage: ["English", "Filipino"],
-        },
-        ...BUSINESS.mobileNumbers.map((m) => ({
-          "@type": "ContactPoint",
-          telephone: m.tel,
-          contactType: "customer service",
-          areaServed: "PH",
-        })),
-      ],
-      address: {
-        "@type": "PostalAddress",
-        streetAddress: BUSINESS.streetAddress,
-        addressLocality: BUSINESS.addressLocality,
-        addressRegion: BUSINESS.addressRegion,
-        postalCode: BUSINESS.postalCode,
-        addressCountry: BUSINESS.addressCountry,
-      },
-    }),
-    []
-  );
-  return <JsonLdScript data={data} />;
+  return <JsonLdScript data={ORGANIZATION} />;
 }
 
 export function LocalBusinessJsonLd() {
-  const data = useMemo(
-    () => ({
-      "@context": "https://schema.org",
-      "@type": "LocalBusiness",
-      name: BUSINESS.legalName,
-      image: `${SITE_URL}/garbia1.jpg`,
-      url: SITE_URL,
-      email: BUSINESS.email,
-      telephone: BUSINESS.telephone,
-      contactPoint: [
-        {
-          "@type": "ContactPoint",
-          telephone: BUSINESS.telephone,
-          contactType: "customer service",
-          areaServed: "PH",
-          availableLanguage: ["English", "Filipino"],
-        },
-        ...BUSINESS.mobileNumbers.map((m) => ({
-          "@type": "ContactPoint",
-          telephone: m.tel,
-          contactType: "customer service",
-          areaServed: "PH",
-        })),
-      ],
-      priceRange: BUSINESS.priceRange,
-      address: {
-        "@type": "PostalAddress",
-        streetAddress: BUSINESS.streetAddress,
-        addressLocality: BUSINESS.addressLocality,
-        addressRegion: BUSINESS.addressRegion,
-        postalCode: BUSINESS.postalCode,
-        addressCountry: BUSINESS.addressCountry,
-      },
-      geo: {
-        "@type": "GeoCoordinates",
-        latitude: BUSINESS.geo.latitude,
-        longitude: BUSINESS.geo.longitude,
-      },
-      areaServed: { "@type": "Country", name: "Philippines" },
-    }),
-    []
-  );
-  return <JsonLdScript data={data} />;
+  return <JsonLdScript data={LOCAL_BUSINESS} />;
 }
 
 export function WebSiteJsonLd() {
-  const data = useMemo(
-    () => ({
-      "@context": "https://schema.org",
-      "@type": "WebSite",
-      name: SITE_NAME,
-      url: SITE_URL,
-      inLanguage: "en-PH",
-    }),
-    []
-  );
-  return <JsonLdScript data={data} />;
+  return <JsonLdScript data={WEB_SITE} />;
 }
 
 export function ServiceJsonLd({ services }) {
@@ -129,7 +108,7 @@ export function ServiceJsonLd({ services }) {
         },
       })),
     }),
-    [services]
+    [services],
   );
   return <JsonLdScript data={data} />;
 }
@@ -148,7 +127,7 @@ export function FaqPageJsonLd({ faqs = [] }) {
             })),
           }
         : null,
-    [faqs]
+    [faqs],
   );
   if (!data) return null;
   return <JsonLdScript data={data} />;
@@ -166,7 +145,7 @@ export function BreadcrumbJsonLd({ items }) {
         item: item.url,
       })),
     }),
-    [items]
+    [items],
   );
   return <JsonLdScript data={data} />;
 }

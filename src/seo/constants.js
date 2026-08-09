@@ -1,6 +1,10 @@
 export const SITE_NAME = "GarBia Group";
 export const SITE_URL = "https://garbiagroup.com";
-export const CDN_IMAGES = "https://garbia.sgp1.cdn.digitaloceanspaces.com/images";
+
+/** DigitalOcean Spaces CDN. Origin is preconnected in index.html. */
+export const CDN_BASE = "https://garbia.sgp1.cdn.digitaloceanspaces.com";
+export const CDN_IMAGES = `${CDN_BASE}/images`;
+export const CDN_VIDEOS = `${CDN_BASE}/videos`;
 export const DEFAULT_OG_IMAGE = `${SITE_URL}/garbia1.jpg`;
 export const DEFAULT_OG_IMAGE_WIDTH = "1200";
 export const DEFAULT_OG_IMAGE_HEIGHT = "630";

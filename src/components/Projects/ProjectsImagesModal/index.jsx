@@ -1,5 +1,6 @@
-import React, { useState, useEffect, useRef, useCallback } from "react";
+import React, { useState, useEffect, useRef, useCallback, useMemo } from "react";
 import { createPortal } from "react-dom";
+import { cdnImage } from "@/utils/cdn";
 import styles from "./index.module.css";
 
 /** Treat very small or extreme-aspect images as unsuitable for the hero stage */
@@ -13,14 +14,16 @@ function shouldUseMainPlaceholder(naturalWidth, naturalHeight) {
 }
 
 const ProjectsImagesModal = ({ imagesRoute, onClose }) => {
-  const imageBaseUrl = "https://garbia.sgp1.cdn.digitaloceanspaces.com/images/projects/";
   const [currentIndex, setCurrentIndex] = useState(0);
   const scrollRef = useRef(null);
 
   const [mainState, setMainState] = useState("loading"); // loading | ready | placeholder | error
   const [thumbUi, setThumbUi] = useState(() => ({})); // index -> 'loading' | 'loaded' | 'error'
 
-  const imageList = imagesRoute.map((img) => `${imageBaseUrl}${img}`);
+  const imageList = useMemo(
+    () => imagesRoute.map((img) => cdnImage(`projects/${img}`)),
+    [imagesRoute],
+  );
 
   const setThumb = useCallback((index, status) => {
     setThumbUi((prev) => ({ ...prev, [index]: status }));

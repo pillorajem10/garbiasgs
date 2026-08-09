@@ -2,11 +2,11 @@ import { useRef, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { motion, useAnimation, useInView } from "framer-motion";
 import LazyVideo from "@components/LazyVideo";
+import { cdnVideo } from "@/utils/cdn";
 import { BUSINESS } from "@/seo/constants";
 import styles from "./index.module.css";
 
-const VIDEO =
-  "https://garbia.sgp1.cdn.digitaloceanspaces.com/videos/DJI_0237_trimmed.mp4";
+const VIDEO = cdnVideo("DJI_0237_trimmed.mp4");
 
 const MAP_EMBED =
   "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3860.1106553024815!2d121.1137044!3d14.5632069!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3397c7ee9904b0a1%3A0x6b1b7ceb994b6a40!2sGarbia%20Structural%20and%20Geotechnical%20Solutions!5e0!3m2!1sen!2sph!4v1717304734567!5m2!1sen!2sph";
