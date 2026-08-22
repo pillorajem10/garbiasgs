@@ -20,7 +20,7 @@ background-color: blue; /* Fallback color */
 
 .container h2 {
     font-size: 2.5rem;
-    color: #96b7ff;
+    color: var(--text-accent);
     text-align: center;
     font-weight: 500;
     font-style: italic;
@@ -51,8 +51,8 @@ background-color: blue; /* Fallback color */
        footer) shifts. Reserving the ratio up front removes that shift. */
     aspect-ratio: 16 / 9;
     max-width: 40rem;
-    border-radius: 10px;
-    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+    border-radius: var(--radius-lg);
+    box-shadow: var(--shadow-md);
 }
 
 
@@ -74,12 +74,12 @@ background-color: blue; /* Fallback color */
 .imageContainer1 {
     width: 100%;
     max-width: 30rem;
-    border-radius: 5px;
+    border-radius: var(--radius-sm);
 }
 
 .imageContainer1 img {
     width: 100%;
-    border-radius: 5px;
+    border-radius: var(--radius-sm);
 }
 
 .rightContainer, .leftContainer {
@@ -91,7 +91,7 @@ background-color: blue; /* Fallback color */
 
 .rightContainer h2, .leftContainer h2 {
     font-size: 2.5rem;
-    color: #96b7ff; /* Specific heading color */
+    color: var(--text-accent);
 }
 
 .rightContainer p, .leftContainer p {
@@ -103,7 +103,7 @@ background-color: blue; /* Fallback color */
     width: 100%;
     height: 400px;         /* 👈 Set fixed height */
     object-fit: cover;     /* 👈 Maintain aspect ratio & fill space */
-    border-radius: 10px;
+    border-radius: var(--radius-lg);
     opacity: 0;
     animation: fadeIn 2s forwards;
 }
@@ -125,7 +125,7 @@ background-color: blue; /* Fallback color */
 
     .container h2 {
         font-size: 2rem;
-        color: #96b7ff; /* Specific heading color */
+        color: var(--text-accent);
         font-weight: 100;
         font-style: italic;
     }
@@ -160,7 +160,7 @@ background-color: blue; /* Fallback color */
 
     .container h2 {
         font-size: 1.5rem;
-        color: #96b7ff; /* Specific heading color */
+        color: var(--text-accent);
         font-weight: 100;
         font-style: italic;
     }

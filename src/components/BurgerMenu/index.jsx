@@ -2,9 +2,12 @@ import { useEffect, memo } from "react";
 import { Link } from "react-router-dom";
 import { motion } from "framer-motion";
 import { PRIMARY_NAV } from "@/constants/navigation";
+import { useDialogFocus } from "@/hooks/useDialogFocus";
 import styles from "./index.module.css";
 
-const BurgerMenu =({ id = "site-mobile-menu", onClose }) => {
+const BurgerMenu = ({ id = "site-mobile-menu", onClose }) => {
+  const menuRef = useDialogFocus(onClose);
+
   // Prevent background scroll while the menu is open. Restore the previous
   // inline value rather than forcing "auto", so we don't clobber a lock held
   // by something else (e.g. the projects gallery modal).
@@ -18,11 +21,13 @@ const BurgerMenu =({ id = "site-mobile-menu", onClose }) => {
 
   return (
     <motion.div
+      ref={menuRef}
       id={id}
       className={styles.burgerMenuOverlay}
       role="dialog"
       aria-modal="true"
       aria-label="Site navigation"
+      tabIndex={-1}
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
       exit={{ opacity: 0 }}

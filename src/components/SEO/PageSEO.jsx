@@ -2,7 +2,7 @@ import { useMemo } from "react";
 import { useLocation } from "react-router-dom";
 import usePageSEO from "@/hooks/usePageSEO";
 import JsonLdGraph from "./JsonLd";
-import { canonicalUrl, getPageMeta } from "@/seo/pageMeta";
+import { canonicalUrl, getPageMeta, seoPath } from "@/seo/pageMeta";
 import {
   breadcrumbNode,
   faqNode,
@@ -15,13 +15,16 @@ export default function PageSEO({ faqs, breadcrumbLabel }) {
   usePageSEO();
 
   const nodes = useMemo(() => {
-    const url = canonicalUrl(pathname);
-    const meta = getPageMeta(pathname);
+    // Keyed off the SEO identity, not the raw pathname, so the /404 document
+    // describes itself identically however it was reached.
+    const path = seoPath(pathname);
+    const url = canonicalUrl(path);
+    const meta = getPageMeta(path);
     const pageNodes = [
       webPageNode({ url, title: meta.title, description: meta.description }),
     ];
 
-    if (pathname !== "/" && breadcrumbLabel) {
+    if (path !== "/" && breadcrumbLabel) {
       pageNodes.push(
         breadcrumbNode([
           { name: "Home", url: canonicalUrl("/") },
@@ -30,7 +33,7 @@ export default function PageSEO({ faqs, breadcrumbLabel }) {
       );
     }
 
-    if (pathname === "/services") pageNodes.push(...serviceNodes());
+    if (path === "/services") pageNodes.push(...serviceNodes());
     if (faqs?.length) pageNodes.push(faqNode(faqs));
 
     return pageNodes;

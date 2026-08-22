@@ -16,11 +16,12 @@ import {
   SITE_NAME,
   SITE_URL,
   BUSINESS,
-  CDN_IMAGES,
   SAME_AS,
   BRAND_ALTERNATE_NAMES,
   SERVED_AREAS,
   DEFAULT_OG_IMAGE,
+  DEFAULT_OG_IMAGE_WIDTH,
+  DEFAULT_OG_IMAGE_HEIGHT,
 } from "./constants";
 
 export const ORG_ID = `${SITE_URL}/#organization`;
@@ -113,9 +114,14 @@ export const ORGANIZATION_NODE = {
   description:
     "GarBia Group (GarBia Structural and Geotechnical Solutions) is a Philippine geotechnical engineering and construction services company providing soil investigation, site investigation, laboratory testing, geotechnical reports, micropiling, and ground improvement works.",
   url: `${SITE_URL}/`,
+  // Must be the brand mark visitors actually see. This pointed at the previous
+  // CDN logo, which the site no longer displays anywhere — structured data has
+  // to match the visible brand, so it tracks the same asset as the share image.
   logo: {
     "@type": "ImageObject",
-    url: `${CDN_IMAGES}/garbiaLogo.jpg`,
+    url: DEFAULT_OG_IMAGE,
+    width: DEFAULT_OG_IMAGE_WIDTH,
+    height: DEFAULT_OG_IMAGE_HEIGHT,
   },
   image: DEFAULT_OG_IMAGE,
   foundingDate: String(BUSINESS.foundingYear),

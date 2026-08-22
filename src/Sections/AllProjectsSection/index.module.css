@@ -60,7 +60,7 @@
 /* Project Card */
 .projectCard {
   border: 1px solid #ffffff;
-  border-radius: 10px;
+  border-radius: var(--radius-lg);
   padding: 1rem;
   cursor: pointer;
   color: #ffffff;
@@ -79,7 +79,7 @@
   width: 100%;
   height: 500px;
   object-fit: cover;
-  border-radius: 6px;
+  border-radius: var(--radius-sm);
   margin-bottom: 3rem;
 }
 

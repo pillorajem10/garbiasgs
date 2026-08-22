@@ -3,20 +3,20 @@
   flex-wrap: wrap;
   justify-content: center;
   align-items: center;
-  gap: var(--section-gap-lg, 4rem);
+  gap: var(--section-gap-lg);
   width: 100%;
   max-width: 100%;
   min-height: 100vh;
   min-height: 100dvh;
   min-height: 100svh;
   min-height: var(--section-min-height);
-  background-color: var(--color-primary, #0c4a6e);
+  background-color: var(--color-primary);
   background-image: var(--lazy-bg, none);
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
   position: relative;
-  padding: var(--section-padding-y, 2.5rem) var(--section-padding-x, 1.25rem);
+  padding: var(--section-padding-y) var(--section-padding-x);
   box-sizing: border-box;
   overflow-x: hidden;
 }
@@ -25,7 +25,7 @@
   content: "";
   position: absolute;
   inset: 0;
-  background: var(--overlay-dark, rgba(2, 18, 51, 0.7));
+  background: var(--overlay-dark);
   z-index: 1;
   pointer-events: none;
 }
@@ -37,18 +37,18 @@
 .imageContainer1 {
   width: 100%;
   max-width: min(30rem, 100%);
-  border-radius: var(--radius-md, 8px);
+  border-radius: var(--radius-md);
 }
 
 .imageContainer1 img {
   width: 100%;
-  border-radius: var(--radius-md, 8px);
+  border-radius: var(--radius-md);
 }
 
 .leftContainer,
 .rightContainer {
   flex: 1 1 min(100%, 18rem);
-  color: var(--text-on-dark, #fff);
+  color: var(--color-on-dark);
   max-width: 35rem;
   text-align: left;
 }
@@ -63,18 +63,18 @@
 
 .leftContainer h2,
 .rightContainer h2 {
-  font-size: var(--text-section-title, clamp(1.5rem, 4vw, 2.5rem));
-  color: var(--text-accent, #96b7ff);
+  font-size: var(--text-section-title);
+  color: var(--text-accent);
 }
 
 .leftContainer p,
 .rightContainer p,
 .leftContainer li {
-  font-size: var(--text-section-body, clamp(1rem, 2vw, 1.25rem));
+  font-size: var(--text-section-body);
 }
 
 .leftContainer ul {
-  margin-top: var(--space-md, 1rem);
+  margin-top: var(--space-md);
   padding-left: 1.25rem;
 }
 
@@ -84,7 +84,7 @@
 }
 
 .subList li p {
-  font-size: var(--text-section-body-sm, 1rem);
+  font-size: var(--text-section-body-sm);
   font-style: italic;
 }
 
@@ -95,7 +95,7 @@
   width: 100%;
   max-width: min(30rem, 100%);
   margin-inline: auto;
-  gap: var(--space-md, 1rem);
+  gap: var(--space-md);
 }
 
 .mainImage {
@@ -106,14 +106,14 @@
   max-height: min(55vh, 30rem);
   margin-inline: auto;
   object-fit: contain;
-  border-radius: var(--radius-md, 8px);
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+  border-radius: var(--radius-md);
+  box-shadow: var(--shadow-sm);
 }
 
 .thumbnailRow {
   display: flex;
   flex-wrap: nowrap;
-  gap: var(--space-xs, 0.5rem);
+  gap: var(--space-xs);
   justify-content: flex-start;
   overflow-x: auto;
   overflow-y: hidden;
@@ -122,7 +122,7 @@
   scrollbar-width: none;
   -ms-overflow-style: none;
   width: 100%;
-  padding: var(--space-xs, 0.5rem) 0;
+  padding: var(--space-xs) 0;
 }
 
 .thumbnailRow::-webkit-scrollbar {
@@ -135,7 +135,7 @@
   height: 4.25rem;
   padding: 0;
   border: 2px solid transparent;
-  border-radius: var(--radius-sm, 6px);
+  border-radius: var(--radius-sm);
   background: transparent;
   cursor: pointer;
   line-height: 0;
@@ -144,7 +144,7 @@
 }
 
 .thumbnailButton:focus-visible {
-  outline: 3px solid var(--color-accent, #14b8a6);
+  outline: 3px solid var(--color-accent);
   outline-offset: 2px;
 }
 
@@ -152,7 +152,7 @@
   width: 100%;
   height: 100%;
   object-fit: cover;
-  border-radius: 4px;
+  border-radius: var(--radius-xs);
   opacity: 0.6;
   display: block;
   transition: opacity 0.2s ease;
@@ -164,7 +164,7 @@
 }
 
 .thumbnailButton.active {
-  border-color: #00bfff;
+  border-color: var(--color-selected);
 }
 
 .thumbnailButton.active .thumbnailImg {
@@ -174,7 +174,7 @@
 @media (max-width: 1013px) {
   .container {
     flex-direction: column;
-    gap: var(--section-gap, 3rem);
+    gap: var(--section-gap);
     align-items: stretch;
   }
 
@@ -228,7 +228,7 @@
 
   .mainImage {
     max-height: min(48vh, 22rem);
-    border-radius: var(--radius-md, 8px);
+    border-radius: var(--radius-md);
     object-fit: contain;
   }
 
@@ -247,7 +247,7 @@
 
 @media (min-width: 900px) {
   .container {
-    gap: var(--section-gap-xl, 5rem);
+    gap: var(--section-gap-xl);
   }
 
   .leftContainer {
@@ -297,7 +297,7 @@
 @media (min-width: 1400px) {
   .container {
     gap: 6rem;
-    padding-inline: var(--section-padding-x-lg, 2.5rem);
+    padding-inline: var(--section-padding-x-lg);
   }
 
   .leftContainer {
@@ -324,13 +324,13 @@
   }
 
   .leftContainer ul {
-    margin-top: var(--space-lg, 1.5rem);
+    margin-top: var(--space-lg);
     padding-left: 1.5rem;
   }
 
   .slideshow {
     max-width: min(44rem, 100%);
-    gap: var(--space-lg, 1.25rem);
+    gap: var(--space-lg);
   }
 
   .mainImage {

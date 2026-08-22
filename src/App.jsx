@@ -14,6 +14,7 @@ import ScrollToTop from "@components/ScrollToTop";
 import OfflineScreen from "@components/OfflineScreen";
 import BrandedPageLoader from "@components/BrandedPageLoader";
 import RouteSEO from "@components/SEO/RouteSEO";
+import { seoPath } from "@/seo/pageMeta";
 
 const Home = lazy(() => import("@pages/Home"));
 const About = lazy(() => import("@pages/About"));
@@ -93,10 +94,16 @@ function useNetworkGate() {
 function RoutedMain() {
   const location = useLocation();
 
+  // Remounting on route change replays the content-in animation. Keyed on the
+  // route's identity rather than the raw pathname so that the not-found view,
+  // which every unmatched URL renders, is treated as one page — moving between
+  // two dead URLs should not replay the animation on identical content.
+  const routeKey = seoPath(location.pathname);
+
   return (
     <Suspense fallback={<BrandedPageLoader />}>
       <main
-        key={location.pathname}
+        key={routeKey}
         id="main-content"
         className="main-content main-content-route"
         tabIndex={-1}

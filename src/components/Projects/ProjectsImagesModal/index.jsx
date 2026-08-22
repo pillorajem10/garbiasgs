@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useRef, useCallback, useMemo } from "react";
 import { createPortal } from "react-dom";
 import { cdnImage } from "@/utils/cdn";
+import { useDialogFocus } from "@/hooks/useDialogFocus";
 import styles from "./index.module.css";
 
 /** Treat very small or extreme-aspect images as unsuitable for the hero stage */
@@ -16,6 +17,7 @@ function shouldUseMainPlaceholder(naturalWidth, naturalHeight) {
 const ProjectsImagesModal = ({ imagesRoute, onClose }) => {
   const [currentIndex, setCurrentIndex] = useState(0);
   const scrollRef = useRef(null);
+  const dialogRef = useDialogFocus(onClose);
 
   const [mainState, setMainState] = useState("loading"); // loading | ready | placeholder | error
   const [thumbUi, setThumbUi] = useState(() => ({})); // index -> 'loading' | 'loaded' | 'error'
@@ -28,14 +30,6 @@ const ProjectsImagesModal = ({ imagesRoute, onClose }) => {
   const setThumb = useCallback((index, status) => {
     setThumbUi((prev) => ({ ...prev, [index]: status }));
   }, []);
-
-  useEffect(() => {
-    const onKey = (e) => {
-      if (e.key === "Escape") onClose();
-    };
-    window.addEventListener("keydown", onKey);
-    return () => window.removeEventListener("keydown", onKey);
-  }, [onClose]);
 
   useEffect(() => {
     const html = document.documentElement;
@@ -141,11 +135,13 @@ const ProjectsImagesModal = ({ imagesRoute, onClose }) => {
       role="presentation"
     >
       <div
+        ref={dialogRef}
         className={styles.modalContent}
         onClick={(e) => e.stopPropagation()}
         role="dialog"
         aria-modal="true"
         aria-label="Project photo gallery"
+        tabIndex={-1}
       >
         {imageList.length > 0 && (
           <>

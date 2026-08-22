@@ -1,29 +1,104 @@
-/* GarBia — global tokens (sections / typography); nav & footer use their own module colors */
+/**
+ * GarBia design tokens — the single source of truth for colour, spacing,
+ * radius, elevation, and layering across the site.
+ *
+ * Section modules must reference these rather than repeating raw values, so a
+ * brand or rhythm change happens in one place. Several section modules used to
+ * reference token names that were never defined and silently fell back to
+ * inline literals; those names are all defined here now, at the values those
+ * fallbacks used.
+ */
 :root {
   --font-body: "Roboto", system-ui, -apple-system, "Segoe UI", sans-serif;
   --font-heading: "Lato", var(--font-body);
 
+  /* Brand — the navigation blue is the site's most visible brand surface;
+     primary/deep are the darker tones sections and heroes sit on. */
   --color-primary: #0c4a6e;
   --color-primary-deep: #082f49;
+  --color-nav: #0081b8;
+  --color-nav-border: #05438a;
+
   --color-accent: #14b8a6;
   --color-accent-hover: #0d9488;
   --color-accent-soft: rgba(20, 184, 166, 0.15);
+  --color-accent-bright: #5eead4;
 
   --color-text: #0f172a;
   --color-text-muted: #475569;
   --color-bg: #f0f4f8;
   --color-surface: #ffffff;
 
+  /* Text on dark hero/section backgrounds */
+  --color-on-dark: #ffffff;
+  --color-on-dark-muted: rgba(255, 255, 255, 0.85);
+  --color-on-dark-subtle: rgba(255, 255, 255, 0.6);
+  --text-accent: #96b7ff;
+
+  /* Scrim over hero imagery/video so overlaid text keeps AA contrast.
+     --color-hero-base is the same colour fully opaque: sections paint it as a
+     solid base so no light page background flashes before the image loads. */
+  --overlay-dark: rgba(2, 18, 51, 0.7);
+  --overlay-dark-strong: rgba(2, 18, 51, 0.78);
+  --color-hero-base: #021233;
+
+  /* Selected state on thumbnail/carousel controls */
+  --color-selected: #00bfff;
+
+  /* Spacing scale */
+  --space-xs: 0.5rem;
+  --space-sm: 0.75rem;
+  --space-md: 1rem;
+  --space-lg: 1.5rem;
+  --space-xl: 2rem;
+  --space-2xl: 3rem;
+
+  /* Section rhythm */
   --space-section: clamp(2rem, 5vw, 4rem);
+  --section-padding-y: 2.5rem;
+  --section-padding-x: 1.25rem;
+  --section-padding-x-lg: 2.5rem;
+  --section-gap: 3rem;
+  --section-gap-lg: 4rem;
+  --section-gap-xl: 5rem;
+
   /* Full-viewport section height — use on every page section */
   --section-min-height: 100vh;
   --section-min-height: 100dvh;
   --section-min-height: 100svh;
+
+  /* Section type scale */
+  --text-section-title: clamp(1.5rem, 4vw, 2.5rem);
+  --text-section-title-lg: clamp(1.5rem, 4vw, 2.5rem);
+  --text-section-body: clamp(1rem, 2vw, 1.25rem);
+  --text-section-body-sm: 1rem;
+
+  /* --radius-xs is the inner radius for media nested inside a bordered
+     thumbnail button; it sits one step below that button's own radius. */
+  --radius-xs: 4px;
+  --radius-sm: 6px;
   --radius-md: 8px;
+  --radius-lg: 12px;
+  --radius-pill: 999px;
+
+  --shadow-sm: 0 4px 12px rgba(0, 0, 0, 0.2);
+  --shadow-md: 0 6px 18px rgba(0, 0, 0, 0.2);
+  --shadow-lg: 0 16px 48px rgba(0, 0, 0, 0.25);
+
   --leading-body: 1.65;
   --leading-prose: 1.7;
 
   --nav-height: 5rem;
+
+  /* Layering. Kept as a short ordered scale so a new overlay has an obvious
+     slot instead of another arbitrary large number. */
+  --z-nav: 1000;
+  --z-menu: 1100;
+  --z-modal: 2000;
+  --z-skip-link: 10001;
+
+  /* Smallest comfortable tap target (WCAG 2.5.5 target size) */
+  --tap-target-min: 44px;
 }
 
 * {
@@ -112,7 +187,8 @@ p:last-child {
 #root {
   display: flex;
   flex-direction: column;
-  min-height: calc(var(--vh, 1vh) * 100);
+  min-height: 100vh;
+  min-height: 100dvh;
   /* Offset fixed navbar so page content is not hidden underneath */
   padding-top: var(--nav-height);
 }
@@ -227,10 +303,10 @@ img[data-oi][data-loaded] {
   width: 1px;
   height: 1px;
   overflow: hidden;
-  z-index: 10001;
+  z-index: var(--z-skip-link);
   padding: 0.75rem 1.25rem;
   background: var(--color-primary-deep);
-  color: #fff;
+  color: var(--color-on-dark);
   font-weight: 600;
   text-decoration: none;
   border-radius: var(--radius-md);
@@ -244,7 +320,7 @@ img[data-oi][data-loaded] {
   width: auto;
   height: auto;
   overflow: visible;
-  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.25);
+  box-shadow: var(--shadow-lg);
 }
 
 a:focus-visible,

@@ -12,8 +12,8 @@ const Navbar = ({ menuOpen, onToggleMenu }) => {
           src={garbiaLogo}
           alt="GarBia Structural and Geotechnical Solutions logo"
           className={styles.logo}
-          width={160}
-          height={48}
+          width={800}
+          height={248}
           priority
         />
       </div>

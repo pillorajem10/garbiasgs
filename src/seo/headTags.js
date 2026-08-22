@@ -6,7 +6,7 @@
  * client-side navigation. Describing them once means the HTML a crawler fetches
  * and the head a visitor ends up with after navigating cannot disagree.
  */
-import { getPageMeta, canonicalUrl } from "./pageMeta";
+import { getPageMeta, canonicalUrl, seoPath } from "./pageMeta";
 import {
   SITE_NAME,
   LOCALE,
@@ -17,8 +17,11 @@ import {
 } from "./constants";
 
 export function headTagsFor(pathname) {
-  const meta = getPageMeta(pathname);
-  const canonical = canonicalUrl(pathname);
+  // Every missing URL is the one /404 document, so it advertises one og:url
+  // rather than echoing back whatever path the visitor happened to request.
+  const path = seoPath(pathname);
+  const meta = getPageMeta(path);
+  const canonical = canonicalUrl(path);
 
   return [
     { tag: "meta", name: "description", content: meta.description },

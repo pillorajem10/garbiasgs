@@ -11,7 +11,7 @@
   min-height: var(--section-min-height);
   margin: 0;
   /* Solid base so no light page background shows through before/at footer */
-  background-color: #021233;
+  background-color: var(--color-hero-base);
   background-image: var(--lazy-bg, none);
   background-position: center;
   background-size: cover;
@@ -19,8 +19,8 @@
   position: relative;
   isolation: isolate;
   z-index: 0;
-  padding: var(--section-padding-y, 2.5rem) var(--section-padding-x, 1.25rem);
-  padding-bottom: max(var(--space-2xl, 3rem), calc(var(--section-padding-y, 2.5rem) + 1rem));
+  padding: var(--section-padding-y) var(--section-padding-x);
+  padding-bottom: max(var(--space-2xl), calc(var(--section-padding-y) + 1rem));
   box-sizing: border-box;
   overflow: hidden;
 }
@@ -29,7 +29,7 @@
   content: "";
   position: absolute;
   inset: 0;
-  background: var(--overlay-dark, rgba(2, 18, 51, 0.7));
+  background: var(--overlay-dark);
   z-index: 0;
   pointer-events: none;
 }
@@ -45,23 +45,23 @@
   width: 100%;
   max-width: min(62.5rem, 100%);
   text-align: center;
-  padding: 0 var(--space-sm, 1rem);
+  padding: 0 var(--space-sm);
   box-sizing: border-box;
 }
 
 .mainContent h2 {
-  font-size: var(--text-section-title-lg, clamp(1.5rem, 4vw, 2.5rem));
+  font-size: var(--text-section-title-lg);
   font-style: italic;
   font-weight: 500;
-  color: var(--text-accent, #96b7ff);
-  margin: 0 0 var(--space-lg, 1.5rem);
+  color: var(--text-accent);
+  margin: 0 0 var(--space-lg);
 }
 
 .slideshow {
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: var(--space-lg, 1.25rem);
+  gap: var(--space-lg);
   width: 100%;
   min-height: 0;
 }
@@ -73,9 +73,9 @@
   /* Leave room for title + thumb strip on short viewports */
   max-height: min(42vh, 26rem);
   height: auto;
-  border-radius: var(--radius-md, 8px);
+  border-radius: var(--radius-md);
   object-fit: contain;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+  box-shadow: var(--shadow-sm);
 }
 
 /* Single-line carousel — contained inside section */
@@ -92,11 +92,11 @@
   flex-wrap: nowrap;
   justify-content: flex-start;
   align-items: center;
-  gap: var(--space-sm, 0.75rem);
+  gap: var(--space-sm);
   width: 100%;
   max-width: 100%;
   margin: 0;
-  padding: var(--space-xs, 0.5rem) 0;
+  padding: var(--space-xs) 0;
   box-sizing: border-box;
   overflow-x: auto;
   overflow-y: hidden;
@@ -120,7 +120,7 @@
   scroll-snap-align: center;
   padding: 0;
   border: 2px solid transparent;
-  border-radius: var(--radius-sm, 6px);
+  border-radius: var(--radius-sm);
   background: transparent;
   cursor: pointer;
   line-height: 0;
@@ -129,7 +129,7 @@
 }
 
 .thumbnailButton:focus-visible {
-  outline: 3px solid var(--color-accent, #14b8a6);
+  outline: 3px solid var(--color-accent);
   outline-offset: 2px;
 }
 
@@ -137,7 +137,7 @@
   width: 100%;
   height: 100%;
   object-fit: cover;
-  border-radius: 4px;
+  border-radius: var(--radius-xs);
   opacity: 0.6;
   display: block;
   transition: opacity 0.2s ease;
@@ -149,7 +149,7 @@
 }
 
 .thumbnailButton.active {
-  border-color: #00bfff;
+  border-color: var(--color-selected);
 }
 
 .thumbnailButton.active .thumbnailImg {
@@ -227,6 +227,6 @@
   }
 
   .slideshow {
-    gap: var(--space-md, 1rem);
+    gap: var(--space-md);
   }
 }

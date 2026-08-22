@@ -13,7 +13,6 @@
  * replaced with a different crop, update its numbers here in the same change.
  */
 const DIMENSIONS = {
-  "garbiaLogo.jpg": { width: 1951, height: 544 },
   "DJI_0226.jpg": { width: 4000, height: 2250 },
   "DJI_0059.jpg": { width: 4000, height: 2250 },
   "DJI_0180.JPG": { width: 4000, height: 2250 },

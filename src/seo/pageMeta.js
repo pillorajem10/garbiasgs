@@ -100,9 +100,23 @@ export const INDEXABLE_ROUTES = [
   { path: "/program", changefreq: "monthly", priority: "0.6" },
 ];
 
-export function getPageMeta(pathname) {
+/**
+ * The stable path a URL has for SEO purposes.
+ *
+ * Every URL without a page of its own is the *same* "not found" document: the
+ * build prerenders it once at /404 and nginx returns that file for whatever
+ * URL was missing (deploy/docker-nginx.conf). So its self-description must not
+ * vary by request path — keyed off the raw pathname, the page claimed an
+ * og:url and a structured-data @id for every junk URL that was ever requested,
+ * and the client rewrote both to something the prerendered HTML never said.
+ */
+export function seoPath(pathname) {
   const normalized = normalizePath(pathname);
-  return PAGE_META[normalized] ?? PAGE_META["/404"];
+  return PAGE_META[normalized] ? normalized : "/404";
+}
+
+export function getPageMeta(pathname) {
+  return PAGE_META[seoPath(pathname)];
 }
 
 /** "/services/" and "/services" are the same page; "/" stays "/". */

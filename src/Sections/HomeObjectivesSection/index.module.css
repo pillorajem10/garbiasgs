@@ -35,7 +35,7 @@ background-color: blue; /* Fallback color */
 .imageContainer1 {
     width: 100%;
     max-width: 30rem;
-    border-radius: 5px;
+    border-radius: var(--radius-sm);
 }
 
 .imageContainer1 img {
@@ -44,7 +44,7 @@ background-color: blue; /* Fallback color */
        arrives, so the section no longer reflows when each photo decodes. */
     height: auto;
     width: 100%;
-    border-radius: 5px;
+    border-radius: var(--radius-sm);
     max-height: 40rem;
 }
 
@@ -57,7 +57,7 @@ background-color: blue; /* Fallback color */
 
 .rightContainer h2, .leftContainer h2 {
     font-size: 2.5rem;
-    color: #96b7ff; /* Specific heading color */
+    color: var(--text-accent);
 }
 
 .rightContainer p, .leftContainer p {
