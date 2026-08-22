@@ -7,6 +7,15 @@ export const CDN_IMAGES = `${CDN_BASE}/images`;
 export const CDN_VIDEOS = `${CDN_BASE}/videos`;
 
 /**
+ * Bump this (any change works, e.g. increment by 1) whenever a file gets
+ * replaced on Spaces under its existing name. The CDN and browsers cache
+ * each exact URL for an hour, so without this a same-name replacement stays
+ * stale for visitors who already fetched it until that hour elapses; changing
+ * this value changes every CDN URL and forces an immediate re-fetch instead.
+ */
+export const CDN_ASSET_VERSION = "1";
+
+/**
  * Served from the site's own origin (public/garbia1.jpg) rather than the CDN,
  * so the share image is attributed to garbiagroup.com like every other
  * canonical signal.
