@@ -54,9 +54,9 @@
      it less top padding than bottom shifts its content above that true
      center, toward the upper part of the banner, without needing absolute
      positioning. */
-  padding: max(1.5rem, calc(1rem + env(safe-area-inset-top, 0px)))
+  padding: max(0.5rem, env(safe-area-inset-top, 0px))
     max(1.25rem, env(safe-area-inset-right, 0px))
-    3rem
+    7rem
     max(8%, env(safe-area-inset-left, 0px));
   box-sizing: border-box;
 }
