@@ -38,9 +38,12 @@
   max-width: 50rem;
   text-align: left;
   width: 100%;
-  padding: max(5rem, calc(4rem + env(safe-area-inset-top, 0px)))
+  /* .banner (the flex parent) vertically centers this box as a whole. Giving
+     it much less top padding than bottom shifts its content well above that
+     true center, toward the upper part of the banner. */
+  padding: max(0.5rem, env(safe-area-inset-top, 0px))
     max(1.25rem, env(safe-area-inset-right, 0px))
-    2rem
+    9rem
     max(8%, env(safe-area-inset-left, 0px));
   box-sizing: border-box;
 }
