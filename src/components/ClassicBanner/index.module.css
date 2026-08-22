@@ -48,12 +48,12 @@
   z-index: 2;
   width: 100%;
   display: flex;
-  justify-content: flex-start;
+  justify-content: center;
   align-items: flex-start;
   padding: max(5rem, calc(4rem + env(safe-area-inset-top, 0px)))
     max(1.25rem, env(safe-area-inset-right, 0px))
     1.5rem
-    max(8%, env(safe-area-inset-left, 0px));
+    max(1.25rem, env(safe-area-inset-left, 0px));
   box-sizing: border-box;
 }
 
