@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 
 /**
  * Shared image component for CDN-served images.
@@ -34,6 +34,19 @@ export default function OptimizedImage({
 }) {
   const [loadedSrc, setLoadedSrc] = useState(null);
   const [failedSrc, setFailedSrc] = useState(null);
+  const imgRef = useRef(null);
+
+  // On a hydrated (prerendered) page, this mounts *after* the browser has
+  // already requested the <img> from the server-rendered markup. A same-
+  // origin, cached, high-priority image (e.g. the navbar logo) can finish
+  // loading before hydration attaches `onLoad` below, so the native `load`
+  // event fires into a void and the skeleton background never clears. This
+  // catches that by checking whether the image is already complete on mount.
+  useEffect(() => {
+    if (imgRef.current?.complete && imgRef.current.naturalWidth > 0) {
+      setLoadedSrc(src);
+    }
+  }, [src]);
 
   if (!src) return null;
 
@@ -53,6 +66,7 @@ export default function OptimizedImage({
 
   return (
     <img
+      ref={imgRef}
       src={src}
       alt={alt ?? ""}
       width={width}
