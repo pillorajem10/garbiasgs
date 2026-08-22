@@ -50,9 +50,14 @@
   display: flex;
   justify-content: center;
   align-items: flex-start;
-  padding: max(5rem, calc(4rem + env(safe-area-inset-top, 0px)))
+  /* .banner (the flex parent) already vertically centers this box, and #root's
+     own top padding already clears the fixed navbar — so top/bottom here only
+     need to be even, not clear anything extra. They previously weren't (5rem
+     vs 1.5rem), which visually dragged the centered text down toward the
+     bottom half of the banner instead of sitting on its true center. */
+  padding: max(2rem, calc(1.5rem + env(safe-area-inset-top, 0px)))
     max(1.25rem, env(safe-area-inset-right, 0px))
-    1.5rem
+    2rem
     max(1.25rem, env(safe-area-inset-left, 0px));
   box-sizing: border-box;
 }
