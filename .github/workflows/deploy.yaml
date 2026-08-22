@@ -4,6 +4,14 @@ name: CI/CD Pipeline
 # image from it, and replace the running container. Building happens once on the
 # VPS (measured peak ~900 MB, well within limits) — nothing large is shipped
 # over the network, so there's no image tar to transfer.
+#
+# The SSH step runs up to 3 times. GitHub-hosted runners occasionally hit a
+# transient dial timeout reaching an external host (observed once in 16 runs:
+# the TCP handshake never completed and nothing reached the VPS's sshd log —
+# a network blip between the runner and Hostinger, not a VPS or auth problem).
+# A short backoff between attempts is enough for that class of failure to
+# clear on its own; a real failure (bad key, VPS down, script error) still
+# fails the job after attempt 3, with each attempt's log visible.
 
 on:
   push:
@@ -13,11 +21,14 @@ on:
 jobs:
   deploy:
     runs-on: ubuntu-latest
+    timeout-minutes: 20
 
     steps:
-      - name: Deploy to VPS (pull + rebuild + restart)
+      - name: Deploy to VPS (attempt 1 of 3)
+        id: attempt1
+        continue-on-error: true
         uses: appleboy/ssh-action@v1.0.3
-        with:
+        with: &ssh_deploy_params
           host: ${{ secrets.VPS_IP }}
           username: ${{ secrets.VPS_USER }}
           key: ${{ secrets.SSH_PRIVATE_KEY }}
@@ -51,3 +62,27 @@ jobs:
             curl -sf http://127.0.0.1:5174/ >/dev/null \
               && echo "Deployment successful — container healthy" \
               || (echo "Container did not respond" && exit 1)
+
+      - name: Wait before retry (attempt 1 failed)
+        if: steps.attempt1.outcome == 'failure'
+        run: |
+          echo "Attempt 1 failed to connect or deploy. Retrying in 20s..."
+          sleep 20
+
+      - name: Deploy to VPS (attempt 2 of 3)
+        id: attempt2
+        if: steps.attempt1.outcome == 'failure'
+        continue-on-error: true
+        uses: appleboy/ssh-action@v1.0.3
+        with: *ssh_deploy_params
+
+      - name: Wait before retry (attempt 2 failed)
+        if: steps.attempt1.outcome == 'failure' && steps.attempt2.outcome == 'failure'
+        run: |
+          echo "Attempt 2 failed as well. Retrying in 40s..."
+          sleep 40
+
+      - name: Deploy to VPS (attempt 3 of 3, final)
+        if: steps.attempt1.outcome == 'failure' && steps.attempt2.outcome == 'failure'
+        uses: appleboy/ssh-action@v1.0.3
+        with: *ssh_deploy_params
