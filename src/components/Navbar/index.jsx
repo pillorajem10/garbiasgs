@@ -7,7 +7,7 @@ import styles from "./index.module.css";
 const Navbar = ({ menuOpen, onToggleMenu }) => {
   return (
     <nav className={styles.navbar} aria-label="Primary">
-      <div className={styles.logoContainer}>
+      <Link to="/" className={styles.logoContainer} aria-label="GarBia Group home">
         <OptimizedImage
           src={garbiaLogo}
           alt="GarBia Structural and Geotechnical Solutions logo"
@@ -16,7 +16,7 @@ const Navbar = ({ menuOpen, onToggleMenu }) => {
           height={248}
           priority
         />
-      </div>
+      </Link>
 
       <ul>
         {PRIMARY_NAV.map(({ to, label }) => (
