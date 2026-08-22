@@ -15,8 +15,8 @@
       "type": "image/x-icon"
     },
     {
-      "src": "/garbia1.jpg",
-      "sizes": "958x960",
+      "src": "/garbia1.jpg?v=2",
+      "sizes": "1200x992",
       "type": "image/jpeg"
     }
   ]

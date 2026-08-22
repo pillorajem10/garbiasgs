@@ -20,14 +20,19 @@ export const CDN_ASSET_VERSION = "1";
  * so the share image is attributed to garbiagroup.com like every other
  * canonical signal.
  *
- * The declared size must match the file. It previously claimed 1200x630 for a
- * 958x960 image, which makes Facebook/LinkedIn lay the card out against the
- * wrong box. Replacing the asset with a real 1200x630 crop is an owner task —
- * see the SEO report — at which point update these two numbers with it.
+ * The declared size must match the file, and it isn't the ideal 1200x630
+ * landscape crop Facebook/LinkedIn expect (some clients will letterbox it) —
+ * it's the square-ish logo file as supplied. A real 1200x630 crop is a
+ * follow-up if that matters more than getting the current logo live.
+ *
+ * The ?v= is a manual cache-buster: Facebook/LinkedIn/Twitter cache a page's
+ * scraped og:image for a long time keyed by this exact URL, so replacing
+ * garbia1.jpg under the same name won't reach already-cached shares on its
+ * own. Bump it whenever the file is replaced, alongside the width/height.
  */
-export const DEFAULT_OG_IMAGE = `${SITE_URL}/garbia1.jpg`;
-export const DEFAULT_OG_IMAGE_WIDTH = "958";
-export const DEFAULT_OG_IMAGE_HEIGHT = "960";
+export const DEFAULT_OG_IMAGE = `${SITE_URL}/garbia1.jpg?v=2`;
+export const DEFAULT_OG_IMAGE_WIDTH = "1200";
+export const DEFAULT_OG_IMAGE_HEIGHT = "992";
 export const DEFAULT_OG_IMAGE_ALT =
   "GarBia Structural and Geotechnical Solutions site works in the Philippines";
 export const LOCALE = "en_PH";
