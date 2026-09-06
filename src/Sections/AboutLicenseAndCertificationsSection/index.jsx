@@ -44,9 +44,33 @@ const AboutLicenseAndCertificationsSection = () => {
         transition={{ type: "spring", stiffness: 60, damping: 15 }}
       >
         <h2>Licenses, Accreditations and Memberships</h2>
+        {/* Each credential carries a plain-language line explaining what it is
+            and why it matters to a client. The bare list named them correctly
+            but assumed the reader already knew what each one certifies. */}
         <ul>
-          <li><p>ISO 9001:2015 Certified</p></li>
-          <li><p>DPWH-BRS Accredited</p></li>
+          <li>
+            <p>ISO 9001:2015 Certified</p>
+            <ul className={styles.subList}>
+              <li>
+                <p>
+                  The international standard for quality management systems,
+                  confirmed by independent third-party audit.
+                </p>
+              </li>
+            </ul>
+          </li>
+          <li>
+            <p>DPWH-BRS Accredited</p>
+            <ul className={styles.subList}>
+              <li>
+                <p>
+                  Accredited by the Department of Public Works and Highways,
+                  Bureau of Research and Standards — the recognition Philippine
+                  public works require of a materials testing laboratory.
+                </p>
+              </li>
+            </ul>
+          </li>
           <li>
             <p>ASTM Organizational Member</p>
             <ul className={styles.subList}>
@@ -58,8 +82,30 @@ const AboutLicenseAndCertificationsSection = () => {
               </li>
             </ul>
           </li>
-          <li><p>Category &quot;A&quot; PCAB License</p></li>
-          <li><p>Philgeps Platinum Membership</p></li>
+          <li>
+            <p>Category &quot;A&quot; PCAB License</p>
+            <ul className={styles.subList}>
+              <li>
+                <p>
+                  Licensed by the Philippine Contractors Accreditation Board.
+                  Category &quot;A&quot; is among the higher contractor
+                  classifications, covering larger-scale construction works.
+                </p>
+              </li>
+            </ul>
+          </li>
+          <li>
+            <p>Philgeps Platinum Membership</p>
+            <ul className={styles.subList}>
+              <li>
+                <p>
+                  Platinum registration on the Philippine Government Electronic
+                  Procurement System, the standing required to bid for
+                  government projects.
+                </p>
+              </li>
+            </ul>
+          </li>
         </ul>
       </motion.div>
       <motion.div
