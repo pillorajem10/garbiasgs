@@ -12,6 +12,19 @@ name: CI/CD Pipeline
 # A short backoff between attempts is enough for that class of failure to
 # clear on its own; a real failure (bad key, VPS down, script error) still
 # fails the job after attempt 3, with each attempt's log visible.
+#
+# `docker build` runs with --no-cache and the build cache is pruned on every
+# run. Observed directly on the VPS: the containerd/overlay2 snapshotter
+# occasionally fails to commit a RUN layer's filesystem diff (dmesg logged
+# "lowerdir is in-use as upperdir/workdir of another mount" at the time),
+# so a layer that genuinely succeeded — confirmed by its own build output —
+# still isn't there for the next stage's COPY --from=builder to find. Once
+# that happens, BuildKit caches the broken result, and every subsequent
+# build of that same commit — including all 3 retries above — keeps hitting
+# the same broken cache entry forever. Retrying cannot fix a cache miss that
+# every attempt reproduces identically; only skipping the cache can. Pruning
+# afterward means a future snapshotter fault can't poison a cache entry that
+# a later, unrelated deploy would otherwise keep reusing.
 
 on:
   push:
@@ -44,8 +57,10 @@ jobs:
             git reset --hard origin/master
             echo "Deploying commit: $(git rev-parse --short HEAD)"
 
-            # Rebuild the image from the freshly pulled code.
-            docker build -t garbiasgs:latest .
+            # Rebuild the image from the freshly pulled code. --no-cache: see
+            # the file header comment — a stale/corrupted cached layer is a
+            # real, observed failure mode here, not a theoretical one.
+            docker build --no-cache -t garbiasgs:latest .
 
             # Replace the running container. Bound to localhost; host nginx
             # reverse-proxies https://garbiagroup.com -> 127.0.0.1:5174.
@@ -54,8 +69,10 @@ jobs:
             docker run -d --name garbiasgs-green --restart always \
               -p 127.0.0.1:5174:5173 garbiasgs:latest
 
-            # Reclaim old dangling images so they don't pile up.
+            # Reclaim old dangling images, and the build cache this run just
+            # produced but --no-cache means will never be read again anyway.
             docker image prune -f
+            docker builder prune -af
 
             # Smoke test: the container must answer through its published port.
             sleep 2
