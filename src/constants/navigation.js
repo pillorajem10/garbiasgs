@@ -6,6 +6,7 @@ export const PRIMARY_NAV = [
   { to: "/", label: "Home" },
   { to: "/services", label: "Services" },
   { to: "/about", label: "About" },
+  { to: "/history", label: "History" },
   { to: "/mission-vision", label: "Mission And Vision" },
   { to: "/projects", label: "Projects" },
   { to: "/program", label: "Program" },

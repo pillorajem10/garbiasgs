@@ -62,11 +62,12 @@ const MissionVisionVisionSection = () => {
             >
                 <h2>Vision</h2>
                 <p>
-                    GarBia Group aims to 
-                    be one of the preferred and trusted service provider 
-                    for geotechnical services with the highest quality 
-                    standards and competitive rates, 
-                    delivered in a timely manner in Luzon.
+                    Garbia Builders and Technology Solutions, OPC envisions
+                    becoming one of the most trusted and preferred providers of
+                    integrated geotechnical engineering, foundation and
+                    construction solutions in Luzon, delivering the highest
+                    standards of quality, safety, and technical excellence at
+                    competitive rates and within committed timelines.
                 </p>
             </motion.div>
         </LazyBackground>

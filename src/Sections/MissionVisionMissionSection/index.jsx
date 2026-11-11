@@ -47,15 +47,26 @@ const MissionVisionMissionSection = () => {
 
                 <h2>Mission</h2>
                 <p>
-                    GarBia Structural & Geotechnical Solutions is dedicated to 
-                    providing geotechnical services with high level of quality 
-                    and accuracy in order to contribute on the Philippines' 
-                    transition to quality construction and safe infrastructure.
+                    Garbia Builders and Technology Solutions, OPC is committed to
+                    delivering soil drilling, geotechnical investigation, bored
+                    piling, and construction services with a high level of
+                    quality, accuracy, and technical reliability in support of
+                    the Philippines pursuit of safe, durable, and
+                    standards-compliant infrastructure.
                 </p>
 
                 <p>
-                    GarBia Structural & Geotechnical Solutions is committed to be a company 
-                    that is in harmony with people and its stakeholders.
+                    The company shall implement, maintain and continually
+                    improve its Quality Management System to ensure compliance
+                    with applicable statutory, regulatory, and client
+                    requirements.
+                </p>
+
+                <p>
+                    Garbia Builders and Technology Solutions, OPC strives to
+                    operate in harmony with its employees, clients, partners,
+                    and stakeholders by promoting integrity, professionalism,
+                    safety, and sustainable development in all its operations.
                 </p>
             </motion.div>
 

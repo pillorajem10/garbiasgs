@@ -32,6 +32,12 @@ export const PAGE_META = {
       "Founded in 2018 in Cainta, Rizal, GarBia Group is ISO 9001:2015 certified, DPWH-BRS accredited, PCAB Category A licensed, and a PhilGEPS Platinum member.",
     keywords: "Construction Company, Geotechnical Engineering, " + PRIMARY_KEYWORDS,
   },
+  "/history": {
+    title: "Our History | GarBia Group",
+    description:
+      "From an underground drilling contractor and soil testing laboratory founded in 2018, to Garbia Builders and Technology Solutions, OPC today — the history of GarBia Group.",
+    keywords: "Company History, GarBia History, " + PRIMARY_KEYWORDS,
+  },
   "/mission-vision": {
     title: "Mission & Vision | GarBia Group Geotechnical Solutions",
     description:
@@ -77,6 +83,7 @@ export const PAGE_META = {
 export const BREADCRUMB_LABELS = {
   "/services": "Services",
   "/about": "About",
+  "/history": "History",
   "/mission-vision": "Mission & Vision",
   "/projects": "Projects",
   "/program": "Charity Programs",
@@ -95,6 +102,7 @@ export const INDEXABLE_ROUTES = [
   { path: "/projects", changefreq: "weekly", priority: "0.9" },
   { path: "/contact", changefreq: "monthly", priority: "0.85" },
   { path: "/about", changefreq: "monthly", priority: "0.8" },
+  { path: "/history", changefreq: "yearly", priority: "0.5" },
   { path: "/location", changefreq: "monthly", priority: "0.8" },
   { path: "/mission-vision", changefreq: "monthly", priority: "0.7" },
   { path: "/program", changefreq: "monthly", priority: "0.6" },

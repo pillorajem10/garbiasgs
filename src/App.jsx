@@ -18,6 +18,7 @@ import { seoPath } from "@/seo/pageMeta";
 
 const Home = lazy(() => import("@pages/Home"));
 const About = lazy(() => import("@pages/About"));
+const History = lazy(() => import("@pages/History"));
 const Services = lazy(() => import("@pages/Services"));
 const Contact = lazy(() => import("@pages/Contact"));
 const MissionVision = lazy(() => import("@pages/MissionVision"));
@@ -112,6 +113,7 @@ function RoutedMain() {
           <Route path="/" element={<Home />} />
           <Route path="/services" element={<Services />} />
           <Route path="/about" element={<About />} />
+          <Route path="/history" element={<History />} />
           <Route path="/contact" element={<Contact />} />
           <Route path="/mission-vision" element={<MissionVision />} />
           <Route path="/location" element={<Location />} />

@@ -39,6 +39,7 @@ const ROUTE_MODULES = {
   "/": "src/Pages/Home/index.jsx",
   "/services": "src/Pages/Services/index.jsx",
   "/about": "src/Pages/About/index.jsx",
+  "/history": "src/Pages/History/index.jsx",
   "/contact": "src/Pages/Contact/index.jsx",
   "/mission-vision": "src/Pages/MissionVision/index.jsx",
   "/location": "src/Pages/Location/index.jsx",

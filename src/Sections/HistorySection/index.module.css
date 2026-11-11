@@ -1,0 +1,45 @@
+/* Auto-height on purpose, same as HomeIntroSection: this follows a
+   full-viewport banner, and forcing it to another 100svh block would clip a
+   five-paragraph history or leave a large empty gap on short content. */
+.section {
+  background: var(--color-surface);
+  padding: clamp(3rem, 7vw, 5.5rem) 1.25rem;
+}
+
+.inner {
+  max-width: 48rem;
+  margin: 0 auto;
+}
+
+.heading {
+  font-size: clamp(1.5rem, 1.4vw + 1.1rem, 2.25rem);
+  color: var(--color-primary);
+  margin-bottom: clamp(1.5rem, 3vw, 2.25rem);
+}
+
+.era {
+  border-left: 3px solid var(--color-accent);
+  padding-left: clamp(1rem, 2.5vw, 1.5rem);
+  margin-bottom: clamp(1.75rem, 3.5vw, 2.5rem);
+}
+
+.era:last-child {
+  margin-bottom: 0;
+}
+
+.eraTitle {
+  font-size: 1.05rem;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  /* --color-accent-hover reaches only ~3.85:1 on this surface, below the
+     4.5:1 WCAG AA minimum for normal-weight text — same issue already
+     documented on HomeIntroSection's .cardLink. --color-primary clears it. */
+  color: var(--color-primary);
+  margin-bottom: 0.5rem;
+}
+
+.era p {
+  font-size: clamp(1rem, 0.3vw + 0.95rem, 1.1rem);
+  line-height: var(--leading-prose);
+  color: var(--color-text);
+}
