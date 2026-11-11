@@ -20,9 +20,9 @@ const HomeIntroSection = () => (
 
       <p className={styles.lead}>
         <strong>GarBia Group</strong> — registered as{" "}
-        <strong>GarBia Structural and Geotechnical Solutions</strong> and also
-        known as GarBia SGS — is a geotechnical engineering and construction
-        services company based in {BUSINESS.addressLocality},{" "}
+        <strong>{BUSINESS.legalName}</strong>, formerly GarBia Structural and
+        Geotechnical Solutions (GSGS) — is a geotechnical engineering and
+        construction services company based in {BUSINESS.addressLocality},{" "}
         {BUSINESS.addressRegion}. Since {BUSINESS.foundingYear} we have carried
         out soil investigation, geotechnical testing, and foundation works for
         residential, institutional, and government projects across Luzon.

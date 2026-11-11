@@ -10,7 +10,7 @@ const Navbar = ({ menuOpen, onToggleMenu }) => {
       <Link to="/" className={styles.logoContainer} aria-label="GarBia Group home">
         <OptimizedImage
           src={garbiaLogo}
-          alt="GarBia Structural and Geotechnical Solutions logo"
+          alt="GarBia Group logo"
           className={styles.logo}
           width={800}
           height={248}

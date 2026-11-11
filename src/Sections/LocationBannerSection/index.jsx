@@ -69,7 +69,7 @@ const LocationBannerSection = () => {
           </p>
           <div className={styles.mapContainer}>
             <iframe
-              title="GarBia Structural and Geotechnical Solutions office location map"
+              title={`${BUSINESS.legalName} office location map`}
               src={MAP_EMBED}
               loading="lazy"
               referrerPolicy="no-referrer-when-downgrade"

@@ -112,7 +112,7 @@ export const ORGANIZATION_NODE = {
   legalName: BUSINESS.legalName,
   alternateName: BRAND_ALTERNATE_NAMES,
   description:
-    "GarBia Group (GarBia Structural and Geotechnical Solutions) is a Philippine geotechnical engineering and construction services company providing soil investigation, site investigation, laboratory testing, geotechnical reports, micropiling, and ground improvement works.",
+    "GarBia Group (Garbia Builders and Technology Solutions, OPC — formerly GarBia Structural and Geotechnical Solutions) is a Philippine geotechnical engineering and construction services company providing soil investigation, site investigation, laboratory testing, geotechnical reports, micropiling, and ground improvement works.",
   url: `${SITE_URL}/`,
   // Must be the brand mark visitors actually see. This pointed at the previous
   // CDN logo, which the site no longer displays anywhere — structured data has

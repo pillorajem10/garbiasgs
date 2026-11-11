@@ -34,7 +34,7 @@ const ContactSection = () => {
         <header className={styles.intro}>
           <h1>Contact Us</h1>
           <p>
-            Reach GarBia Structural and Geotechnical Solutions for soil investigation, foundation
+            Reach {BUSINESS.legalName} for soil investigation, foundation
             engineering, and construction inquiries. Our team is ready to discuss your project and
             schedule a consultation at our Cainta office or on site.
           </p>

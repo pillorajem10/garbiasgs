@@ -15,7 +15,7 @@ export const PAGE_META = {
   "/": {
     title: "GarBia Group | Geotechnical & Construction Services Philippines",
     description:
-      "GarBia Group — GarBia Structural and Geotechnical Solutions — provides soil investigation, geotechnical testing, and foundation works across Luzon, Philippines.",
+      "GarBia Group — Garbia Builders and Technology Solutions, OPC — provides soil investigation, geotechnical testing, and foundation works across Luzon, Philippines.",
     keywords: PRIMARY_KEYWORDS,
   },
   "/services": {
