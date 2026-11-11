@@ -13,18 +13,22 @@ name: CI/CD Pipeline
 # clear on its own; a real failure (bad key, VPS down, script error) still
 # fails the job after attempt 3, with each attempt's log visible.
 #
-# `docker build` runs with --no-cache and the build cache is pruned on every
-# run. Observed directly on the VPS: the containerd/overlay2 snapshotter
-# occasionally fails to commit a RUN layer's filesystem diff (dmesg logged
-# "lowerdir is in-use as upperdir/workdir of another mount" at the time),
-# so a layer that genuinely succeeded — confirmed by its own build output —
-# still isn't there for the next stage's COPY --from=builder to find. Once
-# that happens, BuildKit caches the broken result, and every subsequent
-# build of that same commit — including all 3 retries above — keeps hitting
-# the same broken cache entry forever. Retrying cannot fix a cache miss that
-# every attempt reproduces identically; only skipping the cache can. Pruning
-# afterward means a future snapshotter fault can't poison a cache entry that
-# a later, unrelated deploy would otherwise keep reusing.
+# DOCKER_BUILDKIT=0 forces the classic (pre-BuildKit) builder. This is the
+# actual fix for a real, repeated production outage, not precautionary:
+# BuildKit's overlay2 snapshotter on this VPS intermittently fails to commit
+# a RUN layer's filesystem diff (dmesg logged "lowerdir is in-use as
+# upperdir/workdir of another mount" at the exact failure time) even though
+# the command's own output proved it had genuinely succeeded — so the next
+# stage's `COPY --from=builder /app/dist` found nothing there. An earlier fix
+# (--no-cache + pruning the build cache every run) only stopped that broken
+# result from being cached and reused by later, unrelated deploys — it did
+# nothing to stop BuildKit from hitting the same snapshotter race again on a
+# fresh commit, which it did on the very next deploy. Confirmed directly on
+# the VPS: the classic builder does not use this snapshotter at all, and
+# three builds in a row with it succeeded — two cached, one fully clean —
+# where BuildKit had just failed on the same commit. --no-cache is kept
+# anyway for a fully deterministic build on every deploy; it costs under a
+# second extra here.
 
 on:
   push:
@@ -57,10 +61,10 @@ jobs:
             git reset --hard origin/master
             echo "Deploying commit: $(git rev-parse --short HEAD)"
 
-            # Rebuild the image from the freshly pulled code. --no-cache: see
-            # the file header comment — a stale/corrupted cached layer is a
-            # real, observed failure mode here, not a theoretical one.
-            docker build --no-cache -t garbiasgs:latest .
+            # Rebuild the image from the freshly pulled code. DOCKER_BUILDKIT=0
+            # + --no-cache: see the file header comment — this is the real fix
+            # for a real, repeated production outage, not a precaution.
+            DOCKER_BUILDKIT=0 docker build --no-cache -t garbiasgs:latest .
 
             # Replace the running container. Bound to localhost; host nginx
             # reverse-proxies https://garbiagroup.com -> 127.0.0.1:5174.
@@ -69,10 +73,8 @@ jobs:
             docker run -d --name garbiasgs-green --restart always \
               -p 127.0.0.1:5174:5173 garbiasgs:latest
 
-            # Reclaim old dangling images, and the build cache this run just
-            # produced but --no-cache means will never be read again anyway.
+            # Reclaim old dangling image layers so they don't pile up.
             docker image prune -f
-            docker builder prune -af
 
             # Smoke test: the container must answer through its published port.
             sleep 2
