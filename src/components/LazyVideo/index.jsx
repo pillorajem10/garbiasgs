@@ -12,6 +12,7 @@ import { useAutoplayAllowed } from "@/hooks/useAutoplayAllowed";
  *     when the visitor asked for reduced motion or is on a metered/2G-class
  *     connection. These files are 6–42 MB, and the banner behind them has a
  *     solid fallback colour, so nothing breaks visually.
+ * 
  */
 export default function LazyVideo({ src, className, poster, controls = false }) {
   const ref = useRef(null);
