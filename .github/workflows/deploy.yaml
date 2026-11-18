@@ -82,6 +82,21 @@ jobs:
               && echo "Deployment successful — container healthy" \
               || (echo "Container did not respond" && exit 1)
 
+            CONTACT_ENV_FILE=/var/www/garbiagroup.com/contact-api.env
+            if [ -f "$CONTACT_ENV_FILE" ]; then
+              DOCKER_BUILDKIT=0 docker build -t garbiasgs-contact:latest contact-api \
+                && { docker stop garbiasgs-contact 2>/dev/null || true; } \
+                && { docker rm garbiasgs-contact 2>/dev/null || true; } \
+                && docker run -d --name garbiasgs-contact --restart always \
+                  --env-file "$CONTACT_ENV_FILE" -p 127.0.0.1:5175:3000 garbiasgs-contact:latest \
+                && sleep 2 \
+                && curl -sf http://127.0.0.1:5175/api/contact/health >/dev/null \
+                && echo "Contact API healthy" \
+                || echo "WARNING: contact API did not deploy; the site itself is unaffected"
+            else
+              echo "Skipping contact API: $CONTACT_ENV_FILE not found"
+            fi
+
       - name: Wait before retry (attempt 1 failed)
         if: steps.attempt1.outcome == 'failure'
         run: |

@@ -13,3 +13,14 @@ services:
     ports:
       - "5174:5173" # host 5174 -> container nginx 5173
     restart: always
+
+  contact-api:
+    container_name: garbiasgs-contact
+    build:
+      context: ./contact-api
+    image: garbiasgs-contact:latest
+    env_file:
+      - ./contact-api/.env
+    ports:
+      - "5175:3000"
+    restart: always

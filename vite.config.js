@@ -8,6 +8,11 @@ const __dirname = path.dirname(fileURLToPath(import.meta.url));
 export default defineConfig(({ isSsrBuild }) => ({
   plugins: [react()],
   base: '/',
+  server: {
+    proxy: {
+      '/api': 'http://127.0.0.1:5175',
+    },
+  },
   // The prerender bundle runs once under Node at build time, so it needs
   // framer-motion bundled rather than externalised — the package resolves to
   // browser-only entry points otherwise.

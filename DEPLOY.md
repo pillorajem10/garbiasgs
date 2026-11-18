@@ -84,3 +84,48 @@ docker run -d --name garbiasgs-green --restart always -p 127.0.0.1:5174:5173 <pr
 A weekly cron (`/etc/cron.weekly/garbiasgs-cleanup`) prunes dangling Docker
 images/build cache, trims journald logs, and clears apt/tmp caches so disk and
 memory don't creep like before.
+
+## Contact form mail service
+
+The contact form posts to `/api/contact`, which a small Node service in
+[contact-api/](contact-api/) turns into an email to `MAIL_TO`. It runs as its
+own container (`garbiasgs-contact`, published on `127.0.0.1:5175`), separate
+from the site container, so a problem with it never affects the site.
+
+### One-time setup on the VPS
+
+1. Create `/var/www/garbiagroup.com/contact-api.env` (outside the git checkout,
+   so deploys never overwrite it) using
+   [contact-api/.env.example](contact-api/.env.example) as the template. It needs
+   the SMTP details of the mailbox that will send the messages:
+
+   ```sh
+   MAIL_TO=inquiries@garbiagroup.com
+   MAIL_FROM=<the address your SMTP account is allowed to send from>
+   SMTP_HOST=mail.privateemail.com
+   SMTP_PORT=465
+   SMTP_SECURE=true
+   SMTP_USER=<SMTP username>
+   SMTP_PASS=<SMTP password or app password>
+   ```
+
+   Then `chmod 600` the file.
+
+2. Add the `location = /api/contact` block from
+   [deploy/nginx.conf](deploy/nginx.conf) to the HTTPS server block of the host
+   nginx, above `location /`, then `sudo nginx -t && sudo systemctl reload nginx`.
+
+3. Deploy as usual. When the env file exists, the deploy workflow builds and
+   starts the contact container after the site container. If it fails, the site
+   deploy still succeeds and the log shows a warning.
+
+### Checking it
+
+```sh
+curl -s http://127.0.0.1:5175/api/contact/health
+docker logs garbiasgs-contact
+```
+
+Messages are limited to 5 per visitor per hour (`RATE_LIMIT_MAX`,
+`RATE_LIMIT_WINDOW_MINUTES`), and a hidden form field catches most bots. To try
+it without sending real mail, run the service locally with `MAIL_DRY_RUN=1`.

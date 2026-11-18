@@ -22,3 +22,7 @@ dist-ssr
 *.njsproj
 *.sln
 *.sw?
+
+tools/images/image-source
+tools/images/image-output
+contact-api/.env

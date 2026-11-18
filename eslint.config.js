@@ -8,7 +8,7 @@ export default [
   { ignores: ['dist', 'dist-ssr'] },
   {
     // Build tooling runs under Node, not in the browser.
-    files: ['scripts/**/*.mjs', 'vite.config.js'],
+    files: ['scripts/**/*.mjs', 'tools/**/*.mjs', 'contact-api/**/*.mjs', 'vite.config.js'],
     languageOptions: {
       ecmaVersion: 'latest',
       globals: globals.node,
@@ -18,7 +18,7 @@ export default [
   },
   {
     files: ['**/*.{js,jsx}'],
-    ignores: ['scripts/**/*.mjs', 'vite.config.js'],
+    ignores: ['scripts/**/*.mjs', 'tools/**/*.mjs', 'contact-api/**/*.mjs', 'vite.config.js'],
     languageOptions: {
       ecmaVersion: 2020,
       globals: globals.browser,
@@ -35,7 +35,7 @@ export default [
     rules: {
       ...js.configs.recommended.rules,
       ...reactHooks.configs.recommended.rules,
-      'no-unused-vars': ['error', { varsIgnorePattern: '^([A-Z_]|motion)' }],
+      'no-unused-vars': ['error', { varsIgnorePattern: '^([A-Z_]|motion)', argsIgnorePattern: '^[A-Z_]' }],
       'react-refresh/only-export-components': [
         'warn',
         { allowConstantExport: true },
