@@ -1,6 +1,6 @@
-import { useRef, useEffect } from "react";
+import { useRef } from "react";
 import { useInViewOnce } from "@/hooks/useInViewOnce";
-import { preloadImage } from "@/utils/cdn";
+import { backgroundImageValue } from "@/utils/cdn";
 
 /**
  * Defers CSS background-image until the section is near the viewport.
@@ -19,16 +19,10 @@ export default function LazyBackground({
   const ref = useRef(null);
   const visible = useInViewOnce(ref, { rootMargin });
 
-  useEffect(() => {
-    if (visible && backgroundUrl) {
-      void preloadImage(backgroundUrl).catch(() => {});
-    }
-  }, [visible, backgroundUrl]);
-
   const mergedStyle = {
     ...style,
     ...(visible && backgroundUrl
-      ? { "--lazy-bg": `url("${backgroundUrl}")` }
+      ? { "--lazy-bg": backgroundImageValue(backgroundUrl) }
       : {}),
   };
 

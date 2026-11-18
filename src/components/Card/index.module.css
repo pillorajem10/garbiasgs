@@ -1,0 +1,110 @@
+.card {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-sm);
+  height: 100%;
+  padding: var(--space-xl);
+  background-color: var(--color-surface);
+  border-radius: var(--radius-sharp);
+  box-shadow: var(--shadow-card);
+  color: var(--color-text);
+  text-decoration: none;
+  transition:
+    transform var(--duration-base) var(--ease-out),
+    box-shadow var(--duration-base) var(--ease-out);
+}
+
+.card::before,
+.card::after {
+  content: "";
+  position: absolute;
+  width: 2.5rem;
+  height: 2.5rem;
+  border: 0 solid var(--color-cta);
+  opacity: 0;
+  transform: scale(0.4);
+  transition:
+    opacity var(--duration-fast) var(--ease-out),
+    transform var(--duration-base) var(--ease-out);
+}
+
+.card::before {
+  top: 0.75rem;
+  left: 0.75rem;
+  border-top-width: 3px;
+  border-left-width: 3px;
+  transform-origin: top left;
+}
+
+.card::after {
+  right: 0.75rem;
+  bottom: 0.75rem;
+  border-right-width: 3px;
+  border-bottom-width: 3px;
+  transform-origin: bottom right;
+}
+
+.card:hover,
+.card:focus-visible {
+  transform: translateY(-6px);
+  box-shadow: var(--shadow-card-hover);
+}
+
+.card:hover::before,
+.card:hover::after,
+.card:focus-visible::before,
+.card:focus-visible::after {
+  opacity: 1;
+  transform: scale(1);
+}
+
+.title {
+  font-size: var(--text-h4);
+  color: var(--color-primary-deep);
+}
+
+.body {
+  color: var(--color-text-muted);
+  line-height: var(--leading-prose);
+}
+
+.body > :last-child {
+  margin-bottom: 0;
+}
+
+.linkLabel {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin-top: auto;
+  padding-top: var(--space-sm);
+  font-family: var(--font-heading);
+  font-size: var(--text-small);
+  font-weight: 700;
+  letter-spacing: 0.03em;
+  color: var(--color-primary);
+}
+
+.arrow {
+  transition: transform var(--duration-base) var(--ease-out);
+}
+
+.card:hover .arrow,
+.card:focus-visible .arrow {
+  transform: translateX(0.4rem);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .card,
+  .card::before,
+  .card::after,
+  .arrow {
+    transition-duration: 1ms;
+  }
+
+  .card:hover,
+  .card:focus-visible {
+    transform: none;
+  }
+}

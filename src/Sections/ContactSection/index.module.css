@@ -1,143 +1,86 @@
-.banner {
-  /* Matches the loaded hero tone so the pre-video paint is not a light flash. */
-  background-color: var(--color-primary-deep);
-  position: relative;
-  min-height: 100vh;
-  min-height: 100dvh;
-  min-height: 100svh;
-  min-height: var(--section-min-height);
-width: 100%;
-  max-width: 100%;
-  overflow: hidden;
+.section {
+  padding: var(--space-section) var(--container-padding-x);
+  background-color: var(--color-bg);
+}
+
+.inner {
   display: flex;
-  align-items: center;
-  justify-content: center;
-  padding: max(5rem, calc(4rem + env(safe-area-inset-top, 0px)))
-    max(1.25rem, env(safe-area-inset-right, 0px))
-    max(2rem, env(safe-area-inset-bottom, 0px))
-    max(1.25rem, env(safe-area-inset-left, 0px));
-  box-sizing: border-box;
+  flex-direction: column;
+  gap: var(--space-2xl);
+  max-width: var(--container-max);
+  margin-inline: auto;
 }
 
-.videoBackground {
-  position: absolute;
-  inset: 0;
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  z-index: 0;
+.layout {
+  display: grid;
+  grid-template-columns: minmax(0, 1.2fr) minmax(0, 1fr);
+  gap: var(--space-2xl);
+  align-items: start;
 }
 
-.overlay {
-  position: absolute;
-  inset: 0;
-  background: rgba(2, 18, 51, 0.78);
-  z-index: 1;
-}
-
-.content {
-  position: relative;
-  z-index: 2;
-  width: 100%;
-  max-width: 44rem;
-  margin: 0 auto;
-  color: #fff;
-}
-
-.intro {
-  text-align: center;
-  margin-bottom: 2.5rem;
-}
-
-.intro h1 {
-  font-size: clamp(2rem, 5vw, 3rem);
-  font-weight: 700;
-  margin-bottom: 1rem;
-  text-shadow: 0 2px 12px rgba(0, 0, 0, 0.35);
-}
-
-.intro p {
-  font-size: clamp(1rem, 2vw, 1.15rem);
-  line-height: 1.65;
-  max-width: 40rem;
-  margin: 0 auto;
-  color: rgba(255, 255, 255, 0.92);
+.formPanel {
+  padding: var(--space-xl);
+  background-color: var(--color-surface);
+  border-top: 3px solid var(--color-cta);
+  border-radius: var(--radius-sharp);
+  box-shadow: var(--shadow-card);
 }
 
 .details {
   display: flex;
   flex-direction: column;
-  align-items: center;
-  gap: 1.75rem;
-  text-align: center;
 }
 
 .detailBlock {
-  width: 100%;
-  padding-bottom: 1.5rem;
-  border-bottom: 1px solid rgba(255, 255, 255, 0.15);
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: var(--space-xs);
+  padding-block: var(--space-lg);
+  border-top: 1px solid rgba(15, 23, 42, 0.12);
 }
 
-.detailBlock:last-child {
-  border-bottom: none;
-  padding-bottom: 0;
+.detailBlock:first-child {
+  padding-top: 0;
+  border-top: none;
 }
 
 .blockTitle {
-  font-size: clamp(1.15rem, 2.5vw, 1.4rem);
-  font-weight: 700;
-  margin-bottom: 0.5rem;
-  color: var(--color-accent-bright);
+  font-size: var(--text-h4);
+  color: var(--color-primary-deep);
 }
 
 .blockText {
-  font-size: 1rem;
-  line-height: 1.6;
-  margin-bottom: 0.75rem;
-  color: rgba(255, 255, 255, 0.9);
-}
-
-.contactLink {
-  font-size: clamp(1.05rem, 2vw, 1.25rem);
-  font-weight: 600;
-  color: #fff;
-  text-decoration: none;
-  word-break: break-word;
-}
-
-.contactLink:hover {
-  color: var(--color-accent-bright);
-  text-decoration: underline;
+  margin: 0;
+  line-height: var(--leading-body);
+  color: var(--color-text-muted);
 }
 
 .phoneList {
-  list-style: none;
-  margin: 0;
-  padding: 0;
   display: flex;
   flex-direction: column;
+  list-style: none;
+}
+
+.contactLink {
+  display: inline-flex;
   align-items: center;
-  gap: 0.5rem;
-}
-
-.officeLink {
-  font-weight: 600;
-  color: var(--color-accent-bright);
+  min-height: var(--tap-target-min);
+  font-weight: 700;
+  color: var(--color-primary);
   text-decoration: none;
+  overflow-wrap: anywhere;
+  background: linear-gradient(var(--color-cta), var(--color-cta)) 0 calc(50% + 0.75em) / 0 3px no-repeat;
+  transition: background-size var(--duration-base) var(--ease-out);
 }
 
-.officeLink:hover {
-  text-decoration: underline;
+.contactLink:hover,
+.contactLink:focus-visible {
+  background-size: 100% 3px;
 }
 
-@media (max-width: 768px) {
-  .intro {
-    margin-bottom: 2rem;
-  }
-}
-
-@media (max-width: 480px) {
-  .banner {
-    padding-top: max(4.5rem, calc(3.5rem + env(safe-area-inset-top, 0px)));
+@media (max-width: 900px) {
+  .layout {
+    grid-template-columns: minmax(0, 1fr);
   }
 }

@@ -1,182 +1,59 @@
-.container {
-    display: flex;
-    justify-content: center;
-    flex-direction: column;
-    align-items: center;
-  min-height: 100vh;
-  min-height: 100dvh;
-  min-height: 100svh;
-  min-height: var(--section-min-height);
-background-color: blue; /* Fallback color */
-    background-image: var(--lazy-bg, none);
-    background-size: cover; /* Ensures the image covers the whole container */
-    background-position: center; /* Centers the background image */
-    background-repeat: no-repeat; /* Prevents the image from repeating */
-    position: relative; /* Required to position the overlay */
-    gap: 10rem;
-    padding: 20px;
-    flex-wrap: wrap;
+.section {
+  --focus-color: var(--color-cta);
+  position: relative;
+  isolation: isolate;
+  padding: var(--space-section) var(--container-padding-x);
+  background-color: var(--color-hero-base);
+  background-image: var(--lazy-bg, none);
+  background-size: cover;
+  background-position: center;
+  color: var(--color-on-dark);
 }
 
-.container h2 {
-    font-size: 2.5rem;
-    color: var(--text-accent);
-    text-align: center;
-    font-weight: 500;
-    font-style: italic;
+.section::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  background-color: var(--overlay-dark-strong);
 }
 
-.intro p {
-    font-size: 1.1rem;
-    margin-top: 2rem;
-    color: white;
-    font-style: italic;
+.inner {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2xl);
+  max-width: var(--container-max);
+  margin-inline: auto;
 }
 
-.content {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    gap: 5rem;
-    z-index: 2;
-    flex-wrap: wrap;
+.media {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: var(--space-lg);
 }
 
+.frame {
+  overflow: hidden;
+  aspect-ratio: 16 / 10;
+  background-color: var(--color-primary-deep);
+  border-radius: var(--radius-sharp);
+  box-shadow: var(--shadow-lg);
+}
+
+.slide,
 .video {
-    width: 100%;
-    height: auto;
-    /* garbiaCharity.mp4 is 1280x720. Without this the element renders at the
-       UA default 300x150 box and jumps to 16:9 when metadata arrives — with
-       preload="none" that happens late, and everything below it (including the
-       footer) shifts. Reserving the ratio up front removes that shift. */
-    aspect-ratio: 16 / 9;
-    max-width: 40rem;
-    border-radius: var(--radius-lg);
-    box-shadow: var(--shadow-md);
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
 }
 
-
-.container::before {
-    content: ''; /* Necessary to create a pseudo-element */
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: rgba(2, 18, 51, 0.7); /* Blue overlay with 70% opacity */
-    z-index: 1; /* Makes sure the overlay sits above the background but below content */
+.footer {
+  display: flex;
+  justify-content: center;
 }
 
-.container > * {
-    z-index: 2; /* Makes sure the content (children of .container) sits above the overlay */
-}
-
-.imageContainer1 {
-    width: 100%;
-    max-width: 30rem;
-    border-radius: var(--radius-sm);
-}
-
-.imageContainer1 img {
-    width: 100%;
-    border-radius: var(--radius-sm);
-}
-
-.rightContainer, .leftContainer {
-    color: white;
-    z-index: 2;
-    max-width: 35rem;
-    text-align: left;
-}
-
-.rightContainer h2, .leftContainer h2 {
-    font-size: 2.5rem;
-    color: var(--text-accent);
-}
-
-.rightContainer p, .leftContainer p {
-    font-size: 1.5rem;
-    margin-top: 2rem;
-}
-
-.fadeImage {
-    width: 100%;
-    height: 400px;         /* 👈 Set fixed height */
-    object-fit: cover;     /* 👈 Maintain aspect ratio & fill space */
-    border-radius: var(--radius-lg);
-    opacity: 0;
-    animation: fadeIn 2s forwards;
-}
-
-
-@keyframes fadeIn {
-    to {
-        opacity: 1;
-    }
-}
-
-@media screen and (max-width: 700px) {
-    .container {
-        flex-direction: column;
-        gap: 5rem;
-        padding: 30px 20px;
-        background-position: top;
-    }
-
-    .container h2 {
-        font-size: 2rem;
-        color: var(--text-accent);
-        font-weight: 100;
-        font-style: italic;
-    }
-
-    .imageContainer1 {
-        max-width: 90%;
-        margin-top: 2rem;
-    }
-
-    .rightContainer,
-    .leftContainer {
-        max-width: 100%;
-        text-align: center;
-    }
-
-    .rightContainer h2,
-    .leftContainer h2 {
-        font-size: 2rem;
-    }
-
-    .rightContainer p,
-    .leftContainer p {
-        font-size: 1.1rem;
-    }
-}
-
-@media screen and (max-width: 500px) {
-    .container {
-        gap: 3rem;
-        padding: 30px;
-    }
-
-    .container h2 {
-        font-size: 1.5rem;
-        color: var(--text-accent);
-        font-weight: 100;
-        font-style: italic;
-    }
-
-    .imageContainer1 {
-        max-width: 100%;
-        margin-top: 1.5rem;
-    }
-
-    .rightContainer h2,
-    .leftContainer h2 {
-        font-size: 1.7rem;
-    }
-
-    .rightContainer p,
-    .leftContainer p {
-        font-size: 1rem;
-    }
+@media (max-width: 900px) {
+  .media {
+    grid-template-columns: minmax(0, 1fr);
+  }
 }

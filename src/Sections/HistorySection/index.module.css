@@ -1,45 +1,80 @@
-/* Auto-height on purpose, same as HomeIntroSection: this follows a
-   full-viewport banner, and forcing it to another 100svh block would clip a
-   five-paragraph history or leave a large empty gap on short content. */
 .section {
-  background: var(--color-surface);
-  padding: clamp(3rem, 7vw, 5.5rem) 1.25rem;
+  padding: var(--space-section) var(--container-padding-x);
+  background-color: var(--color-bg);
 }
 
 .inner {
-  max-width: 48rem;
-  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2xl);
+  max-width: 60rem;
+  margin-inline: auto;
 }
 
-.heading {
-  font-size: clamp(1.5rem, 1.4vw + 1.1rem, 2.25rem);
-  color: var(--color-primary);
-  margin-bottom: clamp(1.5rem, 3vw, 2.25rem);
+.timeline {
+  position: relative;
+  padding-left: var(--space-2xl);
+}
+
+.eraList {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2xl);
+  list-style: none;
+}
+
+.timeline::before,
+.line {
+  position: absolute;
+  top: 0.5rem;
+  bottom: 0.5rem;
+  left: 0.5rem;
+  width: 3px;
+}
+
+.timeline::before {
+  content: "";
+  background-color: rgba(15, 23, 42, 0.12);
+}
+
+.line {
+  background-color: var(--color-cta);
+  transform-origin: top;
 }
 
 .era {
-  border-left: 3px solid var(--color-accent);
-  padding-left: clamp(1rem, 2.5vw, 1.5rem);
-  margin-bottom: clamp(1.75rem, 3.5vw, 2.5rem);
+  position: relative;
 }
 
-.era:last-child {
-  margin-bottom: 0;
+.marker {
+  position: absolute;
+  top: 0.35rem;
+  left: calc(var(--space-2xl) * -1);
+  width: 1.1rem;
+  height: 1.1rem;
+  background-color: var(--color-bg);
+  border: 3px solid var(--color-primary);
+  border-radius: 50%;
+  transition:
+    background-color var(--duration-base) var(--ease-out),
+    border-color var(--duration-base) var(--ease-out);
+}
+
+.era:hover .marker {
+  background-color: var(--color-cta);
+  border-color: var(--color-cta);
 }
 
 .eraTitle {
-  font-size: 1.05rem;
-  letter-spacing: 0.04em;
-  text-transform: uppercase;
-  /* --color-accent-hover reaches only ~3.85:1 on this surface, below the
-     4.5:1 WCAG AA minimum for normal-weight text — same issue already
-     documented on HomeIntroSection's .cardLink. --color-primary clears it. */
-  color: var(--color-primary);
-  margin-bottom: 0.5rem;
+  margin-bottom: var(--space-sm);
+  font-size: var(--text-h3);
+  color: var(--color-primary-deep);
 }
 
-.era p {
-  font-size: clamp(1rem, 0.3vw + 0.95rem, 1.1rem);
+.eraText {
+  margin: 0;
+  max-width: 48rem;
+  font-size: var(--text-lead);
   line-height: var(--leading-prose);
   color: var(--color-text);
 }

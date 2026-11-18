@@ -1,78 +1,143 @@
 .footer {
+  --focus-color: var(--color-cta);
   position: relative;
   z-index: 2;
-  background-color: var(--color-nav);
-  color: white;
-  text-align: center;
-  padding: 15px clamp(12px, 4vw, 20px);
-  padding-bottom: calc(15px + env(safe-area-inset-bottom, 0px));
-  font-size: clamp(0.75rem, 2.5vw, 1rem);
-  width: 100%;
-  max-width: 100%;
-  box-sizing: border-box;
   flex-shrink: 0;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2xl);
+  width: 100%;
+  padding: var(--space-section) var(--container-padding-x)
+    max(var(--space-xl), env(safe-area-inset-bottom, 0px));
+  background-color: var(--color-primary-deep);
+  background-image:
+    linear-gradient(var(--blueprint-line) 1px, transparent 1px),
+    linear-gradient(90deg, var(--blueprint-line) 1px, transparent 1px);
+  background-size: var(--blueprint-cell) var(--blueprint-cell);
+  color: var(--color-on-dark);
 }
 
-.nav {
-  margin-bottom: 0.75rem;
+.callToAction,
+.columns,
+.copy {
+  width: 100%;
+  max-width: var(--container-max);
+  margin-inline: auto;
 }
 
-.linkList {
-  list-style: none;
+.callToAction {
   display: flex;
   flex-wrap: wrap;
-  justify-content: center;
-  gap: 0.5rem 1.25rem;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-lg);
+  padding-bottom: var(--space-2xl);
+  border-bottom: 1px solid var(--color-on-dark-subtle);
+}
+
+.callToActionTitle {
+  max-width: 28ch;
+  font-size: var(--text-h2);
+}
+
+.columns {
+  display: grid;
+  grid-template-columns: minmax(0, 1.4fr) repeat(3, minmax(0, 1fr));
+  gap: var(--space-2xl) var(--space-xl);
+}
+
+.brandColumn,
+.column {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-sm);
+  min-width: 0;
+}
+
+.brandName {
   margin: 0;
-  padding: 0;
+  font-family: var(--font-heading);
+  font-size: var(--text-h3);
+  font-weight: 800;
+  letter-spacing: var(--tracking-heading);
+}
+
+.brandBlurb,
+.legalName,
+.address {
+  margin: 0;
+  max-width: 34ch;
+  font-style: normal;
+  line-height: var(--leading-body);
+  color: var(--color-on-dark-muted);
+}
+
+.legalName {
+  font-size: var(--text-small);
+  color: var(--color-on-dark-subtle);
+}
+
+.columnTitle {
+  margin-bottom: var(--space-xs);
+  font-size: var(--text-label);
+  font-weight: 700;
+  letter-spacing: var(--tracking-label);
+  text-transform: uppercase;
+  color: var(--color-accent-bright);
+}
+
+.linkList,
+.socialList {
+  display: flex;
+  flex-direction: column;
+  list-style: none;
+}
+
+.socialList {
+  flex-direction: row;
+  flex-wrap: wrap;
+  gap: var(--space-md);
 }
 
 .link {
-  color: #fff;
-  text-decoration: none;
-  font-weight: 500;
-  min-height: 44px;
   display: inline-flex;
   align-items: center;
-}
-
-.link:hover {
-  text-decoration: underline;
-}
-
-.identity {
-  margin: 0 0 0.25rem;
-  line-height: 1.5;
-}
-
-.address {
-  margin: 0 0 0.5rem;
-  font-style: normal;
-  line-height: 1.6;
-  opacity: 0.92;
-}
-
-.contact {
-  margin: 0 0 0.75rem;
-  line-height: 1.6;
-  font-size: 0.95em;
-}
-
-.contactLink {
-  color: #fff;
+  min-height: var(--tap-target-min);
+  color: var(--color-on-dark-muted);
   text-decoration: none;
-  font-weight: 500;
+  overflow-wrap: anywhere;
+  background: linear-gradient(currentColor, currentColor) 0 calc(50% + 0.7em) / 0 2px no-repeat;
+  transition:
+    color var(--duration-base) var(--ease-out),
+    background-size var(--duration-base) var(--ease-out);
 }
 
-.contactLink:hover {
-  text-decoration: underline;
-}
-
-.contactSep {
-  opacity: 0.85;
+.link:hover,
+.link:focus-visible {
+  color: var(--color-on-dark);
+  background-size: 100% 2px;
 }
 
 .copy {
   margin: 0;
-  line-height: 1.5;
+  padding-top: var(--space-lg);
+  border-top: 1px solid var(--color-on-dark-subtle);
+  font-size: var(--text-small);
+  color: var(--color-on-dark-subtle);
+}
+
+@media (max-width: 960px) {
+  .columns {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .brandColumn {
+    grid-column: 1 / -1;
+  }
+}
+
+@media (max-width: 560px) {
+  .columns {
+    grid-template-columns: minmax(0, 1fr);
+  }
 }

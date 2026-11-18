@@ -1,5 +1,7 @@
 import { StrictMode } from "react";
 import { createRoot, hydrateRoot } from "react-dom/client";
+import "@fontsource-variable/archivo/wght.css";
+import "@fontsource-variable/public-sans/wght.css";
 import "./index.css";
 import "./styles/sections.css";
 import App from "./App.jsx";

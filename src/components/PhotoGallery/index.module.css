@@ -1,0 +1,114 @@
+.gallery {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-xl);
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(14rem, 1fr));
+  gap: var(--space-md);
+  list-style: none;
+}
+
+.thumbnailButton {
+  position: relative;
+  display: block;
+  width: 100%;
+  padding: 0;
+  overflow: hidden;
+  background-color: var(--color-primary-deep);
+  border: none;
+  border-radius: var(--radius-sharp);
+  box-shadow: var(--shadow-card);
+  cursor: pointer;
+  transition: box-shadow var(--duration-base) var(--ease-out);
+}
+
+.thumbnailButton:hover,
+.thumbnailButton:focus-visible {
+  box-shadow: var(--shadow-card-hover);
+}
+
+.thumbnail {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform var(--duration-slow) var(--ease-out);
+}
+
+.thumbnailButton:hover .thumbnail,
+.thumbnailButton:focus-visible .thumbnail {
+  transform: scale(1.08);
+}
+
+.contained {
+  background-color: var(--color-surface);
+}
+
+.contained .thumbnail {
+  object-fit: contain;
+}
+
+.corner {
+  position: absolute;
+  top: 0.6rem;
+  left: 0.6rem;
+  width: 2rem;
+  height: 2rem;
+  border-top: 3px solid var(--color-cta);
+  border-left: 3px solid var(--color-cta);
+  opacity: 0;
+  transform: scale(0.4);
+  transform-origin: top left;
+  transition:
+    opacity var(--duration-fast) var(--ease-out),
+    transform var(--duration-base) var(--ease-out);
+}
+
+.zoomHint {
+  position: absolute;
+  right: 0.6rem;
+  bottom: 0.6rem;
+  padding: 0.25rem 0.6rem;
+  background-color: var(--color-cta);
+  color: var(--color-on-cta);
+  font-family: var(--font-heading);
+  font-size: var(--text-label);
+  font-weight: 700;
+  letter-spacing: var(--tracking-label);
+  text-transform: uppercase;
+  opacity: 0;
+  transform: translateY(0.5rem);
+  transition:
+    opacity var(--duration-base) var(--ease-out),
+    transform var(--duration-base) var(--ease-out);
+}
+
+.thumbnailButton:hover .corner,
+.thumbnailButton:focus-visible .corner,
+.thumbnailButton:hover .zoomHint,
+.thumbnailButton:focus-visible .zoomHint {
+  opacity: 1;
+  transform: none;
+}
+
+.footer {
+  display: flex;
+  justify-content: center;
+}
+
+@media (hover: none) {
+  .zoomHint {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .thumbnail,
+  .corner,
+  .zoomHint {
+    transition-duration: 1ms;
+  }
+}

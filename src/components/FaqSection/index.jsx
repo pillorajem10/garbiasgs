@@ -1,4 +1,6 @@
 import { useState, useId } from "react";
+import Reveal from "@components/Reveal";
+import SectionHeader from "@components/SectionHeader";
 import styles from "./index.module.css";
 
 export default function FaqSection({
@@ -14,43 +16,48 @@ export default function FaqSection({
 
   return (
     <section className={styles.section} id={id} aria-labelledby={`${baseId}-title`}>
-      <h2 id={`${baseId}-title`} className={styles.heading}>
-        {title}
-      </h2>
-      {intro && <p className={styles.intro}>{intro}</p>}
-      <ul className={styles.list}>
-        {faqs.map((faq, index) => {
-          const isOpen = openIndex === index;
-          const panelId = `${baseId}-panel-${index}`;
-          const buttonId = `${baseId}-btn-${index}`;
-          return (
-            <li key={faq.question} className={styles.item}>
-              <button
-                type="button"
-                id={buttonId}
-                className={styles.question}
-                aria-expanded={isOpen}
-                aria-controls={panelId}
-                onClick={() => setOpenIndex(isOpen ? null : index)}
+      <div className={styles.inner}>
+        <SectionHeader
+          eyebrow="FAQ"
+          title={title}
+          intro={intro}
+          titleId={`${baseId}-title`}
+        />
+        <Reveal as="ul" delay={120} className={styles.list}>
+          {faqs.map((faq, index) => {
+            const isOpen = openIndex === index;
+            const panelId = `${baseId}-panel-${index}`;
+            const buttonId = `${baseId}-btn-${index}`;
+            return (
+              <li
+                key={faq.question}
+                className={`${styles.item} ${isOpen ? styles.open : ""}`}
               >
-                <span>{faq.question}</span>
-                <span className={styles.icon} aria-hidden>
-                  {isOpen ? "−" : "+"}
-                </span>
-              </button>
-              <div
-                id={panelId}
-                hidden={!isOpen}
-                role="region"
-                aria-labelledby={buttonId}
-                className={styles.answer}
-              >
-                {faq.answer}
-              </div>
-            </li>
-          );
-        })}
-      </ul>
+                <button
+                  type="button"
+                  id={buttonId}
+                  className={styles.question}
+                  aria-expanded={isOpen}
+                  aria-controls={panelId}
+                  onClick={() => setOpenIndex(isOpen ? null : index)}
+                >
+                  <span>{faq.question}</span>
+                  <span className={styles.icon} aria-hidden="true" />
+                </button>
+                <div
+                  id={panelId}
+                  role="region"
+                  aria-labelledby={buttonId}
+                  inert={!isOpen}
+                  className={styles.answerWrapper}
+                >
+                  <div className={styles.answer}>{faq.answer}</div>
+                </div>
+              </li>
+            );
+          })}
+        </Reveal>
+      </div>
     </section>
   );
 }

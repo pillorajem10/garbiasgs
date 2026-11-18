@@ -1,4 +1,4 @@
-import { lazy, Suspense, useState, useEffect, useCallback } from "react";
+import { lazy, Suspense, useState, useEffect, useCallback, useRef } from "react";
 import {
   BrowserRouter as Router,
   Routes,
@@ -94,17 +94,32 @@ function useNetworkGate() {
 
 function RoutedMain() {
   const location = useLocation();
-
   // Remounting on route change replays the content-in animation. Keyed on the
   // route's identity rather than the raw pathname so that the not-found view,
   // which every unmatched URL renders, is treated as one page — moving between
   // two dead URLs should not replay the animation on identical content.
   const routeKey = seoPath(location.pathname);
 
+  const previousRouteKeyRef = useRef(routeKey);
+  const hasNavigatedRef = useRef(false);
+
+  useEffect(() => {
+    if (previousRouteKeyRef.current === routeKey) return;
+    previousRouteKeyRef.current = routeKey;
+    hasNavigatedRef.current = true;
+  }, [routeKey]);
+
+  const focusMainAfterNavigation = useCallback((mainElement) => {
+    if (mainElement && hasNavigatedRef.current) {
+      mainElement.focus({ preventScroll: true });
+    }
+  }, []);
+
   return (
     <Suspense fallback={<BrandedPageLoader />}>
       <main
         key={routeKey}
+        ref={focusMainAfterNavigation}
         id="main-content"
         className="main-content main-content-route"
         tabIndex={-1}

@@ -1,206 +1,27 @@
-.container {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  min-height: 100vh;
-  min-height: 100dvh;
-  min-height: 100svh;
-  min-height: var(--section-min-height);
-  background-color: var(--color-primary);
-  background-image: var(--lazy-bg, none);
-  background-position: center;
-  background-size: cover;
-  background-repeat: no-repeat;
+.section {
+  --focus-color: var(--color-cta);
   position: relative;
-  padding: 40px 20px;
-  box-sizing: border-box;
-  overflow: hidden;
-  flex-wrap: wrap;
-  gap: 3rem;
+  isolation: isolate;
+  padding: var(--space-section) var(--container-padding-x);
+  background-color: var(--color-hero-base);
+  background-image: var(--lazy-bg, none);
+  background-size: cover;
+  background-position: center;
+  color: var(--color-on-dark);
 }
 
-.container::before {
-  content: '';
+.section::before {
+  content: "";
   position: absolute;
   inset: 0;
-  background: rgba(2, 18, 51, 0.7);
-  z-index: 1;
+  z-index: -1;
+  background-color: var(--overlay-dark-strong);
 }
 
-.container > * {
-  z-index: 2;
-}
-
-.mainContent {
-  color: white;
-  z-index: 2;
-  width: 100%;
-  max-width: 1000px;
-  text-align: center;
-  padding: 0 1rem;
-  box-sizing: border-box;
-}
-
-.mainContent h2 {
-  font-size: 2.5rem;
-  font-style: italic;
-  font-weight: 500;
-  color: var(--text-accent);
-  margin-bottom: 2rem;
-}
-
-.slideshow {
+.inner {
   display: flex;
-  align-items: center;
   flex-direction: column;
-  gap: 1.5rem;
-  justify-content: center;
-}
-
-.mainImage {
-  width: 100%;
-  max-width: 500px;
-  max-height: 500px; /* Prevents vertical overflow */
-  border-radius: var(--radius-md);
-  object-fit: contain; /* Ensures full image fits inside container */
-  box-shadow: var(--shadow-sm);
-}
-
-/* === Thumbnail Row Wrapper with Arrows === */
-.thumbnailWrapper {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  width: 100%;
-  gap: 0.5rem;
-  position: relative;
-}
-
-.thumbnailRow {
-  display: flex;
-  flex-wrap: nowrap;
-  overflow-x: auto;
-  overflow-y: hidden;
-  gap: 0.5rem;
-  padding: 0.5rem 0;
-  width: 100%;
-  box-sizing: border-box;
-  scroll-behavior: smooth;
-  -webkit-overflow-scrolling: touch;
-}
-
-.thumbnailRow::-webkit-scrollbar {
-  height: 4px;
-}
-.thumbnailRow::-webkit-scrollbar-thumb {
-  background: rgba(255, 255, 255, 0.3);
-  border-radius: var(--radius-xs);
-}
-
-.thumbnailButton {
-  flex: 0 0 auto;
-  padding: 0;
-  margin: 0;
-  border: 2px solid transparent;
-  border-radius: var(--radius-sm);
-  background: transparent;
-  cursor: pointer;
-  line-height: 0;
-  transition: border-color 0.2s ease, transform 0.2s ease;
-}
-
-.thumbnailButton:focus-visible {
-  outline: 3px solid var(--color-accent);
-  outline-offset: 2px;
-}
-
-.thumbnailImg {
-  display: block;
-  width: 70px;
-  height: 70px;
-  object-fit: cover;
-  border-radius: var(--radius-xs);
-  opacity: 0.6;
-  transition: opacity 0.2s ease, transform 0.2s ease;
-}
-
-.thumbnailButton:hover .thumbnailImg,
-.thumbnailButton:focus-visible .thumbnailImg {
-  opacity: 1;
-  transform: scale(1.05);
-}
-
-.thumbnailButton.active {
-  border-color: var(--color-selected);
-}
-
-.thumbnailButton.active .thumbnailImg {
-  opacity: 1;
-}
-
-/* Scroll Arrows */
-.scrollButton {
-  background: rgba(255, 255, 255, 0.1);
-  color: white;
-  border: none;
-  font-size: 1.8rem;
-  border-radius: 50%;
-  width: 32px;
-  height: 32px;
-  cursor: pointer;
-  user-select: none;
-  transition: background 0.2s ease, transform 0.2s ease;
-}
-
-.scrollButton:hover {
-  background: rgba(255, 255, 255, 0.3);
-}
-
-.scrollButton:focus-visible {
-  outline: 3px solid var(--color-accent);
-  outline-offset: 2px;
-}
-
-/* 🔁 Responsive */
-@media screen and (max-width: 768px) {
-  .mainContent h2 {
-    font-size: 2rem;
-  }
-
-  .mainImage {
-    width: 100%;
-  }
-
-  .thumbnailImg {
-    width: 60px;
-    height: 60px;
-  }
-
-  .scrollButton {
-    font-size: 1.5rem;
-    width: 28px;
-    height: 28px;
-  }
-}
-
-@media screen and (max-width: 500px) {
-  .container {
-    gap: 2rem;
-    padding: 20px;
-  }
-
-  .mainContent h2 {
-    font-size: 1.7rem;
-  }
-
-  .thumbnailImg {
-    width: 50px;
-    height: 50px;
-  }
-
-  .scrollButton {
-    font-size: 1.2rem;
-    width: 24px;
-    height: 24px;
-  }
+  gap: var(--space-2xl);
+  max-width: var(--container-max);
+  margin-inline: auto;
 }

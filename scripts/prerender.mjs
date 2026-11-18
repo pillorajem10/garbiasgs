@@ -13,7 +13,7 @@
  *
  * Nothing here runs in the browser or on the server at request time.
  */
-import { mkdir, readFile, writeFile } from "node:fs/promises";
+import { mkdir, readdir, readFile, writeFile } from "node:fs/promises";
 import path from "node:path";
 import { fileURLToPath, pathToFileURL } from "node:url";
 
@@ -73,6 +73,22 @@ function cssForRoute(manifest, routePath) {
   return [...css];
 }
 
+const CRITICAL_FONT_PATTERNS = [
+  /^archivo-latin-wght-normal-.+\.woff2$/,
+  /^public-sans-latin-wght-normal-.+\.woff2$/,
+];
+
+async function fontPreloadTags() {
+  const assetFiles = await readdir(path.join(distDir, "assets"));
+  return CRITICAL_FONT_PATTERNS.map((pattern) => {
+    const fontFile = assetFiles.find((file) => pattern.test(file));
+    if (!fontFile) {
+      throw new Error(`No built font file matches ${pattern}; the font package or its file names changed.`);
+    }
+    return `<link rel="preload" as="font" type="font/woff2" crossorigin href="/assets/${fontFile}" />`;
+  }).join("\n    ");
+}
+
 /** "/" → index.html, "/mission-vision" → mission-vision.html */
 function outputFile(routePath) {
   return routePath === "/" ? "index.html" : `${routePath.replace(/^\//, "")}.html`;
@@ -124,6 +140,8 @@ async function main() {
   const server = await import(pathToFileURL(ssrEntry).href);
   const { INDEXABLE_ROUTES, renderBody, renderHead } = server;
 
+  const fontPreloads = await fontPreloadTags();
+
   const routes = [
     ...INDEXABLE_ROUTES,
     // Rendered so nginx has a real body to return with a 404 status, rather
@@ -143,7 +161,7 @@ async function main() {
 
     const html = injectHead(template, {
       ...head,
-      tags: css ? `${head.tags}\n    ${css}` : head.tags,
+      tags: [head.tags, fontPreloads, css].filter(Boolean).join("\n    "),
     }).replace(APP_MARKER, body);
 
     const file = path.join(distDir, outputFile(route.path));

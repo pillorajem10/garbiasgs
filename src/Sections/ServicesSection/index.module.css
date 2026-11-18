@@ -1,189 +1,119 @@
-/* 🌌 Background and Overlay */
-.container {
+.section {
+  padding: var(--space-section) var(--container-padding-x);
+  background-color: var(--color-bg);
+}
+
+.inner {
   display: flex;
   flex-direction: column;
+  gap: var(--space-section);
+  max-width: var(--container-max);
+  margin-inline: auto;
+}
+
+.group {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1.2fr);
+  gap: var(--space-2xl);
   align-items: center;
-  justify-content: center;
-  gap: 4rem;
-  padding: 40px 20px;
-  min-height: 100vh;
-  min-height: 100dvh;
-  min-height: 100svh;
-  min-height: var(--section-min-height);
-background-color: blue;
-  background-image: var(--lazy-bg, none);
-  background-size: cover;
-  background-position: center;
-  background-repeat: no-repeat;
-  position: relative;
+}
+
+.reversed {
+  grid-template-columns: minmax(0, 1.2fr) minmax(0, 1fr);
+}
+
+.reversed .imageFrame {
+  order: 2;
+}
+
+.imageFrame {
   overflow: hidden;
-}
-
-.container::before {
-  content: '';
-  position: absolute;
-  top: 0;
-  left: 0;
+  aspect-ratio: 4 / 5;
+  max-height: 34rem;
   width: 100%;
-  height: 100%;
-  background: rgba(2, 18, 51, 0.7);
-  z-index: 1;
-}
-
-.container > * {
-  z-index: 2;
-}
-
-/* 🧊 Service Row Wrapper */
-.serviceRow {
-  display: flex;
-  flex-direction: column;
-  gap: .5rem;
-  width: 100%;
-  align-items: center;
-}
-
-/* 💎 Service Block Card */
-.contentContainer {
-  display: flex;
-  align-items: flex-start;
-  justify-content: space-between;
-  gap: 2rem;
-  max-width: 1200px;
-  width: 100%;
-  padding: 2rem;
-  border-radius: var(--radius-lg);
-  background-color: rgba(255, 255, 255, 0.05);
-  border: 1px solid rgba(255, 255, 255, 0.1);
-  box-shadow: var(--shadow-md);
-  backdrop-filter: blur(10px);
-  transition: transform 0.3s ease;
-}
-
-.contentContainer:hover {
-  transform: translateY(-6px);
-}
-
-/* 🖼️ Image Column */
-.imageContainer {
-  flex: 0 0 30rem;
+  border-radius: var(--radius-sharp);
+  box-shadow: var(--shadow-card);
 }
 
 .image {
   width: 100%;
-  height: 28rem;
+  height: 100%;
   object-fit: cover;
-  border-radius: var(--radius-md);
-  box-shadow: var(--shadow-sm);
+  transition: transform var(--duration-slow) var(--ease-out);
 }
 
-/* 📃 Text Column */
-.textContainer {
-  flex: 1;
+.group:hover .image {
+  transform: scale(1.05);
+}
+
+.text {
   display: flex;
   flex-direction: column;
-  align-items: center;
-  justify-content: flex-end;
-  color: white;
+  gap: var(--space-lg);
 }
 
-.textContainer h2 {
-  font-size: 2rem;
-  color: #aad4ff;
-  margin-bottom: 1rem;
+.title {
+  font-size: var(--text-h2);
 }
 
-.textContainer ul {
-  margin: 0;
-  padding-left: 1.5rem;
-  list-style-type: disc;
+.list {
+  columns: 16rem 2;
+  column-gap: var(--space-xl);
+  list-style: none;
 }
 
-.textContainer li {
-  font-size: 1.3rem;
-  margin-bottom: 0.5rem;
+.item {
+  position: relative;
+  break-inside: avoid;
+  padding: var(--space-sm) 0 var(--space-sm) var(--space-lg);
+  border-bottom: 1px solid rgba(15, 23, 42, 0.12);
+  font-weight: 600;
 }
 
-.textContainer ul ul li {
-  font-size: .80rem; /* Slightly smaller than main list */
-  opacity: 0.85;       /* Optional: makes it visually lighter */
-  margin-bottom: 0.3rem;
-  font-style: italic;
+.item::before {
+  content: "";
+  position: absolute;
+  top: 1.2rem;
+  left: 0;
+  width: 0.55rem;
+  height: 0.55rem;
+  background-color: var(--color-cta);
 }
 
-.textContainer ul ul {
-  list-style-type: circle;
+.subList {
+  margin-top: var(--space-xs);
+  list-style: none;
 }
 
-/* 📱 Responsive Layout */
-@media screen and (max-width: 900px) {
-  .contentContainer {
-    flex-direction: column;
-    align-items: center;
-    text-align: center;
-    padding: 1.5rem;
+.subItem {
+  padding-block: 0.15rem;
+  font-size: var(--text-small);
+  font-weight: 400;
+  color: var(--color-text-muted);
+}
+
+@media (max-width: 900px) {
+  .group,
+  .reversed {
+    grid-template-columns: minmax(0, 1fr);
+    gap: var(--space-xl);
   }
 
-  .imageContainer {
-    width: 100%;
-    max-width: 22rem;
+  .reversed .imageFrame {
+    order: 0;
   }
 
+  .imageFrame {
+    aspect-ratio: 16 / 10;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
   .image {
-    height: auto;
+    transition: none;
   }
 
-  .textContainer {
-    width: 100%;
-    align-items: center;
-  }
-
-  .textContainer h2 {
-    font-size: 1.8rem;
-  }
-
-  .textContainer ul {
-    padding-left: 1rem;
-    text-align: left;
-  }
-
-  .textContainer li {
-    font-size: 1.1rem;
+  .group:hover .image {
+    transform: none;
   }
 }
-
-@media screen and (max-width: 500px) {
-  .container {
-    padding: 20px;
-    gap: 0; /* remove excessive spacing between blocks */
-  }
-
-  .contentContainer {
-    padding: 1rem; /* reduce inner card padding */
-  }
-
-  .textContainer h2 {
-    font-size: 1.6rem;
-    margin-bottom: 0.5rem; /* reduce space under title */
-  }
-
-  .textContainer ul {
-    margin-top: 0; /* remove default spacing above list */
-  }
-
-  .textContainer li {
-    font-size: 1rem;
-  }
-
-  .imageContainer img {
-    width: 100%;
-    height: auto;
-  }
-}
-
-@media screen and (max-width: 355px) {
-  .textContainer {
-    margin-top: -7rem; /* adjust margin for first text block */
-  }
-}
-

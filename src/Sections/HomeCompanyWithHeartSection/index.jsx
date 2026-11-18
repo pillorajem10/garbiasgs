@@ -1,89 +1,71 @@
-import { motion, useAnimation, useInView } from 'framer-motion';
-import { useEffect, useRef, memo } from 'react';
-import LazyBackground from '@components/LazyBackground';
-import LazyVideo from '@components/LazyVideo';
-import OptimizedImage from '@components/OptimizedImage';
-import { useAutoAdvance } from '@/hooks/useAutoAdvance';
-import { cdnImage, cdnVideo } from '@/utils/cdn';
-import { SECTION_BACKGROUNDS } from '@/seo/sectionBackgrounds';
-import styles from './index.module.css';
-import { companyWithHeartData } from './data';
+import { useRef } from "react";
+import { useInView } from "framer-motion";
+import Button from "@components/Button";
+import LazyBackground from "@components/LazyBackground";
+import LazyVideo from "@components/LazyVideo";
+import OptimizedImage from "@components/OptimizedImage";
+import Reveal from "@components/Reveal";
+import SectionHeader from "@components/SectionHeader";
+import { useAutoAdvance } from "@/hooks/useAutoAdvance";
+import { cdnImage, cdnVideo } from "@/utils/cdn";
+import { SECTION_BACKGROUNDS } from "@/seo/sectionBackgrounds";
+import { companyWithHeartData } from "./data";
+import styles from "./index.module.css";
 
-const SLIDE_MS = 3000;
+const SLIDE_INTERVAL_MS = 3000;
 const slides = companyWithHeartData.map((file) => cdnImage(`home_charity/${file}`));
 
 const HomeCompanyWithHeartSection = () => {
-    const leftRef = useRef(null);
-    const rightRef = useRef(null);
+  const mediaRef = useRef(null);
+  const isMediaInView = useInView(mediaRef);
+  const [currentSlide] = useAutoAdvance(slides.length, SLIDE_INTERVAL_MS, {
+    active: isMediaInView,
+  });
 
-    const leftControls = useAnimation();
-    const rightControls = useAnimation();
+  return (
+    <LazyBackground
+      as="section"
+      className={styles.section}
+      backgroundUrl={SECTION_BACKGROUNDS.homeCompanyHeart}
+      aria-labelledby="home-heart-heading"
+    >
+      <div className={styles.inner}>
+        <SectionHeader
+          isOnDark
+          isCentered
+          eyebrow="Giving back"
+          title="We are a company with a heart"
+          titleId="home-heart-heading"
+          intro="“We believe in giving back to the community. We are committed to making a difference in the lives of others.”"
+        />
 
-    const leftInView = useInView(leftRef);
-    const rightInView = useInView(rightRef);
+        <div ref={mediaRef} className={styles.media}>
+          <Reveal className={styles.frame}>
+            <OptimizedImage
+              sizes="(max-width: 900px) 100vw, 600px"
+              src={slides[currentSlide]}
+              alt={`Community and charity work by GarBia, image ${currentSlide + 1} of ${slides.length}`}
+              className={styles.slide}
+            />
+          </Reveal>
 
-    // The rotating image is in the left column.
-    const [currentImage] = useAutoAdvance(slides.length, SLIDE_MS, {
-        active: leftInView,
-    });
+          <Reveal delay={150} className={styles.frame}>
+            <LazyVideo
+              src={cdnVideo("garbiaCharity.mp4")}
+              className={styles.video}
+              controls
+            />
+          </Reveal>
+        </div>
 
-    useEffect(() => {
-        if (leftInView) leftControls.start({ x: 0, opacity: 1 });
-        else leftControls.start({ x: -80, opacity: 0 });
-    }, [leftInView, leftControls]);
-
-    useEffect(() => {
-        if (rightInView) rightControls.start({ x: 0, opacity: 1 });
-        else rightControls.start({ x: 80, opacity: 0 });
-    }, [rightInView, rightControls]);
-
-    return (
-        <LazyBackground as="section" className={styles.container} backgroundUrl={SECTION_BACKGROUNDS.homeCompanyHeart}>
-            <motion.div
-                className={styles.intro}
-                initial={{ y: -50, opacity: 0 }}
-                whileInView={{ y: 0, opacity: 1 }}
-                transition={{ type: 'spring', stiffness: 60, damping: 15 }}
-                viewport={{ once: true, amount: 0.4 }}
-            >
-                <h2>We are a company with a heart</h2>
-                <p>
-                    "We believe in giving back to the community. We are committed to making a difference in the lives of
-                    others."
-                </p>
-            </motion.div>
-
-            <div className={styles.content}>
-                <motion.div
-                    ref={leftRef}
-                    className={styles.leftContainer}
-                    initial={{ x: -80, opacity: 0 }}
-                    animate={leftControls}
-                    transition={{ type: 'spring', stiffness: 60, damping: 15 }}
-                >
-                    <OptimizedImage
-                        src={slides[currentImage]}
-                        alt={`Community and charity work by GarBia, image ${currentImage + 1} of ${slides.length}`}
-                        className={styles.fadeImage}
-                    />
-                </motion.div>
-
-                <motion.div
-                    className={styles.rightContainer}
-                    ref={rightRef}
-                    initial={{ x: 80, opacity: 0 }}
-                    animate={rightControls}
-                    transition={{ type: 'spring', stiffness: 60, damping: 15 }}
-                >
-                    <LazyVideo
-                        src={cdnVideo("garbiaCharity.mp4")}
-                        className={styles.video}
-                        controls
-                    />
-                </motion.div>
-            </div>
-        </LazyBackground>
-    );
+        <Reveal className={styles.footer}>
+          <Button to="/program" variant="ghost" hasArrow>
+            See our charity programs
+          </Button>
+        </Reveal>
+      </div>
+    </LazyBackground>
+  );
 };
 
-export default memo(HomeCompanyWithHeartSection);
+export default HomeCompanyWithHeartSection;

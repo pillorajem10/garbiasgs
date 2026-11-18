@@ -14,6 +14,14 @@ export const PRIMARY_NAV = [
   { to: "/contact", label: "Contact" },
 ];
 
+const HOME_CRUMB = { to: "/", label: "Home" };
+
+export function getBreadcrumbTrail(pathname) {
+  const currentPage = PRIMARY_NAV.find(({ to }) => to === pathname);
+  if (!currentPage || currentPage.to === HOME_CRUMB.to) return [];
+  return [HOME_CRUMB, currentPage];
+}
+
 /** Footer intentionally shows a shorter set than the primary nav. */
 export const FOOTER_NAV = [
   { to: "/services", label: "Services" },

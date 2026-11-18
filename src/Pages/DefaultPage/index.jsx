@@ -1,4 +1,5 @@
 import { Link } from "react-router-dom";
+import Button from "@components/Button";
 import { PRIMARY_NAV } from "@/constants/navigation";
 import { BUSINESS } from "@/seo/constants";
 import styles from "./index.module.css";

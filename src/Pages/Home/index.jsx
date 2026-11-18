@@ -1,5 +1,8 @@
 import HomeBannerSection from "@sections/HomeBannerSection";
 import HomeIntroSection from "@sections/HomeIntroSection";
+import HomeServicesSection from "@sections/HomeServicesSection";
+import ProcessSection from "@components/ProcessSection";
+import HomeProjectsSection from "@sections/HomeProjectsSection";
 import HomeMissionVisionSection from "@sections/HomeMissionVisionSection";
 import HomeObjectivesSection from "@sections/HomeObjectivesSection";
 import HomeCompanyWithHeartSection from "@sections/HomeCompanyWithHeartSection";
@@ -10,6 +13,14 @@ const Page = () => (
   <>
     <HomeBannerSection />
     <HomeIntroSection />
+    <HomeServicesSection />
+    <ProcessSection
+      id="home-process"
+      eyebrow="How an engagement runs"
+      title="From first call to finished foundation"
+      intro="Six steps, from the first conversation to the foundation works themselves."
+    />
+    <HomeProjectsSection />
     <HomeMissionVisionSection />
     <HomeObjectivesSection />
     <HomeCompanyWithHeartSection />

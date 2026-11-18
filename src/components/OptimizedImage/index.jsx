@@ -1,11 +1,19 @@
 import { useEffect, useRef, useState } from "react";
+import { responsiveImageSources } from "@/utils/cdn";
+
+const DEFAULT_SIZES = "100vw";
 
 /**
  * Shared image component for CDN-served images.
  *
- * All images come straight from the CDN (DigitalOcean Spaces), which has no
- * on-the-fly resizing and no webp/avif negotiation, so this focuses on
- * *perceived* performance rather than responsive sources:
+ * Once the resized AVIF/WebP variants are on the CDN (see
+ * OPTIMIZED_VARIANTS_ARE_UPLOADED), CDN photos render as a <picture> with
+ * AVIF and WebP srcsets, so each device downloads a file sized for its slot.
+ * If a variant fails to load the component falls back to the original file.
+ * Until the variants are uploaded, and for non-CDN images, it renders the
+ * single original <img>.
+ *
+ * Perceived performance:
  *   - an immediate skeleton placeholder (CSS only, see `img[data-oi]` in index.css)
  *   - a subtle fade-in once the image decodes
  *   - a neutral fallback box if the image fails
@@ -27,13 +35,14 @@ export default function OptimizedImage({
   width,
   height,
   priority = false,
-  sizes,
+  sizes = DEFAULT_SIZES,
   onLoad,
   onError,
   ...rest
 }) {
   const [loadedSrc, setLoadedSrc] = useState(null);
   const [failedSrc, setFailedSrc] = useState(null);
+  const [variantFailedSrc, setVariantFailedSrc] = useState(null);
   const imgRef = useRef(null);
 
   // On a hydrated (prerendered) page, this mounts *after* the browser has
@@ -64,10 +73,22 @@ export default function OptimizedImage({
     );
   }
 
-  return (
+  const variants = variantFailedSrc === src ? null : responsiveImageSources(src);
+
+  const handleError = (event) => {
+    if (variants) {
+      setVariantFailedSrc(src);
+      return;
+    }
+    setFailedSrc(src);
+    onError?.(event);
+  };
+
+  const image = (
     <img
       ref={imgRef}
-      src={src}
+      src={variants ? variants.defaultSrc : src}
+      srcSet={variants?.webpSrcSet}
       alt={alt ?? ""}
       width={width}
       height={height}
@@ -78,15 +99,21 @@ export default function OptimizedImage({
       className={className}
       data-oi=""
       data-loaded={loadedSrc === src ? "" : undefined}
-      onLoad={(e) => {
+      onLoad={(event) => {
         setLoadedSrc(src);
-        onLoad?.(e);
+        onLoad?.(event);
       }}
-      onError={(e) => {
-        setFailedSrc(src);
-        onError?.(e);
-      }}
+      onError={handleError}
       {...rest}
     />
+  );
+
+  if (!variants) return image;
+
+  return (
+    <picture data-oi-picture="">
+      <source type="image/avif" srcSet={variants.avifSrcSet} sizes={sizes} />
+      {image}
+    </picture>
   );
 }

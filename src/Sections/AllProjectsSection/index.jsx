@@ -1,45 +1,56 @@
-import React from "react";
-import LazyBackground from "@components/LazyBackground";
-import OptimizedImage from "@components/OptimizedImage";
+import { useState } from "react";
+import Lightbox from "@components/Lightbox";
+import ProjectTile from "@components/ProjectTile";
+import Reveal from "@components/Reveal";
+import SectionHeader from "@components/SectionHeader";
 import { cdnImage } from "@/utils/cdn";
-import { SECTION_BACKGROUNDS } from "@/seo/sectionBackgrounds";
-import styles from "./index.module.css";
 import { projectsData } from "./data";
+import styles from "./index.module.css";
 
-const AllProjectsSection = ({ onOpenModal }) => (
-  <LazyBackground
-    as="section"
-    className={styles.container}
-    backgroundUrl={SECTION_BACKGROUNDS.allProjects}
-    aria-labelledby="projects-heading"
-  >
-    {/* The cards are <h3>. Without this the page jumped h1 → h3, which leaves
-        the outline (and assistive tech) with a missing level. */}
-    <header className={styles.sectionHeader}>
-      <h2 id="projects-heading">Completed projects</h2>
-      <p>
-        Soil investigation, geotechnical testing, and foundation works delivered
-        by GarBia Group. Select a project to view site photos.
-      </p>
-    </header>
+const toLightboxImages = ({ title, images }) =>
+  images.map((file, index) => ({
+    src: cdnImage(`projects/${file}`),
+    alt: `${title} project site photo ${index + 1}`,
+    caption: `${title} · photo ${index + 1} of ${images.length}`,
+  }));
 
-    {projectsData.map((project) => (
-      <button
-        type="button"
-        key={project.title}
-        className={styles.projectCard}
-        onClick={() => onOpenModal(project.images)}
-        aria-label={`View photos for ${project.title} project`}
-      >
-        <OptimizedImage
-          src={cdnImage(`projects/${project.thumbnail}`)}
-          alt={`${project.title} geotechnical and construction project thumbnail`}
-          className={styles.thumbnail}
+const AllProjectsSection = () => {
+  const [openProject, setOpenProject] = useState(null);
+
+  return (
+    <section className={styles.section} aria-labelledby="projects-heading">
+      <div className={styles.inner}>
+        <SectionHeader
+          eyebrow="Completed work"
+          title="Completed projects"
+          titleId="projects-heading"
+          intro="Soil investigation, geotechnical testing, and foundation works delivered by GarBia Group. Select a project to view site photos."
         />
-        <h3>{project.title}</h3>
-      </button>
-    ))}
-  </LazyBackground>
-);
 
-export default React.memo(AllProjectsSection);
+        <ul className={styles.tileGrid}>
+          {projectsData.map((project, index) => (
+            <Reveal as="li" key={project.title} delay={index * 100}>
+              <ProjectTile
+                title={project.title}
+                thumbnail={project.thumbnail}
+                photoCount={project.images.length}
+                onClick={() => setOpenProject(project)}
+                aria-label={`View photos for ${project.title} project`}
+              />
+            </Reveal>
+          ))}
+        </ul>
+      </div>
+
+      {openProject && (
+        <Lightbox
+          images={toLightboxImages(openProject)}
+          label={`${openProject.title} project photos`}
+          onClose={() => setOpenProject(null)}
+        />
+      )}
+    </section>
+  );
+};
+
+export default AllProjectsSection;

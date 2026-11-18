@@ -1,3 +1,4 @@
+import Button from "@components/Button";
 import styles from "./index.module.css";
 
 const copy = {

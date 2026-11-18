@@ -1,139 +1,99 @@
-.container {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-  min-height: 100vh;
-  min-height: 100dvh;
-  min-height: 100svh;
-  min-height: var(--section-min-height);
-background-color: blue; /* Fallback color */
-    background-image: var(--lazy-bg, none);
-    background-size: cover; /* Ensures the image covers the whole container */
-    background-position: center; /* Centers the background image */
-    background-repeat: no-repeat; /* Prevents the image from repeating */
-    position: relative; /* Required to position the overlay */
-    gap: 10rem;
-    padding: 20px;
-    flex-wrap: wrap;
+.section {
+  --focus-color: var(--color-cta);
+  position: relative;
+  isolation: isolate;
+  padding: var(--space-section) var(--container-padding-x);
+  background-color: var(--color-hero-base);
+  background-image: var(--lazy-bg, none);
+  background-size: cover;
+  background-position: center;
+  color: var(--color-on-dark);
 }
 
-.container::before {
-    content: ''; /* Necessary to create a pseudo-element */
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: rgba(12, 30, 66, 0.7); /* Blue overlay with 70% opacity */
-    z-index: 1; /* Makes sure the overlay sits above the background but below content */
+.section::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  background-color: var(--overlay-dark-strong);
 }
 
-.container > * {
-    z-index: 2; /* Makes sure the content (children of .container) sits above the overlay */
+.inner {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2xl);
+  max-width: var(--container-max);
+  margin-inline: auto;
 }
 
-.imageContainer {
-    width: 100%;
-    max-width: 50rem;
-    border-radius: var(--radius-sm);
-    margin-bottom: 5rem;
+.columns {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: var(--space-2xl);
 }
 
-.imageContainer img {
-    /* Paired with the width/height attributes on the <img>: the browser
-       derives the aspect ratio from them and reserves the box before the file
-       arrives, so the section no longer reflows when each photo decodes. */
-    height: auto;
-    width: 100%;
-    border-radius: var(--radius-sm);
+.column {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-md);
 }
 
-.imageContainer1 {
-    width: 100%;
-    max-width: 50rem;
-    border-radius: var(--radius-sm);
-    margin-top: 5rem;
-
+.column p {
+  margin: 0;
+  font-size: var(--text-lead);
+  line-height: var(--leading-body);
+  color: var(--color-on-dark-muted);
 }
 
-.imageContainer1 img {
-    /* Paired with the width/height attributes on the <img>: the browser
-       derives the aspect ratio from them and reserves the box before the file
-       arrives, so the section no longer reflows when each photo decodes. */
-    height: auto;
-    width: 100%;
-    border-radius: var(--radius-sm);
+.imageFrame {
+  overflow: hidden;
+  aspect-ratio: 16 / 9;
+  margin-bottom: var(--space-sm);
+  border-radius: var(--radius-sharp);
 }
 
-.rightContainer, .leftContainer {
-    color: white;
-    z-index: 2;
-    max-width: 38rem;
-    text-align: left;
+.image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform var(--duration-slow) var(--ease-out);
 }
 
-.rightContainer h2, .leftContainer h2 {
-    font-size: 2.5rem;
-    color: var(--text-accent);
+.column:hover .image {
+  transform: scale(1.05);
 }
 
-.rightContainer p, .leftContainer p {
-    font-size: 1.2rem;
-    margin-top: 2rem;
+.title {
+  display: flex;
+  align-items: center;
+  gap: var(--space-md);
+  font-size: var(--text-h1);
 }
 
-@media screen and (max-width: 700px) {
-    .container {
-        flex-direction: column;
-        gap: 5rem;
-        padding: 30px 20px;
-        background-position: top;
-    }
-
-    .imageContainer,
-    .imageContainer1 {
-        max-width: 90%;
-        margin-bottom: 3rem;
-        margin-top: 3rem;
-    }
-
-    .rightContainer,
-    .leftContainer {
-        max-width: 100%;
-        text-align: center;
-    }
-
-    .rightContainer h2,
-    .leftContainer h2 {
-        font-size: 2rem;
-    }
-
-    .rightContainer p,
-    .leftContainer p {
-        font-size: 1.1rem;
-    }
+.title::before {
+  content: "";
+  width: 2.5rem;
+  height: 3px;
+  background-color: var(--color-cta);
 }
 
-@media screen and (max-width: 500px) {
-    .container {
-        gap: 3rem;
-        padding: 20px 15px;
-    }
+.footer {
+  display: flex;
+  justify-content: center;
+}
 
-    .rightContainer h2,
-    .leftContainer h2 {
-        font-size: 1.7rem;
-    }
+@media (max-width: 900px) {
+  .columns {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}
 
-    .rightContainer p,
-    .leftContainer p {
-        font-size: 1rem;
-    }
+@media (prefers-reduced-motion: reduce) {
+  .image {
+    transition: none;
+  }
 
-    .imageContainer,
-    .imageContainer1 {
-        max-width: 100%;
-        margin-bottom: 2rem;
-        margin-top: 2rem;
-    }
+  .column:hover .image {
+    transform: none;
+  }
 }

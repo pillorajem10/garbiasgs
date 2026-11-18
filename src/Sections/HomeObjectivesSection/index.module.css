@@ -1,118 +1,86 @@
-.container {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-  min-height: 100vh;
-  min-height: 100dvh;
-  min-height: 100svh;
-  min-height: var(--section-min-height);
-background-color: blue; /* Fallback color */
-    background-image: var(--lazy-bg, none);
-    background-size: cover; /* Ensures the image covers the whole container */
-    background-position: center; /* Centers the background image */
-    background-repeat: no-repeat; /* Prevents the image from repeating */
-    position: relative; /* Required to position the overlay */
-    gap: 10rem;
-    padding: 20px;
-    flex-wrap: wrap;
+.section {
+  padding: var(--space-section) var(--container-padding-x);
+  background-color: var(--color-surface);
 }
 
-.container::before {
-    content: ''; /* Necessary to create a pseudo-element */
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: rgba(2, 18, 51, 0.7); /* Blue overlay with 70% opacity */
-    z-index: 1; /* Makes sure the overlay sits above the background but below content */
+.inner {
+  display: grid;
+  grid-template-columns: minmax(0, 1.3fr) minmax(0, 1fr);
+  gap: var(--space-2xl);
+  align-items: center;
+  max-width: var(--container-max);
+  margin-inline: auto;
 }
 
-.container > * {
-    z-index: 2; /* Makes sure the content (children of .container) sits above the overlay */
+.content {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-xl);
 }
 
-.imageContainer1 {
-    width: 100%;
-    max-width: 30rem;
-    border-radius: var(--radius-sm);
+.objectiveList {
+  display: flex;
+  flex-direction: column;
+  list-style: none;
 }
 
-.imageContainer1 img {
-    /* Paired with the width/height attributes on the <img>: the browser
-       derives the aspect ratio from them and reserves the box before the file
-       arrives, so the section no longer reflows when each photo decodes. */
-    height: auto;
-    width: 100%;
-    border-radius: var(--radius-sm);
-    max-height: 40rem;
+.objective {
+  position: relative;
+  padding: var(--space-md) var(--space-md) var(--space-md) var(--space-xl);
+  border-top: 1px solid rgba(15, 23, 42, 0.12);
+  font-size: var(--text-lead);
+  line-height: var(--leading-body);
+  color: var(--color-text);
 }
 
-.rightContainer, .leftContainer {
-    color: white;
-    z-index: 2;
-    max-width: 35rem;
-    text-align: left;
+.objective:last-child {
+  border-bottom: 1px solid rgba(15, 23, 42, 0.12);
 }
 
-.rightContainer h2, .leftContainer h2 {
-    font-size: 2.5rem;
-    color: var(--text-accent);
+.objective::before {
+  content: "";
+  position: absolute;
+  top: 1.6rem;
+  left: 0;
+  width: 0.6rem;
+  height: 0.6rem;
+  background-color: var(--color-cta);
+  transition: transform var(--duration-base) var(--ease-out);
 }
 
-.rightContainer p, .leftContainer p {
-    font-size: 1.5rem;
-    margin-top: 2rem;
+.objective:hover::before {
+  transform: scale(1.8);
 }
 
-@media screen and (max-width: 700px) {
-    .container {
-        flex-direction: column;
-        gap: 5rem;
-        padding: 30px 20px;
-        background-position: top;
-    }
-
-    .imageContainer1 {
-        max-width: 90%;
-        margin-top: 2rem;
-    }
-
-    .rightContainer,
-    .leftContainer {
-        max-width: 100%;
-        text-align: center;
-    }
-
-    .rightContainer h2,
-    .leftContainer h2 {
-        font-size: 2rem;
-    }
-
-    .rightContainer p,
-    .leftContainer p {
-        font-size: 1.1rem;
-    }
+.imageFrame {
+  overflow: hidden;
+  aspect-ratio: 4 / 5;
+  border-radius: var(--radius-sharp);
+  box-shadow: var(--shadow-card);
 }
 
-@media screen and (max-width: 500px) {
-    .container {
-        gap: 3rem;
-        padding: 30px;
-    }
+.image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
 
-    .imageContainer1 {
-        max-width: 100%;
-        margin-top: 1.5rem;
-    }
+@media (max-width: 900px) {
+  .inner {
+    grid-template-columns: minmax(0, 1fr);
+  }
 
-    .rightContainer h2,
-    .leftContainer h2 {
-        font-size: 1.7rem;
-    }
+  .imageFrame {
+    max-width: 28rem;
+  }
+}
 
-    .rightContainer p,
-    .leftContainer p {
-        font-size: 1rem;
-    }
+@media (prefers-reduced-motion: reduce) {
+  .objective::before {
+    transition: none;
+  }
+
+  .objective:hover::before {
+    transform: none;
+  }
 }

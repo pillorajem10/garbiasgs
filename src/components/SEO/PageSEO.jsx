@@ -2,6 +2,7 @@ import { useMemo } from "react";
 import { useLocation } from "react-router-dom";
 import usePageSEO from "@/hooks/usePageSEO";
 import JsonLdGraph from "./JsonLd";
+import { getBreadcrumbTrail } from "@/constants/navigation";
 import { canonicalUrl, getPageMeta, seoPath } from "@/seo/pageMeta";
 import {
   breadcrumbNode,
@@ -10,7 +11,7 @@ import {
   webPageNode,
 } from "@/seo/structuredData";
 
-export default function PageSEO({ faqs, breadcrumbLabel }) {
+export default function PageSEO({ faqs }) {
   const { pathname } = useLocation();
   usePageSEO();
 
@@ -24,12 +25,12 @@ export default function PageSEO({ faqs, breadcrumbLabel }) {
       webPageNode({ url, title: meta.title, description: meta.description }),
     ];
 
-    if (path !== "/" && breadcrumbLabel) {
+    const breadcrumbTrail = getBreadcrumbTrail(path);
+    if (breadcrumbTrail.length > 0) {
       pageNodes.push(
-        breadcrumbNode([
-          { name: "Home", url: canonicalUrl("/") },
-          { name: breadcrumbLabel, url },
-        ]),
+        breadcrumbNode(
+          breadcrumbTrail.map(({ to, label }) => ({ name: label, url: canonicalUrl(to) })),
+        ),
       );
     }
 
@@ -37,7 +38,7 @@ export default function PageSEO({ faqs, breadcrumbLabel }) {
     if (faqs?.length) pageNodes.push(faqNode(faqs));
 
     return pageNodes;
-  }, [pathname, breadcrumbLabel, faqs]);
+  }, [pathname, faqs]);
 
   return <JsonLdGraph nodes={nodes} />;
 }

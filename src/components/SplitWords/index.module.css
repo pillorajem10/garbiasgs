@@ -1,0 +1,28 @@
+.word {
+  display: inline-block;
+  overflow: hidden;
+  vertical-align: top;
+  padding-bottom: 0.12em;
+  margin-bottom: -0.12em;
+}
+
+.wordInner {
+  display: inline-block;
+  animation: wordRise var(--duration-hero) var(--ease-out) both;
+  animation-delay: var(--word-delay, 0ms);
+}
+
+@keyframes wordRise {
+  from {
+    transform: translateY(110%);
+  }
+  to {
+    transform: translateY(0);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .wordInner {
+    animation: none;
+  }
+}

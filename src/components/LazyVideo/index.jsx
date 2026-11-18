@@ -1,6 +1,7 @@
 import { useRef, useEffect } from "react";
 import { useInViewOnce } from "@/hooks/useInViewOnce";
 import { useAutoplayAllowed } from "@/hooks/useAutoplayAllowed";
+import { cdnVideoPoster } from "@/utils/cdn";
 
 /**
  * Loads a video only once its container is in view, and never earlier.
@@ -14,7 +15,12 @@ import { useAutoplayAllowed } from "@/hooks/useAutoplayAllowed";
  *     solid fallback colour, so nothing breaks visually.
  * 
  */
-export default function LazyVideo({ src, className, poster, controls = false }) {
+export default function LazyVideo({
+  src,
+  className,
+  poster = cdnVideoPoster(src),
+  controls = false,
+}) {
   const ref = useRef(null);
   const visible = useInViewOnce(ref, { rootMargin: "0px" });
   const autoplayAllowed = useAutoplayAllowed();

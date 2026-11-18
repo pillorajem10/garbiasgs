@@ -1,0 +1,13 @@
+export const OPTIMIZED_VARIANTS_ARE_UPLOADED = false;
+
+export const IMAGE_VARIANT_WIDTHS = [480, 800, 1200, 1600, 1920];
+
+export const DEFAULT_VARIANT_WIDTH = 1200;
+export const THUMBNAIL_VARIANT_WIDTH = 480;
+export const LIGHTBOX_VARIANT_WIDTH = 1600;
+export const BACKGROUND_VARIANT_WIDTH = 1920;
+export const POSTER_WIDTH = 1280;
+
+export const AVIF_QUALITY = 50;
+export const WEBP_QUALITY = 74;
+export const POSTER_QUALITY = 72;

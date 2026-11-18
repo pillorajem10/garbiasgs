@@ -13,9 +13,9 @@ import { SITE_NAME, SITE_URL, DEFAULT_OG_IMAGE, PRIMARY_KEYWORDS } from "./const
  */
 export const PAGE_META = {
   "/": {
-    title: "GarBia Group | Geotechnical & Construction Services Philippines",
+    title: "GarBia Group | Soil Testing & Construction Philippines",
     description:
-      "GarBia Group — Garbia Builders and Technology Solutions, OPC — provides soil investigation, geotechnical testing, and foundation works across Luzon, Philippines.",
+      "Soil testing, geotechnical investigation, engineering consultancy, and construction works across Luzon, Philippines. GarBia Group is based in Cainta, Rizal.",
     keywords: PRIMARY_KEYWORDS,
   },
   "/services": {
@@ -33,9 +33,9 @@ export const PAGE_META = {
     keywords: "Construction Company, Geotechnical Engineering, " + PRIMARY_KEYWORDS,
   },
   "/history": {
-    title: "Our History | GarBia Group",
+    title: "Company History: Soil Testing Since 2018 | GarBia Group",
     description:
-      "From an underground drilling contractor and soil testing laboratory founded in 2018, to Garbia Builders and Technology Solutions, OPC today — the history of GarBia Group.",
+      "From an underground drilling contractor and soil testing laboratory founded in 2018 to Garbia Builders and Technology Solutions, OPC today.",
     keywords: "Company History, GarBia History, " + PRIMARY_KEYWORDS,
   },
   "/mission-vision": {
@@ -77,18 +77,6 @@ export const PAGE_META = {
     keywords: PRIMARY_KEYWORDS,
     noindex: true,
   },
-};
-
-/** Breadcrumb label for each non-home route. */
-export const BREADCRUMB_LABELS = {
-  "/services": "Services",
-  "/about": "About",
-  "/history": "History",
-  "/mission-vision": "Mission & Vision",
-  "/projects": "Projects",
-  "/program": "Charity Programs",
-  "/location": "Location",
-  "/contact": "Contact",
 };
 
 /**

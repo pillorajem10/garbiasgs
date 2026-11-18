@@ -1,56 +1,48 @@
-import { useRef, useEffect } from "react";
-import { motion, useAnimation, useInView } from "framer-motion";
 import LazyVideo from "@components/LazyVideo";
+import Breadcrumbs from "@components/Breadcrumbs";
+import { BUSINESS } from "@/seo/constants";
 import styles from "./index.module.css";
 
-/**
- * Charity-style banner: centered H1, rule under title, bold body paragraph.
- * Used on all pages except Home.
- */
-export default function ClassicBanner({
+const { latitude, longitude } = BUSINESS.geo;
+const COORDINATES_LABEL = `${latitude.toFixed(4)}° N · ${longitude.toFixed(4)}° E`;
+
+export default function PageHero({
+  eyebrow,
   headline,
   body,
   videoSrc,
+  actions,
+  isFeatured = false,
   children,
 }) {
-  const bannerTextRef = useRef(null);
-  const controls = useAnimation();
-  const inView = useInView(bannerTextRef, { once: true, amount: 0.25 });
-
-  useEffect(() => {
-    if (inView) {
-      controls.start({ y: 0, opacity: 1 });
-    }
-  }, [inView, controls]);
-
-  const hasExtra = Boolean(children);
+  const classNames = [styles.hero, isFeatured && styles.featured]
+    .filter(Boolean)
+    .join(" ");
 
   return (
-    <header
-      className={`${styles.banner} ${hasExtra ? styles.bannerWithChildren : ""}`}
-      aria-label="Page hero"
-    >
-      {videoSrc && (
-        <LazyVideo src={videoSrc} className={styles.videoBackground} />
-      )}
-
+    <header className={classNames} aria-label="Page hero">
+      {videoSrc && <LazyVideo src={videoSrc} className={styles.video} />}
       <div className={styles.overlay} aria-hidden="true" />
+      <div className={styles.blueprintGrid} aria-hidden="true" />
 
-      <div className={styles.bannerTextOuter}>
-        <motion.div
-          className={styles.bannerText}
-          ref={bannerTextRef}
-          initial={{ y: 50, opacity: 0 }}
-          animate={controls}
-          transition={{ type: "spring", stiffness: 50, damping: 14 }}
-        >
-          <h1 className={styles.headline}>{headline}</h1>
-          <div className={styles.titleRule} role="separator" aria-hidden="true" />
-          <p className={styles.body}>{body}</p>
-        </motion.div>
+      <div className={styles.content}>
+        <Breadcrumbs className={styles.breadcrumbs} />
+        {eyebrow && <p className={styles.eyebrow}>{eyebrow}</p>}
+        <h1 className={styles.headline}>{headline}</h1>
+        <p className={styles.body}>{body}</p>
+        {children}
+        {actions && <div className={styles.actions}>{actions}</div>}
       </div>
 
-      {hasExtra && <div className={styles.extra}>{children}</div>}
+      {isFeatured && (
+        <span className={styles.scrollCue} aria-hidden="true">
+          Scroll
+        </span>
+      )}
+
+      <p className={styles.coordinates} aria-hidden="true">
+        {COORDINATES_LABEL}
+      </p>
     </header>
   );
 }

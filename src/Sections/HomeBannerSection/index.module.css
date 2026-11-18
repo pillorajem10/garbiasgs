@@ -1,98 +1,26 @@
-.banner {
-  /* Matches the loaded hero tone so the pre-video paint is not a light flash. */
-  background-color: var(--color-primary-deep);
-  position: relative;
-  width: 100%;
-  max-width: 100%;
-  min-height: 100vh;
-  min-height: 100dvh;
-  min-height: 100svh;
-  min-height: var(--section-min-height);
-  overflow: hidden;
+.brandName {
   display: flex;
   align-items: center;
-  justify-content: flex-start;
-  box-sizing: border-box;
-}
-
-.videoBackground {
-  position: absolute;
-  inset: 0;
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  z-index: 0;
-}
-
-.overlay {
-  position: absolute;
-  inset: 0;
-  background: rgba(2, 18, 51, 0.7);
-  z-index: 1;
-}
-
-.bannerText {
-  position: relative;
-  z-index: 2;
-  color: white;
-  max-width: 50rem;
-  text-align: left;
-  width: 100%;
-  /* .banner (the flex parent) vertically centers this box as a whole. Giving
-     it much less top padding than bottom shifts its content well above that
-     true center, toward the upper part of the banner. */
-  padding: max(0.5rem, env(safe-area-inset-top, 0px))
-    max(1.25rem, env(safe-area-inset-right, 0px))
-    9rem
-    max(8%, env(safe-area-inset-left, 0px));
-  box-sizing: border-box;
-}
-
-.bannerText h1 {
-  font-size: clamp(1.75rem, 2.2vw + 1rem, 3.5rem);
-  font-weight: bold;
-  line-height: 1.15;
-}
-
-/* Company name as a smaller line above the headline, inside the same <h1>, so
-   the page's main heading names the business as well as what it does. */
-.brandEyebrow {
-  display: block;
-  font-size: clamp(0.95rem, 0.35vw + 0.85rem, 1.25rem);
-  font-weight: 700;
-  letter-spacing: 0.14em;
+  gap: 0.75rem;
+  margin-bottom: var(--space-md);
+  font-size: var(--text-lead);
+  letter-spacing: var(--tracking-label);
   text-transform: uppercase;
-  color: #00e1ff;
-  margin-bottom: 0.6rem;
+  color: var(--color-accent-bright);
 }
 
-.bannerText p {
-  font-size: clamp(1rem, 0.45vw + 0.9rem, 1.3rem);
-  margin-top: clamp(1.5rem, 4vw, 2.5rem);
-  line-height: 1.65;
-  max-width: 42rem;
+.brandName::before {
+  content: "";
+  width: 2.25rem;
+  height: 2px;
+  background-color: var(--color-cta);
 }
 
-.bannerText .strongFoundations {
-  color: #00e1ff;
-  font-weight: bold;
+.tagline {
+  margin: 0;
+  font-family: var(--font-heading);
+  font-size: var(--text-lead);
+  font-weight: 700;
   font-style: italic;
-}
-
-@media screen and (max-width: 700px) {
-  .bannerText {
-    padding: max(5rem, 8svh) 1.25rem 2rem max(1.25rem, env(safe-area-inset-left, 0px));
-    max-width: 100%;
-    text-align: left;
-  }
-}
-
-@media screen and (max-width: 500px) {
-  .bannerText {
-    padding: max(4.75rem, 6svh) 1rem 1.5rem max(1rem, env(safe-area-inset-left, 0px));
-  }
-
-  .bannerText p {
-    margin-top: 1.25rem;
-  }
+  color: var(--color-accent-bright);
 }
