@@ -13,12 +13,17 @@
   overflow-x: hidden;
   overflow-y: auto;
   overscroll-behavior: contain;
+  animation: menuIn var(--duration-base) var(--ease-out) both;
   background-color: var(--color-hero-base);
   background-image:
     linear-gradient(var(--blueprint-line) 1px, transparent 1px),
     linear-gradient(90deg, var(--blueprint-line) 1px, transparent 1px);
   background-size: var(--blueprint-cell) var(--blueprint-cell);
   color: var(--color-on-dark);
+}
+
+.closing {
+  animation: menuOut var(--duration-fast) var(--ease-out) forwards;
 }
 
 .closeButton {
@@ -61,6 +66,12 @@
   display: flex;
   flex-direction: column;
   list-style: none;
+}
+
+.linkItem,
+.footer {
+  animation: linkRise var(--duration-slow) var(--ease-out) both;
+  animation-delay: calc(150ms + var(--link-index, 0) * 60ms);
 }
 
 .link {
@@ -120,4 +131,42 @@
 .contactLink:hover,
 .contactLink:focus-visible {
   color: var(--color-on-dark);
+}
+
+@keyframes menuIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes menuOut {
+  from {
+    opacity: 1;
+  }
+  to {
+    opacity: 0;
+  }
+}
+
+@keyframes linkRise {
+  from {
+    opacity: 0;
+    transform: translateY(1.75rem);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .overlay,
+  .closing,
+  .linkItem,
+  .footer {
+    animation: none;
+  }
 }

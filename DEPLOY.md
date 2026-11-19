@@ -19,11 +19,11 @@ reverse-proxies to it.
 The client **hydrates** that markup rather than replacing it, so the HTML a
 crawler or link previewer fetches is the page itself, not an empty shell.
 
-**Adding a route means three edits:** the `<Route>` in `src/App.jsx`, an entry
-in `PAGE_META` + `INDEXABLE_ROUTES` in `src/seo/pageMeta.js`, and the page
-module in `ROUTE_MODULES` in `scripts/prerender.mjs`. Miss the last one and the
-build fails with a clear message; miss the middle one and nginx returns 404 for
-the new URL, because unknown paths are no longer answered with the SPA shell.
+**Adding a route means two edits:** the `<Route>` in `src/App.jsx`, and an entry
+in `PAGE_META` + `INDEXABLE_ROUTES` in `src/seo/pageMeta.js`. Miss the second and
+nginx returns 404 for the new URL, because unknown paths are no longer answered
+with the SPA shell. The site's CSS is one file, inlined into every prerendered
+page, so a new route needs nothing in the build script.
 
 ## Pipeline (push to `master`)
 

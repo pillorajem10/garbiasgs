@@ -13,15 +13,8 @@ export default defineConfig(({ isSsrBuild }) => ({
       '/api': 'http://127.0.0.1:5175',
     },
   },
-  // The prerender bundle runs once under Node at build time, so it needs
-  // framer-motion bundled rather than externalised — the package resolves to
-  // browser-only entry points otherwise.
-  ssr: { noExternal: ['framer-motion'] },
   build: {
-    // The prerender needs to know which CSS chunk belongs to which route, so
-    // it can link that route's stylesheet in the static HTML instead of leaving
-    // the prerendered markup unstyled until the lazy page chunk loads.
-    manifest: !isSsrBuild,
+    cssCodeSplit: false,
     minify: 'esbuild',
     cssMinify: true,
     target: isSsrBuild ? 'node20' : 'es2018',
@@ -33,7 +26,6 @@ export default defineConfig(({ isSsrBuild }) => ({
         ? undefined
         : {
             manualChunks: {
-              motion: ['framer-motion'],
               router: ['react-router', 'react-router-dom'],
             },
           },

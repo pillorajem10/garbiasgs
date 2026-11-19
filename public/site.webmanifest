@@ -1,12 +1,12 @@
 {
-  "name": "GarBia Group — GarBia Structural and Geotechnical Solutions",
-  "short_name": "GarBia Group",
+  "name": "GarBia Group",
+  "short_name": "GarBia",
   "description": "Geotechnical engineering, soil investigation, and construction services in the Philippines.",
   "start_url": "/",
   "scope": "/",
   "display": "standalone",
   "background_color": "#082f49",
-  "theme_color": "#0081b8",
+  "theme_color": "#082f49",
   "lang": "en-PH",
   "icons": [
     {
@@ -15,9 +15,14 @@
       "type": "image/x-icon"
     },
     {
-      "src": "/garbia1.jpg?v=3",
-      "sizes": "1200x630",
-      "type": "image/jpeg"
+      "src": "/icon-192.png",
+      "sizes": "192x192",
+      "type": "image/png"
+    },
+    {
+      "src": "/icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png"
     }
   ]
 }

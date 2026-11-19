@@ -3,17 +3,11 @@ import Reveal from "@components/Reveal";
 import SectionHeader from "@components/SectionHeader";
 import { useActiveSectionId } from "@/hooks/useActiveSectionId";
 import { BUSINESS } from "@/seo/constants";
-import { SERVICE_CATALOG } from "@/seo/structuredData";
-import { SERVICE_DETAILS } from "./data";
+import { SERVICE_CATALOG, servicePagePath } from "@/constants/services";
+import { SERVICE_DETAILS } from "@/constants/serviceDetails";
 import styles from "./index.module.css";
 
 const SERVICE_SECTION_IDS = SERVICE_CATALOG.map(({ slug }) => slug);
-
-const DETAIL_LABELS = [
-  { key: "involves", label: "What it involves" },
-  { key: "problem", label: "Problem it addresses" },
-  { key: "applies", label: "Where it applies" },
-];
 
 const ServicesDetailSection = () => {
   const activeServiceId = useActiveSectionId(SERVICE_SECTION_IDS);
@@ -46,27 +40,28 @@ const ServicesDetailSection = () => {
           </nav>
 
           <div className={styles.serviceList}>
-            {SERVICE_CATALOG.map(({ slug, name, description }) => {
-              const detail = SERVICE_DETAILS[slug];
-              return (
-                <Reveal as="article" key={slug} id={slug}>
-                  <div className={styles.service}>
-                    <h3 className={styles.serviceTitle}>{name}</h3>
-                    <p className={styles.serviceSummary}>{description}</p>
-                    {detail && (
-                      <dl className={styles.details}>
-                        {DETAIL_LABELS.map(({ key, label }) => (
-                          <div key={key} className={styles.detailRow}>
-                            <dt>{label}</dt>
-                            <dd>{detail[key]}</dd>
-                          </div>
-                        ))}
-                      </dl>
-                    )}
-                  </div>
-                </Reveal>
-              );
-            })}
+            {SERVICE_CATALOG.map(({ slug, name, description }) => (
+              <Reveal as="article" key={slug} id={slug}>
+                <div className={styles.service}>
+                  <h3 className={styles.serviceTitle}>
+                    <Link to={servicePagePath(slug)} className={styles.serviceTitleLink}>
+                      {name}
+                    </Link>
+                  </h3>
+                  <p className={styles.serviceSummary}>{description}</p>
+                  <dl className={styles.details}>
+                    <div className={styles.detailRow}>
+                      <dt>Where it applies</dt>
+                      <dd>{SERVICE_DETAILS[slug].applies}</dd>
+                    </div>
+                  </dl>
+                  <Link to={servicePagePath(slug)} className={styles.serviceLink}>
+                    Read the full guide to {name.toLowerCase()}
+                    <span aria-hidden="true"> →</span>
+                  </Link>
+                </div>
+              </Reveal>
+            ))}
           </div>
         </div>
 

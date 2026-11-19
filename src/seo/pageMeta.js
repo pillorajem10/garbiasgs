@@ -1,4 +1,16 @@
 import { SITE_NAME, SITE_URL, DEFAULT_OG_IMAGE, PRIMARY_KEYWORDS } from "./constants";
+import { SERVICE_CATALOG, servicePagePath } from "@/constants/services";
+
+const SERVICE_PAGE_META = Object.fromEntries(
+  SERVICE_CATALOG.map(({ slug, name, metaTitle, metaDescription }) => [
+    servicePagePath(slug),
+    {
+      title: metaTitle,
+      description: metaDescription,
+      keywords: `${name}, ${PRIMARY_KEYWORDS}`,
+    },
+  ])
+);
 
 /**
  * Per-route title and description.
@@ -13,9 +25,9 @@ import { SITE_NAME, SITE_URL, DEFAULT_OG_IMAGE, PRIMARY_KEYWORDS } from "./const
  */
 export const PAGE_META = {
   "/": {
-    title: "GarBia Group | Soil Testing & Construction Philippines",
+    title: "GarBia Group | Geotechnical & Construction Company Philippines",
     description:
-      "Soil testing, geotechnical investigation, engineering consultancy, and construction works across Luzon, Philippines. GarBia Group is based in Cainta, Rizal.",
+      "GarBia Group, formerly Garbia Structural and Geotechnical Solutions: soil testing, geotechnical investigation, and construction works across Luzon, Philippines.",
     keywords: PRIMARY_KEYWORDS,
   },
   "/services": {
@@ -70,6 +82,7 @@ export const PAGE_META = {
       "Contact GarBia, Geotechnical Services Philippines, soil investigation quote, " +
       PRIMARY_KEYWORDS,
   },
+  ...SERVICE_PAGE_META,
   "/404": {
     title: "Page Not Found | GarBia Group",
     description:
@@ -94,6 +107,11 @@ export const INDEXABLE_ROUTES = [
   { path: "/location", changefreq: "monthly", priority: "0.8" },
   { path: "/mission-vision", changefreq: "monthly", priority: "0.7" },
   { path: "/program", changefreq: "monthly", priority: "0.6" },
+  ...SERVICE_CATALOG.map(({ slug }) => ({
+    path: servicePagePath(slug),
+    changefreq: "monthly",
+    priority: "0.8",
+  })),
 ];
 
 /**

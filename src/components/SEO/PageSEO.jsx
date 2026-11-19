@@ -3,6 +3,7 @@ import { useLocation } from "react-router-dom";
 import usePageSEO from "@/hooks/usePageSEO";
 import JsonLdGraph from "./JsonLd";
 import { getBreadcrumbTrail } from "@/constants/navigation";
+import { findServiceBySlug, serviceSlugFromPath } from "@/constants/services";
 import { canonicalUrl, getPageMeta, seoPath } from "@/seo/pageMeta";
 import {
   breadcrumbNode,
@@ -34,7 +35,9 @@ export default function PageSEO({ faqs }) {
       );
     }
 
+    const serviceSlug = serviceSlugFromPath(path);
     if (path === "/services") pageNodes.push(...serviceNodes());
+    if (serviceSlug) pageNodes.push(...serviceNodes([findServiceBySlug(serviceSlug)]));
     if (faqs?.length) pageNodes.push(faqNode(faqs));
 
     return pageNodes;

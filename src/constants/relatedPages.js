@@ -46,6 +46,7 @@ export const RELATED_PAGES = {
   history: [ABOUT, MISSION_VISION, SERVICES],
   missionVision: [SERVICES, PROJECTS, CONTACT],
   projects: [SERVICES, ABOUT, CONTACT],
+  serviceDetail: [PROJECTS, ABOUT, CONTACT],
   program: [ABOUT, PROJECTS, CONTACT],
   location: [CONTACT, SERVICES, ABOUT],
 };

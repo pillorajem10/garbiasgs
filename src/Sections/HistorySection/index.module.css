@@ -39,7 +39,9 @@
 
 .line {
   background-color: var(--color-cta);
+  transform: scaleY(var(--scroll-progress, 0));
   transform-origin: top;
+  transition: transform 150ms linear;
 }
 
 .era {
@@ -77,4 +79,11 @@
   font-size: var(--text-lead);
   line-height: var(--leading-prose);
   color: var(--color-text);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .line {
+    transform: scaleY(1);
+    transition: none;
+  }
 }

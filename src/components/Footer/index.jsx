@@ -1,7 +1,7 @@
 import { Link } from "react-router-dom";
 import Button from "@components/Button";
 import { BUSINESS, SAME_AS, SITE_NAME } from "@/seo/constants";
-import { SERVICE_CATALOG } from "@/seo/structuredData";
+import { SERVICE_CATALOG, servicePagePath } from "@/constants/services";
 import { FOOTER_NAV } from "@/constants/navigation";
 import styles from "./index.module.css";
 
@@ -28,7 +28,9 @@ const Footer = () => (
           Soil testing, engineering consultancy, and construction works across Luzon,
           Philippines.
         </p>
-        <p className={styles.legalName}>{BUSINESS.legalName}</p>
+        <p className={styles.legalName}>
+          {BUSINESS.legalName}, formerly Garbia Structural and Geotechnical Solutions (GSGS)
+        </p>
         <ul className={styles.socialList}>
           {SOCIAL_LINKS.map(({ href, label }) => (
             <li key={label}>
@@ -64,7 +66,7 @@ const Footer = () => (
         <ul className={styles.linkList}>
           {SERVICE_CATALOG.map(({ slug, name }) => (
             <li key={slug}>
-              <Link to={`/services#${slug}`} className={styles.link}>
+              <Link to={servicePagePath(slug)} className={styles.link}>
                 {name}
               </Link>
             </li>

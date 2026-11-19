@@ -388,7 +388,7 @@ verified 200):
 | `https://www.garbiasgs.com/about.html` | `https://garbiagroup.com/about` | High — same licences/office content |
 | `https://www.garbiasgs.com/services.html` | `https://garbiagroup.com/services` | High — same service list |
 | `https://www.garbiasgs.com/contact.html` | `https://garbiagroup.com/contact` | High — same phone numbers |
-| `https://www.garbiasgs.com/store/p1/Soil_Investigation_or_Soil_Testing.html` | `https://garbiagroup.com/services#soil-investigation` | Medium — **review first**, it is a Weebly store product page |
+| `https://www.garbiasgs.com/store/p1/Soil_Investigation_or_Soil_Testing.html` | `https://garbiagroup.com/services/soil-investigation` | High — a dedicated soil investigation page now exists (see §19) |
 | `https://www.garbiasgs.com/store/c1/Featured_Products.html` | `https://garbiagroup.com/services` | Low — **review individually**, no equivalent page exists |
 | anything else | `https://garbiagroup.com/` | Last resort only |
 
@@ -608,3 +608,133 @@ this deployment can damage existing rankings.
 
 Throughout: record what changed and when. When rankings move, the log is the
 only way to know which change moved them.
+
+---
+
+## 19. Ranking push (November 2026)
+
+Audit date: **20 November 2026**.
+
+### What the audit found
+
+- `garbiagroup.com` is crawlable and correctly configured (robots allow,
+  `index, follow`, self-canonical, sitemap listed), yet a web search for
+  "garbia group" or even "garbiagroup.com" returned nothing from the site.
+- The old Weebly site at `www.garbiasgs.com` is still live and still
+  advertises its own sitemap (6 URLs). Its title is "GARBIA STRUCTURAL AND
+  GEOTECHNICAL SOLUTIONS". To a search engine it is the older, established
+  home of the brand, and its content overlaps the new site, so it wins.
+- Business directories that rank for the company (Cybo, Bossjob) list the old
+  name and **garbiasgs.com** as the website. Every outside signal points at the
+  old domain.
+- `garbiasgs.com` DNS is at **Register.com**; `garbiagroup.com` DNS is at
+  **Namecheap**.
+
+The new domain is not being outranked on quality. It has almost no signals of
+its own yet, and the old domain is absorbing all of them.
+
+### What changed in the code
+
+- **Seven service pages** at `/services/<slug>` (site assessment, soil
+  investigation, geotechnical testing, geotechnical reports, micropiling,
+  grouting, laboratory testing). Each has its own title, description, H1,
+  breadcrumb (Home / Services / service), Service schema, the FAQs that belong
+  to it, a quote panel, and links to every other service. These give search
+  engines a dedicated page to rank for each service query instead of an anchor
+  on `/services`.
+- `/services` now carries a summary of each service and links to its page, so
+  the full write-ups live in one place and are not duplicated.
+- Home page: title now leads with the brand and "Geotechnical & Construction
+  Company Philippines"; the description names the former company name
+  ("formerly Garbia Structural and Geotechnical Solutions") so searches for the
+  old name match the new site; the H1 now starts with "Geotechnical
+  Engineering".
+- Footer on every page: "formerly Garbia Structural and Geotechnical Solutions
+  (GSGS)", tying the old name to the new domain site-wide.
+- Structured data: the organisation is now typed as Organization,
+  ProfessionalService and GeneralContractor, with the company slogan and an
+  OfferCatalog listing every service with its page URL. Service schema points
+  at the dedicated pages.
+- Sitemap now lists all 16 indexable pages plus 55 page images (image sitemap
+  extension), so photos can rank in image search for the brand.
+- Square brand icons (`apple-touch-icon.png`, `icon-192.png`, `icon-512.png`)
+  cut from the logo's "G" emblem, replacing the wide share image previously
+  used as the touch icon. Web manifest updated to the current company name.
+- **IndexNow**: `public/indexnow-key.txt` plus a step at the end of every
+  deploy that submits all sitemap URLs to IndexNow (Bing, Yahoo, DuckDuckGo
+  results via Bing, Yandex, Seznam, Naver). Non-fatal: a failure never fails a
+  deploy. Google does not use IndexNow.
+- Fixed a live bug: URLs with a trailing slash (`/services/`) redirected to
+  `http://garbiagroup.com:5173/services`, a broken address. The container now
+  issues relative redirects (`absolute_redirect off`).
+
+### The redirect from garbiasgs.com (most important single step)
+
+When the old site is retired, **do not let the domain go dark**. A dead domain
+throws away everything it has earned. Point it at the VPS and redirect every
+old URL to its new equivalent with a 301, using
+[deploy/nginx-old-domain-redirect.conf](deploy/nginx-old-domain-redirect.conf):
+
+| Old URL | New URL |
+|---|---|
+| `/`, `/index.html` | `https://garbiagroup.com/` |
+| `/about.html` | `https://garbiagroup.com/about` |
+| `/services.html` | `https://garbiagroup.com/services` |
+| `/contact.html` | `https://garbiagroup.com/contact` |
+| `/store/p1/Soil_Investigation_or_Soil_Testing.html` | `https://garbiagroup.com/services/soil-investigation` |
+| `/store/c1/Featured_Products.html` | `https://garbiagroup.com/services` |
+| anything else | `https://garbiagroup.com/` |
+
+Steps:
+
+1. At Register.com, set the `A` records for `garbiasgs.com` and
+   `www.garbiasgs.com` to the VPS address (`187.77.142.13`) and remove any
+   records that point at Weebly. The old Weebly pages stop being served at this
+   moment, which is intended.
+2. On the VPS, copy the config to
+   `/etc/nginx/sites-available/garbiasgs.com`, link it into `sites-enabled`,
+   then `sudo nginx -t && sudo systemctl reload nginx`.
+3. Once DNS has switched, run
+   `sudo certbot --nginx -d garbiasgs.com -d www.garbiasgs.com` so the HTTPS
+   versions of the old URLs redirect too.
+4. Check: `curl -sI https://www.garbiasgs.com/about.html` must answer `301`
+   with `Location: https://garbiagroup.com/about`.
+5. In Google Search Console, verify `garbiasgs.com` as well, then use
+   **Settings → Change of address** to tell Google the site moved to
+   `garbiagroup.com`. Do the same in Bing Webmaster Tools (Site Move).
+6. Keep `garbiasgs.com` registered and redirecting for at least two years.
+
+This replaces the "wait until indexed" ordering in §13: the old site is being
+retired anyway, and a working redirect is how the new domain inherits its
+history.
+
+### Off-site work, in order of impact
+
+1. **Google Search Console** for `garbiagroup.com` (Domain property, DNS TXT at
+   Namecheap): submit `https://garbiagroup.com/sitemap.xml`, then use URL
+   Inspection → Request indexing on the home page and the seven service pages.
+2. **Old-domain redirect + Change of address** (above).
+3. **Google Business Profile**: set the website to `https://garbiagroup.com/`
+   and the business name to the name used on the site. For a branded search
+   ("garbia"), the profile is usually the first thing Google shows.
+4. **Bing Webmaster Tools**: import the site from Search Console, submit the
+   sitemap. Bing also powers DuckDuckGo and Yahoo results.
+5. **Update every listing that names garbiasgs.com**: Facebook page, LinkedIn,
+   Cybo, Bossjob, JobStreet, PhilGEPS, PCAB and any other directory. Use the
+   same name, address and phone everywhere (`GarBia Group`, the Cainta address,
+   `+63 (02) 8280-1763`).
+6. **Earn real links**: suppliers, clients, industry associations, local
+   chambers and project partners linking to `garbiagroup.com`. No bought links.
+
+### What to expect
+
+- **Branded searches** ("garbia", "garbia group", "garbiagroup"): realistic to
+  reach the top once Search Console, the redirect and the Business Profile are
+  done. Typically weeks, not days.
+- **Service + location searches** ("soil investigation Rizal", "geotechnical
+  testing Philippines"): the new service pages make these winnable, over
+  months, as the domain gains links and the Business Profile gains reviews.
+- **Generic single words** ("geotechnical", "construction"): nobody can promise
+  first place for these. They are national, highly competitive, and depend on
+  authority built over years. The work above is what moves them, but there is
+  no setting that guarantees it.

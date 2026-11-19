@@ -1,11 +1,10 @@
 import { useRef, useState } from "react";
 import { Link, useLocation } from "react-router-dom";
 import Button from "@components/Button";
-import OptimizedImage from "@components/OptimizedImage";
 import { PRIMARY_NAV } from "@/constants/navigation";
 import { useNavbarVisibility } from "@/hooks/useNavbarVisibility";
 import { useSlidingIndicator } from "@/hooks/useSlidingIndicator";
-import garbiaLogo from "@/assets/images/garbia-logo.png";
+import garbiaLogo from "@/assets/images/garbia-logo.webp?inline";
 import styles from "./index.module.css";
 
 const Navbar = ({ menuOpen, onToggleMenu }) => {
@@ -26,13 +25,13 @@ const Navbar = ({ menuOpen, onToggleMenu }) => {
   return (
     <header className={classNames}>
       <Link to="/" className={styles.logoContainer} aria-label="GarBia Group home">
-        <OptimizedImage
+        <img
           src={garbiaLogo}
           alt="GarBia Group logo"
           className={styles.logo}
-          width={800}
-          height={248}
-          priority
+          width={372}
+          height={115}
+          decoding="async"
         />
       </Link>
 

@@ -183,6 +183,12 @@ body {
     width: 100%;
     max-width: 100%;
   }
+
+  main section:not(section section),
+  footer {
+    content-visibility: auto;
+    contain-intrinsic-size: auto 80rem;
+  }
 }
 
 h1,

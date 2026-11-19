@@ -25,52 +25,60 @@ const HEAD_START = "<!--seo:start-->";
 const HEAD_END = "<!--seo:end-->";
 const APP_MARKER = "<!--app-html-->";
 
-/**
- * Route → the lazily-imported page module behind it, used to look that route's
- * CSS chunk up in the client build manifest.
- *
- * Pages are code-split, so their styles live in a CSS file that only downloads
- * with the page's JS chunk. Without linking it here the prerendered markup
- * paints unstyled and then restyles a moment later. Kept in the build script
- * rather than in app code because it describes the build, and validated below
- * so a renamed page fails the build instead of silently losing its styles.
- */
-const ROUTE_MODULES = {
-  "/": "src/Pages/Home/index.jsx",
-  "/services": "src/Pages/Services/index.jsx",
-  "/about": "src/Pages/About/index.jsx",
-  "/history": "src/Pages/History/index.jsx",
-  "/contact": "src/Pages/Contact/index.jsx",
-  "/mission-vision": "src/Pages/MissionVision/index.jsx",
-  "/location": "src/Pages/Location/index.jsx",
-  "/projects": "src/Pages/Projects/index.jsx",
-  "/program": "src/Pages/Program/index.jsx",
-  "/404": "src/Pages/DefaultPage/index.jsx",
-};
+const STYLESHEET_LINK_PATTERN = /<link\s+rel="stylesheet"[^>]*?href="\/(assets\/[^"]+\.css)"[^>]*>/g;
 
-/** Every CSS file a route's chunk needs, following imports transitively. */
-function cssForRoute(manifest, routePath) {
-  const entry = ROUTE_MODULES[routePath];
-  if (!entry) throw new Error(`No page module mapped for route ${routePath}`);
-  if (!manifest[entry]) {
-    throw new Error(
-      `${entry} is not in the client build manifest — the page moved or was ` +
-        "renamed; update ROUTE_MODULES in scripts/prerender.mjs.",
-    );
+async function inlineStylesheets(template) {
+  let html = template;
+  for (const [linkTag, cssFile] of template.matchAll(STYLESHEET_LINK_PATTERN)) {
+    const css = await readFile(path.join(distDir, cssFile), "utf8");
+    html = html.replace(linkTag, () => `<style>${css}</style>`);
   }
+  return html;
+}
 
-  const css = new Set();
-  const seen = new Set();
-  const walk = (key) => {
-    if (seen.has(key)) return;
-    seen.add(key);
-    const chunk = manifest[key];
-    if (!chunk) return;
-    for (const file of chunk.css ?? []) css.add(file);
-    for (const imported of chunk.imports ?? []) walk(imported);
-  };
-  walk(entry);
-  return [...css];
+const ENTRY_SCRIPT_PATTERN = /<script type="module"[^>]*?src="(\/assets\/[^"]+\.js)"[^>]*><\/script>\s*/;
+const MODULE_PRELOAD_PATTERN = /<link rel="modulepreload"[^>]*>\s*/g;
+
+const FALLBACK_START_DELAY_MS = 1500;
+
+const deferredLoaderScript = (entrySource) => `<script>
+(function () {
+  var hasStarted = false;
+  function start() {
+    if (hasStarted) return;
+    hasStarted = true;
+    var script = document.createElement("script");
+    script.type = "module";
+    script.src = "${entrySource}";
+    document.body.appendChild(script);
+  }
+  var canObservePaint =
+    window.PerformanceObserver &&
+    PerformanceObserver.supportedEntryTypes &&
+    PerformanceObserver.supportedEntryTypes.indexOf("paint") !== -1;
+  if (!canObservePaint) {
+    window.addEventListener("load", start);
+    return;
+  }
+  new PerformanceObserver(function (list, observer) {
+    if (list.getEntriesByName("first-contentful-paint").length === 0) return;
+    observer.disconnect();
+    setTimeout(start, 0);
+  }).observe({ type: "paint", buffered: true });
+  window.addEventListener("load", function () {
+    setTimeout(start, ${FALLBACK_START_DELAY_MS});
+  });
+})();
+</script>`;
+
+function deferEntryScript(template) {
+  const entryMatch = ENTRY_SCRIPT_PATTERN.exec(template);
+  if (!entryMatch) throw new Error("dist/index.html has no module entry script to defer.");
+
+  return template
+    .replace(MODULE_PRELOAD_PATTERN, "")
+    .replace(ENTRY_SCRIPT_PATTERN, "")
+    .replace("</body>", `${deferredLoaderScript(entryMatch[1])}\n  </body>`);
 }
 
 const CRITICAL_FONT_PATTERNS = [
@@ -107,35 +115,53 @@ function injectHead(template, { title, tags }) {
   return template.slice(0, start) + head + template.slice(end);
 }
 
-function buildSitemap(routes, lastmod) {
+const SITE_ORIGIN = "https://garbiagroup.com";
+const MAX_SITEMAP_IMAGES_PER_PAGE = 20;
+const IMAGE_SOURCE_PATTERN = /<img\b[^>]*?\ssrc="([^"]+)"/g;
+
+const escapeXml = (value) =>
+  value.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
+
+function extractImageUrls(body) {
+  const imageUrls = [...body.matchAll(IMAGE_SOURCE_PATTERN)]
+    .map(([, source]) => source.replace(/&amp;/g, "&"))
+    .map((source) => (source.startsWith("/") ? `${SITE_ORIGIN}${source}` : source))
+    .filter((source) => source.startsWith("https://"));
+  return [...new Set(imageUrls)].slice(0, MAX_SITEMAP_IMAGES_PER_PAGE);
+}
+
+function buildSitemap(routes, lastmod, imagesByRoute) {
   const urls = routes
-    .map(
-      ({ path: routePath, changefreq, priority }) =>
+    .map(({ path: routePath, changefreq, priority }) => {
+      const images = (imagesByRoute.get(routePath) ?? [])
+        .map((imageUrl) => `    <image:image><image:loc>${escapeXml(imageUrl)}</image:loc></image:image>\n`)
+        .join("");
+      return (
         "  <url>\n" +
-        `    <loc>https://garbiagroup.com${routePath === "/" ? "/" : routePath}</loc>\n` +
+        `    <loc>${SITE_ORIGIN}${routePath === "/" ? "/" : routePath}</loc>\n` +
         `    <lastmod>${lastmod}</lastmod>\n` +
         `    <changefreq>${changefreq}</changefreq>\n` +
         `    <priority>${priority}</priority>\n` +
-        "  </url>",
-    )
+        images +
+        "  </url>"
+      );
+    })
     .join("\n");
 
   return `<?xml version="1.0" encoding="UTF-8"?>
-<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:image="http://www.google.com/schemas/sitemap-image/1.1">
 ${urls}
 </urlset>
 `;
 }
 
 async function main() {
-  const template = await readFile(path.join(distDir, "index.html"), "utf8");
+  const template = deferEntryScript(
+    await inlineStylesheets(await readFile(path.join(distDir, "index.html"), "utf8")),
+  );
   if (!template.includes(APP_MARKER)) {
     throw new Error(`dist/index.html is missing ${APP_MARKER}.`);
   }
-
-  const manifest = JSON.parse(
-    await readFile(path.join(distDir, ".vite", "manifest.json"), "utf8"),
-  );
 
   const server = await import(pathToFileURL(ssrEntry).href);
   const { INDEXABLE_ROUTES, renderBody, renderHead } = server;
@@ -149,19 +175,16 @@ async function main() {
     { path: "/404", changefreq: null, priority: null, sitemap: false },
   ];
 
+  const imagesByRoute = new Map();
+
   for (const route of routes) {
     const body = await renderBody(route.path);
     const head = renderHead(route.path);
-    // Vite already links the entry CSS in the template; only add what the
-    // route needs on top of it.
-    const css = cssForRoute(manifest, route.path)
-      .filter((file) => !template.includes(file))
-      .map((file) => `<link rel="stylesheet" crossorigin href="/${file}" />`)
-      .join("\n    ");
+    imagesByRoute.set(route.path, extractImageUrls(body));
 
     const html = injectHead(template, {
       ...head,
-      tags: [head.tags, fontPreloads, css].filter(Boolean).join("\n    "),
+      tags: [head.tags, fontPreloads].filter(Boolean).join("\n    "),
     }).replace(APP_MARKER, body);
 
     const file = path.join(distDir, outputFile(route.path));
@@ -175,7 +198,7 @@ async function main() {
   const lastmod = new Date().toISOString().slice(0, 10);
   await writeFile(
     path.join(distDir, "sitemap.xml"),
-    buildSitemap(INDEXABLE_ROUTES, lastmod),
+    buildSitemap(INDEXABLE_ROUTES, lastmod, imagesByRoute),
     "utf8",
   );
   process.stdout.write(

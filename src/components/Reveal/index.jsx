@@ -18,8 +18,9 @@ export default function Reveal({
   });
 
   useEffect(() => {
-    const { top } = elementRef.current.getBoundingClientRect();
-    setIsBelowFold(top > window.innerHeight);
+    const { top, bottom } = elementRef.current.getBoundingClientRect();
+    const hasNoLayout = top === 0 && bottom === 0;
+    setIsBelowFold(top > window.innerHeight || hasNoLayout);
   }, []);
 
   const isHidden = isBelowFold && !hasEnteredView;

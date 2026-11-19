@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 
 const REDUCED_MOTION = "(prefers-reduced-motion: reduce)";
+const SMALL_SCREEN = "(max-width: 767px)";
 
 /**
  * Whether it is reasonable to auto-download and auto-play a decorative video.
@@ -10,13 +11,17 @@ const REDUCED_MOTION = "(prefers-reduced-motion: reduce)";
  * page needs for text, fonts, and images. We also honour reduced-motion, since
  * these are looping ambient clips with no pause control.
  *
- * Deliberately conservative: only `Save-Data` and 2G-class connections are
- * excluded, not 3G, which is still common in the Philippines.
+ * Phones never load the hero video: it is the largest thing on the page, it
+ * becomes the Largest Contentful Paint, and the visitor is usually on mobile
+ * data. Beyond that it is deliberately conservative: only `Save-Data` and
+ * 2G-class connections are excluded, not 3G, which is still common in the
+ * Philippines.
  */
 function readPreference() {
   if (typeof window === "undefined") return true;
 
   if (window.matchMedia?.(REDUCED_MOTION).matches) return false;
+  if (window.matchMedia?.(SMALL_SCREEN).matches) return false;
 
   const connection = navigator.connection;
   if (connection?.saveData) return false;
@@ -40,13 +45,16 @@ export function useAutoplayAllowed() {
 
   useEffect(() => {
     const motionQuery = window.matchMedia?.(REDUCED_MOTION);
+    const screenQuery = window.matchMedia?.(SMALL_SCREEN);
     const connection = navigator.connection;
     const update = () => setAllowed(readPreference());
 
     motionQuery?.addEventListener("change", update);
+    screenQuery?.addEventListener("change", update);
     connection?.addEventListener?.("change", update);
     return () => {
       motionQuery?.removeEventListener("change", update);
+      screenQuery?.removeEventListener("change", update);
       connection?.removeEventListener?.("change", update);
     };
   }, []);

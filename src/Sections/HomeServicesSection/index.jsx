@@ -2,7 +2,7 @@ import Button from "@components/Button";
 import Card from "@components/Card";
 import Reveal from "@components/Reveal";
 import SectionHeader from "@components/SectionHeader";
-import { SERVICE_CATALOG } from "@/seo/structuredData";
+import { SERVICE_CATALOG, servicePagePath } from "@/constants/services";
 import styles from "./index.module.css";
 
 const HomeServicesSection = () => (
@@ -18,7 +18,7 @@ const HomeServicesSection = () => (
       <ul className={styles.cardGrid}>
         {SERVICE_CATALOG.map(({ slug, name, description }, index) => (
           <Reveal as="li" key={slug} delay={(index % 3) * 100}>
-            <Card to={`/services#${slug}`} title={name} linkLabel="Learn more">
+            <Card to={servicePagePath(slug)} title={name} linkLabel="Learn more">
               <p>{description}</p>
             </Card>
           </Reveal>

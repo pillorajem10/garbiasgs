@@ -1,25 +1,27 @@
-import { useEffect, memo } from "react";
+import { useCallback, useEffect, useRef, useState, memo } from "react";
 import { Link, useLocation } from "react-router-dom";
-import { motion, useReducedMotion } from "framer-motion";
 import Button from "@components/Button";
 import { PRIMARY_NAV } from "@/constants/navigation";
-import {
-  DURATION_BASE_SECONDS,
-  DURATION_SLOW_SECONDS,
-  EASE_OUT,
-} from "@/constants/motion";
 import { BUSINESS } from "@/seo/constants";
 import { useDialogFocus } from "@/hooks/useDialogFocus";
 import styles from "./index.module.css";
 
-const LINK_STAGGER_SECONDS = 0.06;
-const LINKS_START_DELAY_SECONDS = 0.15;
-const LINK_RISE_DISTANCE_PX = 28;
+const CLOSE_ANIMATION_MS = 200;
 
 const BurgerMenu = ({ id = "site-mobile-menu", onClose }) => {
-  const menuRef = useDialogFocus(onClose);
   const { pathname } = useLocation();
-  const shouldReduceMotion = useReducedMotion();
+  const [isClosing, setIsClosing] = useState(false);
+  const closeTimerRef = useRef(null);
+
+  const requestClose = useCallback(() => {
+    if (closeTimerRef.current) return;
+    setIsClosing(true);
+    closeTimerRef.current = window.setTimeout(onClose, CLOSE_ANIMATION_MS);
+  }, [onClose]);
+
+  const menuRef = useDialogFocus(requestClose);
+
+  useEffect(() => () => window.clearTimeout(closeTimerRef.current), []);
 
   useEffect(() => {
     const previousOverflow = document.body.style.overflow;
@@ -29,79 +31,43 @@ const BurgerMenu = ({ id = "site-mobile-menu", onClose }) => {
     };
   }, []);
 
-  const listVariants = {
-    hidden: {},
-    visible: {
-      transition: {
-        staggerChildren: LINK_STAGGER_SECONDS,
-        delayChildren: LINKS_START_DELAY_SECONDS,
-      },
-    },
-  };
-
-  const itemVariants = {
-    hidden: { opacity: 0, y: shouldReduceMotion ? 0 : LINK_RISE_DISTANCE_PX },
-    visible: {
-      opacity: 1,
-      y: 0,
-      transition: { duration: DURATION_SLOW_SECONDS, ease: EASE_OUT },
-    },
-  };
-
   return (
-    <motion.div
+    <div
       ref={menuRef}
       id={id}
-      className={styles.overlay}
+      className={`${styles.overlay} ${isClosing ? styles.closing : ""}`}
       role="dialog"
       aria-modal="true"
       aria-label="Site navigation"
       tabIndex={-1}
-      initial={{ opacity: 0 }}
-      animate={{ opacity: 1 }}
-      exit={{ opacity: 0 }}
-      transition={{ duration: DURATION_BASE_SECONDS, ease: EASE_OUT }}
     >
       <button
         type="button"
         className={styles.closeButton}
-        onClick={onClose}
+        onClick={requestClose}
         aria-label="Close navigation menu"
       >
         <span aria-hidden="true">&times;</span>
       </button>
 
       <nav className={styles.menuNav} aria-label="Mobile">
-        <motion.ul
-          className={styles.linkList}
-          variants={listVariants}
-          initial="hidden"
-          animate="visible"
-        >
-          {PRIMARY_NAV.map(({ to, label }) => (
-            <motion.li key={to} variants={itemVariants}>
+        <ul className={styles.linkList}>
+          {PRIMARY_NAV.map(({ to, label }, index) => (
+            <li key={to} className={styles.linkItem} style={{ "--link-index": index }}>
               <Link
                 to={to}
                 className={styles.link}
                 aria-current={pathname === to ? "page" : undefined}
-                onClick={onClose}
+                onClick={requestClose}
               >
                 {label}
               </Link>
-            </motion.li>
+            </li>
           ))}
-        </motion.ul>
+        </ul>
 
-        <motion.div
-          className={styles.footer}
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{
-            duration: DURATION_SLOW_SECONDS,
-            delay: LINKS_START_DELAY_SECONDS + PRIMARY_NAV.length * LINK_STAGGER_SECONDS,
-          }}
-        >
-          <Button to="/contact" onClick={onClose} hasArrow>
+        <div className={styles.footer} style={{ "--link-index": PRIMARY_NAV.length }}>
+          <Button to="/contact" onClick={requestClose} hasArrow>
             Get a Quote
           </Button>
           <a href={`mailto:${BUSINESS.email}`} className={styles.contactLink}>
@@ -110,9 +76,9 @@ const BurgerMenu = ({ id = "site-mobile-menu", onClose }) => {
           <a href={`tel:${BUSINESS.telephone}`} className={styles.contactLink}>
             {BUSINESS.telephoneDisplay}
           </a>
-        </motion.div>
+        </div>
       </nav>
-    </motion.div>
+    </div>
   );
 };
 

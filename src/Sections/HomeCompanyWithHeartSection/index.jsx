@@ -1,5 +1,4 @@
 import { useRef } from "react";
-import { useInView } from "framer-motion";
 import Button from "@components/Button";
 import LazyBackground from "@components/LazyBackground";
 import LazyVideo from "@components/LazyVideo";
@@ -7,6 +6,7 @@ import OptimizedImage from "@components/OptimizedImage";
 import Reveal from "@components/Reveal";
 import SectionHeader from "@components/SectionHeader";
 import { useAutoAdvance } from "@/hooks/useAutoAdvance";
+import { useInView } from "@/hooks/useInView";
 import { cdnImage, cdnVideo } from "@/utils/cdn";
 import { SECTION_BACKGROUNDS } from "@/seo/sectionBackgrounds";
 import { companyWithHeartData } from "./data";

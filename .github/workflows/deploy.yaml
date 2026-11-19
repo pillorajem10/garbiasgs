@@ -97,6 +97,17 @@ jobs:
               echo "Skipping contact API: $CONTACT_ENV_FILE not found"
             fi
 
+            INDEXNOW_KEY=$(cat public/indexnow-key.txt 2>/dev/null || true)
+            SITEMAP_URLS=$(curl -s https://garbiagroup.com/sitemap.xml | grep -o '<loc>[^<]*' | sed 's/<loc>//; s/.*/"&"/' | paste -sd, -)
+            if [ -n "$INDEXNOW_KEY" ] && [ -n "$SITEMAP_URLS" ]; then
+              curl -s -o /dev/null -w "IndexNow notified: HTTP %{http_code}\n" -X POST https://api.indexnow.org/indexnow \
+                -H "Content-Type: application/json; charset=utf-8" \
+                -d "{\"host\":\"garbiagroup.com\",\"key\":\"$INDEXNOW_KEY\",\"keyLocation\":\"https://garbiagroup.com/indexnow-key.txt\",\"urlList\":[$SITEMAP_URLS]}" \
+                || echo "WARNING: IndexNow notification failed; the deploy is unaffected"
+            else
+              echo "Skipping IndexNow: no key or sitemap URLs found"
+            fi
+
       - name: Wait before retry (attempt 1 failed)
         if: steps.attempt1.outcome == 'failure'
         run: |

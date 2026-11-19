@@ -1,11 +1,11 @@
-import { lazy, Suspense, useState, useEffect, useCallback, useRef } from "react";
+import { lazy, Suspense, useState, useEffect, useCallback } from "react";
 import {
   BrowserRouter as Router,
   Routes,
   Route,
   useLocation,
+  useNavigationType,
 } from "react-router-dom";
-import { AnimatePresence } from "framer-motion";
 
 import Navbar from "@components/Navbar";
 import Footer from "@components/Footer";
@@ -25,6 +25,7 @@ const MissionVision = lazy(() => import("@pages/MissionVision"));
 const Location = lazy(() => import("@pages/Location"));
 const Projects = lazy(() => import("@pages/Projects"));
 const Program = lazy(() => import("@pages/Program"));
+const ServiceDetail = lazy(() => import("@pages/ServiceDetail"));
 const DefaultPage = lazy(() => import("@pages/DefaultPage"));
 
 function useNetworkGate() {
@@ -94,26 +95,27 @@ function useNetworkGate() {
 
 function RoutedMain() {
   const location = useLocation();
+  const navigationType = useNavigationType();
   // Remounting on route change replays the content-in animation. Keyed on the
   // route's identity rather than the raw pathname so that the not-found view,
   // which every unmatched URL renders, is treated as one page — moving between
   // two dead URLs should not replay the animation on identical content.
   const routeKey = seoPath(location.pathname);
 
-  const previousRouteKeyRef = useRef(routeKey);
-  const hasNavigatedRef = useRef(false);
+  const [previousRouteKey, setPreviousRouteKey] = useState(routeKey);
+  const [hasNavigated, setHasNavigated] = useState(false);
 
-  useEffect(() => {
-    if (previousRouteKeyRef.current === routeKey) return;
-    previousRouteKeyRef.current = routeKey;
-    hasNavigatedRef.current = true;
-  }, [routeKey]);
+  if (routeKey !== previousRouteKey) {
+    setPreviousRouteKey(routeKey);
+    setHasNavigated(true);
+  }
 
-  const focusMainAfterNavigation = useCallback((mainElement) => {
-    if (mainElement && hasNavigatedRef.current) {
-      mainElement.focus({ preventScroll: true });
-    }
-  }, []);
+  const focusMainAfterNavigation = useCallback(
+    (mainElement) => {
+      if (mainElement && hasNavigated) mainElement.focus({ preventScroll: true });
+    },
+    [hasNavigated],
+  );
 
   return (
     <Suspense fallback={<BrandedPageLoader />}>
@@ -121,12 +123,13 @@ function RoutedMain() {
         key={routeKey}
         ref={focusMainAfterNavigation}
         id="main-content"
-        className="main-content main-content-route"
+        className={navigationType === "POP" ? "main-content" : "main-content main-content-route"}
         tabIndex={-1}
       >
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/services" element={<Services />} />
+          <Route path="/services/:slug" element={<ServiceDetail />} />
           <Route path="/about" element={<About />} />
           <Route path="/history" element={<History />} />
           <Route path="/contact" element={<Contact />} />
@@ -151,9 +154,7 @@ function AppShell({ menuOpen, onOpenMenu, onCloseMenu }) {
       </a>
       <Navbar menuOpen={menuOpen} onToggleMenu={onOpenMenu} />
 
-      <AnimatePresence>
-        {menuOpen && <BurgerMenu id="site-mobile-menu" onClose={onCloseMenu} />}
-      </AnimatePresence>
+      {menuOpen && <BurgerMenu id="site-mobile-menu" onClose={onCloseMenu} />}
 
       <RoutedMain />
 

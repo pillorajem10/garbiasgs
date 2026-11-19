@@ -5,7 +5,7 @@ import { cdnVideo } from "@/utils/cdn";
 import styles from "./index.module.css";
 
 const HOME_VIDEO = cdnVideo("DJI_0020_trimmed.mp4");
-const HEADLINE = "Soil Testing, Engineering Consultancy, and Construction Works";
+const HEADLINE = "Geotechnical Engineering, Soil Testing, and Construction Works";
 const BODY =
   "Dreaming of your perfect home? Lay the groundwork for a lifetime of stability by prioritizing safety and securing a flawless foundation";
 

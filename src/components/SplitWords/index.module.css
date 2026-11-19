@@ -21,7 +21,7 @@
   }
 }
 
-@media (prefers-reduced-motion: reduce) {
+@media (max-width: 767px), (prefers-reduced-motion: reduce) {
   .wordInner {
     animation: none;
   }

@@ -186,6 +186,16 @@
   }
 }
 
+@media (max-width: 767px) {
+  .breadcrumbs,
+  .eyebrow,
+  .headline,
+  .body,
+  .actions {
+    animation: none;
+  }
+}
+
 @media (max-width: 700px) {
   .coordinates {
     display: none;

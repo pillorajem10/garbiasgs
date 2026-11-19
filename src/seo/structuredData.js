@@ -23,10 +23,15 @@ import {
   DEFAULT_OG_IMAGE_WIDTH,
   DEFAULT_OG_IMAGE_HEIGHT,
 } from "./constants";
+import { SERVICE_CATALOG, servicePagePath } from "@/constants/services";
 
 export const ORG_ID = `${SITE_URL}/#organization`;
 export const PLACE_ID = `${SITE_URL}/#office`;
 export const WEBSITE_ID = `${SITE_URL}/#website`;
+
+function serviceUrl(slug) {
+  return `${SITE_URL}${servicePagePath(slug)}`;
+}
 
 const CONTACT_POINTS = [
   {
@@ -55,58 +60,8 @@ const POSTAL_ADDRESS = {
 
 const AREA_SERVED = SERVED_AREAS.map((name) => ({ "@type": "Place", name }));
 
-/**
- * The services the company states it provides, mirrored from the visible list
- * on /services. Each entry has an anchor on that page, so the schema and the
- * rendered content stay in step.
- */
-export const SERVICE_CATALOG = [
-  {
-    slug: "site-assessment",
-    name: "Site Assessment",
-    description:
-      "Desk study and site reconnaissance that establish ground conditions, access, and the scope of investigation a project needs before drilling begins.",
-  },
-  {
-    slug: "soil-investigation",
-    name: "Soil Investigation & Sub-Surface Exploration",
-    description:
-      "Standard Penetration Testing (SPT), coring, and test pits to recover samples and record sub-surface profiles for foundation and structural design.",
-  },
-  {
-    slug: "geotechnical-testing",
-    name: "Geotechnical Testing",
-    description:
-      "In-situ and laboratory testing of recovered soil samples to establish strength, classification, and settlement behaviour.",
-  },
-  {
-    slug: "geotechnical-reports",
-    name: "Detailed Geotechnical Reports",
-    description:
-      "Laboratory analysis, liquefaction analysis, and foundation design recommendations issued as a geotechnical report for the design team.",
-  },
-  {
-    slug: "micropiling",
-    name: "Micropiling & Bored Piling Works",
-    description:
-      "Deep foundation works for sites where shallow soils cannot carry the design load, including restricted-access and existing-structure conditions.",
-  },
-  {
-    slug: "grouting",
-    name: "Jet Grouting & Cement Grouting Works",
-    description:
-      "Ground improvement by grout injection to increase bearing capacity, reduce permeability, and stabilise weak or loose ground.",
-  },
-  {
-    slug: "laboratory-testing",
-    name: "Soil Laboratory Testing",
-    description:
-      "Moisture content, specific gravity, Atterberg limits, grain size distribution, consolidation, field density, maximum dry density, CBR, Los Angeles abrasion, permeability, and unconfined compression testing.",
-  },
-];
-
 export const ORGANIZATION_NODE = {
-  "@type": ["Organization", "ProfessionalService"],
+  "@type": ["Organization", "ProfessionalService", "GeneralContractor"],
   "@id": ORG_ID,
   name: SITE_NAME,
   legalName: BUSINESS.legalName,
@@ -133,6 +88,19 @@ export const ORGANIZATION_NODE = {
   areaServed: AREA_SERVED,
   sameAs: SAME_AS,
   location: { "@id": PLACE_ID },
+  slogan: "Strong foundations for a safe future",
+  hasOfferCatalog: {
+    "@type": "OfferCatalog",
+    name: "Geotechnical engineering and construction services",
+    itemListElement: SERVICE_CATALOG.map((service) => ({
+      "@type": "Offer",
+      itemOffered: {
+        "@type": "Service",
+        name: service.name,
+        url: serviceUrl(service.slug),
+      },
+    })),
+  },
   knowsAbout: [
     "Geotechnical engineering",
     "Soil investigation",
@@ -209,15 +177,15 @@ export function faqNode(faqs) {
 }
 
 export function serviceNodes(services = SERVICE_CATALOG) {
-  return services.map((s) => ({
+  return services.map((service) => ({
     "@type": "Service",
-    "@id": `${SITE_URL}/services#${s.slug}`,
-    name: s.name,
-    description: s.description,
-    serviceType: s.name,
+    "@id": `${serviceUrl(service.slug)}#service`,
+    name: service.name,
+    description: service.description,
+    serviceType: service.name,
     provider: { "@id": ORG_ID },
     areaServed: AREA_SERVED,
-    url: `${SITE_URL}/services#${s.slug}`,
+    url: serviceUrl(service.slug),
   }));
 }
 
