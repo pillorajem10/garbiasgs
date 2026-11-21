@@ -11,7 +11,7 @@ const BrandedPageLoader = () => {
           <div className={styles.spinner} />
           <div className={styles.spinnerCore} />
         </div>
-        <p className={styles.brand}>GarBia</p>
+        <p className={styles.brand}>Garbia</p>
         <p className={styles.tagline}>Structural &amp; Geotechnical Solutions</p>
         <p className={styles.loadingLine}>Loading your content…</p>
       </div>

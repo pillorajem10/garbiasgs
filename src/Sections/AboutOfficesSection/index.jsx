@@ -9,8 +9,8 @@ import styles from "./index.module.css";
 
 const officeGalleryImages = officeImages.map((file, index) => ({
   src: cdnImage(`office/${file}`),
-  alt: `GarBia office photo ${index + 1} of ${officeImages.length}`,
-  caption: `GarBia office photo ${index + 1} of ${officeImages.length}`,
+  alt: `Garbia office photo ${index + 1} of ${officeImages.length}`,
+  caption: `Garbia office photo ${index + 1} of ${officeImages.length}`,
 }));
 
 const AboutOfficesSection = () => (
@@ -29,7 +29,7 @@ const AboutOfficesSection = () => (
       />
       <PhotoGallery
         images={officeGalleryImages}
-        label="GarBia office and laboratory photos"
+        label="Garbia office and laboratory photos"
         initialCount={8}
         isOnDark
       />

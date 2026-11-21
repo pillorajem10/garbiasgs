@@ -26,7 +26,7 @@ const ServicesSection = () => (
   <section
     id="services-list"
     className={styles.section}
-    aria-label="GarBia geotechnical services list"
+    aria-label="Garbia geotechnical services list"
   >
     <div className={styles.inner}>
       {SERVICE_GROUPS.map(({ title, imageFile, items }, index) => (

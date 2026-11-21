@@ -25,13 +25,13 @@ const SERVICE_PAGE_META = Object.fromEntries(
  */
 export const PAGE_META = {
   "/": {
-    title: "GarBia Group | Geotechnical & Construction Company Philippines",
+    title: "Garbia Group | Geotechnical & Construction Company Philippines",
     description:
-      "GarBia Group, formerly GarBia Structural and Geotechnical Solutions: soil testing, geotechnical investigation, and construction works across Luzon, Philippines.",
+      "Garbia Group, formerly Garbia Structural and Geotechnical Solutions: soil testing, geotechnical investigation, and construction works across Luzon, Philippines.",
     keywords: PRIMARY_KEYWORDS,
   },
   "/services": {
-    title: "Geotechnical & Soil Investigation Services | GarBia Group",
+    title: "Geotechnical & Soil Investigation Services | Garbia Group",
     description:
       "Site assessment, soil exploration by SPT and coring, laboratory testing, geotechnical reports, micropiling, and grouting for buildings, roads, and infrastructure.",
     keywords:
@@ -39,54 +39,54 @@ export const PAGE_META = {
       PRIMARY_KEYWORDS,
   },
   "/about": {
-    title: "About GarBia Group | Geotechnical Company in the Philippines",
+    title: "About Garbia Group | Geotechnical Company in the Philippines",
     description:
-      "Founded in 2018 in Cainta, Rizal, GarBia Group is ISO 9001:2015 certified, DPWH-BRS accredited, PCAB Category A licensed, and a PhilGEPS Platinum member.",
+      "Founded in 2018 in Cainta, Rizal, Garbia Group is ISO 9001:2015 certified, DPWH-BRS accredited, PCAB Category A licensed, and a PhilGEPS Platinum member.",
     keywords: "Construction Company, Geotechnical Engineering, " + PRIMARY_KEYWORDS,
   },
   "/history": {
-    title: "Company History: Soil Testing Since 2018 | GarBia Group",
+    title: "Company History: Soil Testing Since 2018 | Garbia Group",
     description:
-      "From an underground drilling contractor and soil testing laboratory founded in 2018 to GarBia Builders and Technology Solutions, OPC today.",
-    keywords: "Company History, GarBia History, " + PRIMARY_KEYWORDS,
+      "From an underground drilling contractor and soil testing laboratory founded in 2018 to Garbia Builders and Technology Solutions, OPC today.",
+    keywords: "Company History, Garbia History, " + PRIMARY_KEYWORDS,
   },
   "/mission-vision": {
-    title: "Mission & Vision | GarBia Group Geotechnical Solutions",
+    title: "Mission & Vision | Garbia Group Geotechnical Solutions",
     description:
-      "GarBia Group's mission and vision: accurate, high-quality geotechnical services supporting the Philippines' shift to quality construction and safe infrastructure.",
+      "Garbia Group's mission and vision: accurate, high-quality geotechnical services supporting the Philippines' shift to quality construction and safe infrastructure.",
     keywords: PRIMARY_KEYWORDS,
   },
   "/projects": {
-    title: "Geotechnical & Construction Projects | GarBia Group",
+    title: "Geotechnical & Construction Projects | Garbia Group",
     description:
-      "Soil investigation and foundation projects delivered by GarBia Group in Antipolo, Marikina, Pasig, and Taguig — with site photos from each engagement.",
+      "Soil investigation and foundation projects delivered by Garbia Group in Antipolo, Marikina, Pasig, and Taguig — with site photos from each engagement.",
     keywords: PRIMARY_KEYWORDS,
   },
   "/program": {
-    title: "Community Charity Programs | GarBia Group",
+    title: "Community Charity Programs | Garbia Group",
     description:
-      "GarBia Group's outreach work: food, educational supplies, and disaster response for communities near the sites where the company builds.",
-    keywords: "Construction Company Philippines, GarBia charity",
+      "Garbia Group's outreach work: food, educational supplies, and disaster response for communities near the sites where the company builds.",
+    keywords: "Construction Company Philippines, Garbia charity",
   },
   "/location": {
-    title: "Office Location in Cainta, Rizal | GarBia Group",
+    title: "Office Location in Cainta, Rizal | Garbia Group",
     description:
-      "Find GarBia Group at Lot 10 Block 7 Jasmine Street, Cainta, Rizal 1900 — minutes from Metro Manila, with parking for consultations and sample drop-offs.",
-    keywords: "Geotechnical Services Philippines, GarBia office, Cainta Rizal",
+      "Find Garbia Group at Lot 10 Block 7 Jasmine Street, Cainta, Rizal 1900 — minutes from Metro Manila, with parking for consultations and sample drop-offs.",
+    keywords: "Geotechnical Services Philippines, Garbia office, Cainta Rizal",
   },
   "/contact": {
-    title: "Contact GarBia Group | Geotechnical Services Philippines",
+    title: "Contact Garbia Group | Geotechnical Services Philippines",
     description:
-      "Request soil investigation, geotechnical testing, or foundation works from GarBia Group. Email inquiries@garbiagroup.com or call +63 (02) 8280-1763.",
+      "Request soil investigation, geotechnical testing, or foundation works from Garbia Group. Email inquiries@garbiagroup.com or call +63 (02) 8280-1763.",
     keywords:
-      "Contact GarBia, Geotechnical Services Philippines, soil investigation quote, " +
+      "Contact Garbia, Geotechnical Services Philippines, soil investigation quote, " +
       PRIMARY_KEYWORDS,
   },
   ...SERVICE_PAGE_META,
   "/404": {
-    title: "Page Not Found | GarBia Group",
+    title: "Page Not Found | Garbia Group",
     description:
-      "That page does not exist. Browse GarBia Group's geotechnical engineering, soil investigation, and construction services instead.",
+      "That page does not exist. Browse Garbia Group's geotechnical engineering, soil investigation, and construction services instead.",
     keywords: PRIMARY_KEYWORDS,
     noindex: true,
   },

@@ -19,7 +19,7 @@ const Page = () => (
     <FaqSection
       id="faq"
       title="Geotechnical Services FAQs"
-      intro="Learn about site investigation, deep foundations, and how GarBia supports your project."
+      intro="Learn about site investigation, deep foundations, and how Garbia supports your project."
       faqs={SERVICES_FAQ}
     />
   </>

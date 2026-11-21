@@ -36,7 +36,7 @@ const AboutLicenseAndCertificationsSection = () => (
         <h3 className={styles.documentsTitle}>Certificates and license documents</h3>
         <PhotoGallery
           images={licenseGalleryImages}
-          label="GarBia license and accreditation documents"
+          label="Garbia license and accreditation documents"
           aspectRatio="3 / 4"
           initialCount={7}
           isContained

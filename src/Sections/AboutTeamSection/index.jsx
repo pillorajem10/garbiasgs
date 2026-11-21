@@ -14,7 +14,7 @@ const AboutTeamSection = () => (
     <div className={styles.inner}>
       <SectionHeader
         eyebrow="Our people"
-        title="Meet the GarBia Group team"
+        title="Meet the Garbia Group team"
         titleId="team-heading"
         intro="The engineers, laboratory technicians, and office staff behind every site investigation, soil test, and foundation project we deliver."
       />
@@ -22,7 +22,7 @@ const AboutTeamSection = () => (
       <Reveal className={styles.frame}>
         <StudioPhoto
           photoPath={STUDIO_PHOTOS.teamGroup}
-          alt="The GarBia Group team posing together in the studio"
+          alt="The Garbia Group team posing together in the studio"
           width={TEAM_PHOTO_WIDTH}
           height={TEAM_PHOTO_HEIGHT}
           sizes={TEAM_PHOTO_SIZES}

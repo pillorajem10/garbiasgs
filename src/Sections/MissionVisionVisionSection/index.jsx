@@ -20,7 +20,7 @@ const MissionVisionVisionSection = () => (
           sizes="(max-width: 900px) 100vw, 520px"
           src={cdnImage("DJI_0059.jpg")}
           {...imageDims("DJI_0059.jpg")}
-          alt="GarBia vision — quality geotechnical services in practice"
+          alt="Garbia vision — quality geotechnical services in practice"
           className={styles.image}
         />
       </Reveal>
@@ -31,7 +31,7 @@ const MissionVisionVisionSection = () => (
           Vision
         </h2>
         <p className={styles.statement}>
-          GarBia Builders and Technology Solutions, OPC envisions becoming one of the most
+          Garbia Builders and Technology Solutions, OPC envisions becoming one of the most
           trusted and preferred providers of integrated geotechnical engineering, foundation
           and construction solutions in Luzon, delivering the highest standards of quality,
           safety, and technical excellence at competitive rates and within committed

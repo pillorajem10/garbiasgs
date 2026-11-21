@@ -44,7 +44,7 @@ const HomeCompanyWithHeartSection = () => {
             <OptimizedImage
               sizes="(max-width: 900px) 100vw, 600px"
               src={slides[currentSlide]}
-              alt={`Community and charity work by GarBia, image ${currentSlide + 1} of ${slides.length}`}
+              alt={`Community and charity work by Garbia, image ${currentSlide + 1} of ${slides.length}`}
               className={styles.slide}
             />
           </Reveal>

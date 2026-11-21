@@ -19,7 +19,7 @@ const ServicesDetailSection = () => {
           eyebrow="Service guide"
           title="What each service covers"
           titleId="services-detail-heading"
-          intro="A short guide to the geotechnical and construction services GarBia Group provides, what each one solves, and where it typically applies. If you are unsure which you need, describe the site and we will advise."
+          intro="A short guide to the geotechnical and construction services Garbia Group provides, what each one solves, and where it typically applies. If you are unsure which you need, describe the site and we will advise."
         />
 
         <div className={styles.layout}>

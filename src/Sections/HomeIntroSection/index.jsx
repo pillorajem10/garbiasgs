@@ -21,7 +21,7 @@ const INTRO_CARDS = [
   {
     title: "Why clients choose us",
     to: "/about",
-    linkLabel: "About GarBia Group",
+    linkLabel: "About Garbia Group",
     body: "ISO 9001:2015 certified, DPWH-BRS accredited, PCAB Category “A” licensed, PhilGEPS Platinum member, and an ASTM organisational member — our laboratory equipment and test methods follow ASTM standards.",
   },
 ];
@@ -30,13 +30,13 @@ const HomeIntroSection = () => (
   <section className={styles.section} aria-labelledby="home-intro-heading">
     <div className={styles.inner}>
       <SectionHeader
-        eyebrow="About GarBia Group"
+        eyebrow="About Garbia Group"
         title="Who we are"
         titleId="home-intro-heading"
         intro={
           <>
-            <strong>GarBia Group</strong> — registered as{" "}
-            <strong>{BUSINESS.legalName}</strong>, formerly GarBia Structural and
+            <strong>Garbia Group</strong> — registered as{" "}
+            <strong>{BUSINESS.legalName}</strong>, formerly Garbia Structural and
             Geotechnical Solutions (GSGS) — is a geotechnical engineering and
             construction services company based in {BUSINESS.addressLocality},{" "}
             {BUSINESS.addressRegion}. Since {BUSINESS.foundingYear} we have carried

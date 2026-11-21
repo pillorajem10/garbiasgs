@@ -6,7 +6,7 @@ const VIDEO = cdnVideo("DJI_0224_trimmed.mp4");
 
 const ServiceBannerSection = ({ service }) => (
   <PageHero
-    eyebrow="GarBia Group services"
+    eyebrow="Garbia Group services"
     headline={service.name}
     body={service.description}
     videoSrc={VIDEO}

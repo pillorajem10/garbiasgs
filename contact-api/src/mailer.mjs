@@ -24,7 +24,7 @@ function buildBody({ name, email, phone, message }) {
 
 export async function sendInquiry(inquiry) {
   const info = await transport.sendMail({
-    from: `GarBia website <${config.mailFrom}>`,
+    from: `Garbia website <${config.mailFrom}>`,
     to: config.mailTo,
     replyTo: { name: toSingleLine(inquiry.name), address: inquiry.email },
     subject: `Website inquiry from ${toSingleLine(inquiry.name)}`,

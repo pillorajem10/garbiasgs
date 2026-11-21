@@ -4,7 +4,7 @@ import styles from "./index.module.css";
 const copy = {
   offline: {
     title: "You appear to be offline",
-    body: "Check your Wi‑Fi or mobile data, then try again. GarBia will load as soon as you are back on the network.",
+    body: "Check your Wi‑Fi or mobile data, then try again. Garbia will load as soon as you are back on the network.",
   },
   unreachable: {
     title: "We can’t reach the site right now",
@@ -72,7 +72,7 @@ const OfflineScreen = ({ variant = "offline", onRetry, detail }) => {
             Reload page
           </button>
         </div>
-        <p className={styles.hint}>GarBia Structural &amp; Geotechnical Solutions</p>
+        <p className={styles.hint}>Garbia Structural &amp; Geotechnical Solutions</p>
       </div>
     </div>
   );

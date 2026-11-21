@@ -22,13 +22,13 @@ const HomeMissionVisionSection = () => (
               sizes="(max-width: 900px) 100vw, 580px"
               src={cdnImage("DJI_0226.jpg")}
               {...imageDims("DJI_0226.jpg")}
-              alt="GarBia team at a project site illustrating the company mission"
+              alt="Garbia team at a project site illustrating the company mission"
               className={styles.image}
             />
           </div>
           <h2 className={styles.title}>Mission</h2>
           <p>
-            GarBia Builders and Technology Solutions, OPC is committed to
+            Garbia Builders and Technology Solutions, OPC is committed to
             delivering soil drilling, geotechnical investigation, bored piling,
             and construction services with a high level of quality, accuracy,
             and technical reliability in support of the Philippines pursuit of
@@ -48,13 +48,13 @@ const HomeMissionVisionSection = () => (
               sizes="(max-width: 900px) 100vw, 580px"
               src={cdnImage("DJI_0059.jpg")}
               {...imageDims("DJI_0059.jpg")}
-              alt="Geotechnical field work representing GarBia vision for quality infrastructure"
+              alt="Geotechnical field work representing Garbia vision for quality infrastructure"
               className={styles.image}
             />
           </div>
           <h2 className={styles.title}>Vision</h2>
           <p>
-            GarBia Group aims to be one of the preferred and trusted service
+            Garbia Group aims to be one of the preferred and trusted service
             provider for geotechnical services with the highest quality
             standards and competitive rates, delivered in a timely manner in
             Luzon.

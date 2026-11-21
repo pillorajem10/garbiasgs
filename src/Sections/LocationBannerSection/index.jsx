@@ -6,7 +6,7 @@ import { cdnVideo } from "@/utils/cdn";
 const VIDEO = cdnVideo("DJI_0237_trimmed.mp4");
 
 const BODY =
-  "GarBia Group is at Lot 10 Block 7 Jasmine Street, Cainta, Rizal—easy to reach from Metro Manila and nearby provinces. Parking is available for consultations and sample drop-offs.";
+  "Garbia Group is at Lot 10 Block 7 Jasmine Street, Cainta, Rizal—easy to reach from Metro Manila and nearby provinces. Parking is available for consultations and sample drop-offs.";
 
 const { latitude, longitude } = BUSINESS.geo;
 const DIRECTIONS_URL = `https://www.google.com/maps/dir/?api=1&destination=${latitude},${longitude}`;

@@ -81,7 +81,7 @@ const FloatingContact = () => {
       <button
         type="button"
         className={styles.toggle}
-        aria-label="Contact GarBia Group"
+        aria-label="Contact Garbia Group"
         aria-expanded={isOpen}
         aria-controls={panelId}
         onClick={() => setIsOpen((wasOpen) => !wasOpen)}

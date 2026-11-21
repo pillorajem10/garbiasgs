@@ -15,7 +15,7 @@ const HomeBannerSection = () => (
     videoSrc={HOME_VIDEO}
     headline={
       <>
-        <span className={styles.brandName}>GarBia Group</span>
+        <span className={styles.brandName}>Garbia Group</span>
         <SplitWords text={HEADLINE} startDelay={150} />
       </>
     }

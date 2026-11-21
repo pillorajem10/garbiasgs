@@ -17,7 +17,7 @@ const ABOUT = {
   to: "/about",
   title: "Licenses and accreditations",
   description: "ISO 9001:2015 certified, DPWH-BRS accredited, PCAB Category “A” licensed, and a PhilGEPS Platinum member.",
-  linkLabel: "About GarBia Group",
+  linkLabel: "About Garbia Group",
 };
 
 const CONTACT = {
@@ -37,7 +37,7 @@ const HISTORY = {
 const MISSION_VISION = {
   to: "/mission-vision",
   title: "Mission and vision",
-  description: "The standards of quality, safety, and reliability behind every GarBia project.",
+  description: "The standards of quality, safety, and reliability behind every Garbia project.",
   linkLabel: "Read more",
 };
 

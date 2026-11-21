@@ -1,4 +1,4 @@
-# garbiagroup.com — GarBia Group (GarBia Structural and Geotechnical Solutions)
+# garbiagroup.com — Garbia Group (Garbia Structural and Geotechnical Solutions)
 # Every page on this site is intended to be crawled and indexed.
 
 User-agent: *

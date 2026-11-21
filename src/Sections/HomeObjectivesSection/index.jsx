@@ -38,7 +38,7 @@ const HomeObjectivesSection = () => (
           sizes="(max-width: 900px) 100vw, 460px"
           src={cdnImage("home1.jpg")}
           {...imageDims("home1.jpg")}
-          alt="GarBia engineering and laboratory operations supporting company objectives"
+          alt="Garbia engineering and laboratory operations supporting company objectives"
           className={styles.image}
         />
       </Reveal>

@@ -24,7 +24,7 @@ const AllProjectsSection = () => {
           eyebrow="Completed work"
           title="Completed projects"
           titleId="projects-heading"
-          intro="Soil investigation, geotechnical testing, and foundation works delivered by GarBia Group. Select a project to view site photos."
+          intro="Soil investigation, geotechnical testing, and foundation works delivered by Garbia Group. Select a project to view site photos."
         />
 
         <ul className={styles.tileGrid}>

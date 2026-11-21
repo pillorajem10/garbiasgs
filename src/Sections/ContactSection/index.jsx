@@ -30,7 +30,7 @@ const ContactSection = () => (
           <figure className={styles.engineer}>
             <StudioPhoto
               photoPath={STUDIO_PHOTOS.engineerPortrait}
-              alt="A GarBia Group engineer wearing a company safety helmet"
+              alt="A Garbia Group engineer wearing a company safety helmet"
               width={ENGINEER_PHOTO_WIDTH}
               height={ENGINEER_PHOTO_HEIGHT}
               sizes={ENGINEER_PHOTO_SIZES}

@@ -29,7 +29,7 @@ const Footer = () => (
           Philippines.
         </p>
         <p className={styles.legalName}>
-          {BUSINESS.legalName}, formerly GarBia Structural and Geotechnical Solutions (GSGS)
+          {BUSINESS.legalName}, formerly Garbia Structural and Geotechnical Solutions (GSGS)
         </p>
         <ul className={styles.socialList}>
           {SOCIAL_LINKS.map(({ href, label }) => (

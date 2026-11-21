@@ -7,7 +7,7 @@
  *
  * Scope rule for this file, same as structuredData.js: answers describe either
  * (a) general geotechnical practice and the standards it is measured against,
- * which is verifiable engineering fact, or (b) services GarBia has stated it
+ * which is verifiable engineering fact, or (b) services Garbia has stated it
  * offers. Nothing here invents company specifics — no prices, no turnaround
  * times, no crew or equipment counts, no client names. If a question needs one
  * of those to answer honestly, it points the reader at Contact instead.
@@ -15,9 +15,9 @@
 
 export const HOME_FAQ = [
   {
-    question: "What geotechnical services does GarBia offer in the Philippines?",
+    question: "What geotechnical services does Garbia offer in the Philippines?",
     answer:
-      "GarBia provides soil investigation, site investigation, laboratory testing, foundation engineering, deep foundations, micro-piling, and pile driving support for residential, commercial, and government projects across Luzon.",
+      "Garbia provides soil investigation, site investigation, laboratory testing, foundation engineering, deep foundations, micro-piling, and pile driving support for residential, commercial, and government projects across Luzon.",
   },
   {
     question: "Why is soil investigation important before construction?",
@@ -44,15 +44,15 @@ export const HOME_FAQ = [
       "Very much so. The Philippines sits on the Pacific Ring of Fire, and seismic design depends on knowing the soil profile: site classification, and whether loose saturated sands below the water table could liquefy under cyclic loading. Liquefaction analysis is part of a geotechnical report for exactly this reason — it tells the structural designer whether the ground will keep its strength during shaking.",
   },
   {
-    question: "Does GarBia serve projects outside Metro Manila?",
+    question: "Does Garbia serve projects outside Metro Manila?",
     answer:
-      "Yes. GarBia Group serves clients throughout Luzon and the Philippines with field teams for site investigation and foundation works. Completed projects include work in Antipolo, Marikina, Pasig, and Taguig, and the office is in Cainta, Rizal.",
+      "Yes. Garbia Group serves clients throughout Luzon and the Philippines with field teams for site investigation and foundation works. Completed projects include work in Antipolo, Marikina, Pasig, and Taguig, and the office is in Cainta, Rizal.",
   },
 ];
 
 export const SERVICES_FAQ = [
   {
-    question: "What is included in GarBia site investigation services?",
+    question: "What is included in Garbia site investigation services?",
     services: ["site-assessment", "soil-investigation"],
     answer:
       "Sub-surface exploration, soil sampling, in-situ testing, laboratory analysis, and geotechnical reports to support structural and foundation design.",

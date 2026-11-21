@@ -29,7 +29,7 @@ const CharityProgramsSection = () => (
       />
       <PhotoGallery
         images={charityGalleryImages}
-        label="GarBia charity program photos"
+        label="Garbia charity program photos"
         initialCount={8}
         isOnDark
       />

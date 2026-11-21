@@ -21,7 +21,7 @@ const MissionVisionMissionSection = () => (
           Mission
         </h2>
         <p className={styles.statement}>
-          GarBia Builders and Technology Solutions, OPC is committed to delivering soil
+          Garbia Builders and Technology Solutions, OPC is committed to delivering soil
           drilling, geotechnical investigation, bored piling, and construction services with
           a high level of quality, accuracy, and technical reliability in support of the
           Philippines pursuit of safe, durable, and standards-compliant infrastructure.
@@ -32,7 +32,7 @@ const MissionVisionMissionSection = () => (
           client requirements.
         </p>
         <p>
-          GarBia Builders and Technology Solutions, OPC strives to operate in harmony with
+          Garbia Builders and Technology Solutions, OPC strives to operate in harmony with
           its employees, clients, partners, and stakeholders by promoting integrity,
           professionalism, safety, and sustainable development in all its operations.
         </p>
@@ -43,7 +43,7 @@ const MissionVisionMissionSection = () => (
           sizes="(max-width: 900px) 100vw, 520px"
           src={cdnImage("DJI_0180.JPG")}
           {...imageDims("DJI_0180.JPG")}
-          alt="GarBia mission — engineering team and equipment in the field"
+          alt="Garbia mission — engineering team and equipment in the field"
           className={styles.image}
         />
       </Reveal>
