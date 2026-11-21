@@ -4,7 +4,7 @@ export const SITE_URL = "https://garbiagroup.com";
 /** DigitalOcean Spaces CDN. Origin is preconnected in index.html. */
 export const CDN_BASE = "https://garbia.sgp1.cdn.digitaloceanspaces.com";
 export const CDN_IMAGES = `${CDN_BASE}/images`;
-export const CDN_VIDEOS = `${CDN_BASE}/videos`;
+export const CDN_VIDEOS = `${CDN_BASE}/videos/optimized`;
 
 /**
  * Bump this (any change works, e.g. increment by 1) whenever a file gets
