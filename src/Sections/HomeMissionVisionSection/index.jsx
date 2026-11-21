@@ -28,7 +28,7 @@ const HomeMissionVisionSection = () => (
           </div>
           <h2 className={styles.title}>Mission</h2>
           <p>
-            Garbia Builders and Technology Solutions, OPC is committed to
+            GarBia Builders and Technology Solutions, OPC is committed to
             delivering soil drilling, geotechnical investigation, bored piling,
             and construction services with a high level of quality, accuracy,
             and technical reliability in support of the Philippines pursuit of

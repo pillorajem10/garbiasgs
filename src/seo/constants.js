@@ -34,7 +34,7 @@ export const DEFAULT_OG_IMAGE = `${SITE_URL}/garbia1.jpg?v=3`;
 export const DEFAULT_OG_IMAGE_WIDTH = "1200";
 export const DEFAULT_OG_IMAGE_HEIGHT = "630";
 export const DEFAULT_OG_IMAGE_ALT =
-  "Garbia Builders and Technology Solutions, OPC site works in the Philippines";
+  "GarBia Builders and Technology Solutions, OPC site works in the Philippines";
 export const LOCALE = "en_PH";
 
 /**
@@ -59,17 +59,17 @@ export const SAME_AS = [
  */
 export const BRAND_ALTERNATE_NAMES = [
   "GarBia",
-  "Garbia Group",
-  "GarbiaGroup",
+  "GarBia Group",
+  "GarBiaGroup",
   "GarBia SGS",
-  "Garbia Structural and Geotechnical Solutions",
+  "GarBia Structural and Geotechnical Solutions",
   "GarBia Structural & Geotechnical Solutions",
   "GSGS",
-  "Garbia Builders and Technology Solutions",
+  "GarBia Builders and Technology Solutions",
 ];
 
 export const BUSINESS = {
-  legalName: "Garbia Builders and Technology Solutions, OPC",
+  legalName: "GarBia Builders and Technology Solutions, OPC",
   email: "inquiries@garbiagroup.com",
   websiteUrl: "https://garbiagroup.com/",
   telephone: "+63282801763",

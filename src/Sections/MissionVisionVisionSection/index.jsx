@@ -31,7 +31,7 @@ const MissionVisionVisionSection = () => (
           Vision
         </h2>
         <p className={styles.statement}>
-          Garbia Builders and Technology Solutions, OPC envisions becoming one of the most
+          GarBia Builders and Technology Solutions, OPC envisions becoming one of the most
           trusted and preferred providers of integrated geotechnical engineering, foundation
           and construction solutions in Luzon, delivering the highest standards of quality,
           safety, and technical excellence at competitive rates and within committed

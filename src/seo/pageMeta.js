@@ -27,7 +27,7 @@ export const PAGE_META = {
   "/": {
     title: "GarBia Group | Geotechnical & Construction Company Philippines",
     description:
-      "GarBia Group, formerly Garbia Structural and Geotechnical Solutions: soil testing, geotechnical investigation, and construction works across Luzon, Philippines.",
+      "GarBia Group, formerly GarBia Structural and Geotechnical Solutions: soil testing, geotechnical investigation, and construction works across Luzon, Philippines.",
     keywords: PRIMARY_KEYWORDS,
   },
   "/services": {
@@ -47,7 +47,7 @@ export const PAGE_META = {
   "/history": {
     title: "Company History: Soil Testing Since 2018 | GarBia Group",
     description:
-      "From an underground drilling contractor and soil testing laboratory founded in 2018 to Garbia Builders and Technology Solutions, OPC today.",
+      "From an underground drilling contractor and soil testing laboratory founded in 2018 to GarBia Builders and Technology Solutions, OPC today.",
     keywords: "Company History, GarBia History, " + PRIMARY_KEYWORDS,
   },
   "/mission-vision": {
