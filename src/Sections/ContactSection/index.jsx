@@ -2,8 +2,14 @@ import { Link } from "react-router-dom";
 import ContactForm from "@components/ContactForm";
 import Reveal from "@components/Reveal";
 import SectionHeader from "@components/SectionHeader";
+import StudioPhoto from "@components/StudioPhoto";
+import { STUDIO_PHOTOS } from "@/constants/studioPhotos";
 import { BUSINESS } from "@/seo/constants";
 import styles from "./index.module.css";
+
+const ENGINEER_PHOTO_WIDTH = 5304;
+const ENGINEER_PHOTO_HEIGHT = 7952;
+const ENGINEER_PHOTO_SIZES = "(max-width: 900px) 100vw, 520px";
 
 const ContactSection = () => (
   <section className={styles.section} aria-labelledby="contact-heading">
@@ -21,6 +27,20 @@ const ContactSection = () => (
         </Reveal>
 
         <Reveal delay={150} className={styles.details}>
+          <figure className={styles.engineer}>
+            <StudioPhoto
+              photoPath={STUDIO_PHOTOS.engineerPortrait}
+              alt="A GarBia Group engineer wearing a company safety helmet"
+              width={ENGINEER_PHOTO_WIDTH}
+              height={ENGINEER_PHOTO_HEIGHT}
+              sizes={ENGINEER_PHOTO_SIZES}
+              className={styles.engineerPhoto}
+            />
+            <figcaption className={styles.engineerCaption}>
+              Our engineers review every inquiry and reply with the next steps.
+            </figcaption>
+          </figure>
+
           <section className={styles.detailBlock} aria-labelledby="email-heading">
             <h3 id="email-heading" className={styles.blockTitle}>
               Email

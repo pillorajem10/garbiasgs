@@ -1,0 +1,216 @@
+.root {
+  --portrait-width: 10rem;
+  --bubble-size: 3.5rem;
+  position: fixed;
+  right: max(1.25rem, env(safe-area-inset-right));
+  bottom: 0;
+  z-index: var(--z-floating);
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  opacity: 0;
+  transform: translateY(1rem);
+  pointer-events: none;
+  transition:
+    opacity var(--duration-slow) var(--ease-out),
+    transform var(--duration-slow) var(--ease-out);
+}
+
+.visible {
+  opacity: 1;
+  transform: none;
+  pointer-events: auto;
+}
+
+.toggle {
+  position: relative;
+  display: block;
+  width: var(--portrait-width);
+  padding: 0;
+  border: 0;
+  background: none;
+  cursor: pointer;
+  -webkit-tap-highlight-color: transparent;
+}
+
+.frame {
+  display: block;
+  filter: drop-shadow(0 10px 18px rgba(2, 18, 51, 0.35));
+  transition: transform var(--duration-base) var(--ease-out);
+}
+
+.portrait {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
+.iconBubble {
+  position: absolute;
+  top: calc(var(--bubble-size) / -1.15);
+  left: calc(var(--bubble-size) / -2.4);
+  display: grid;
+  place-items: center;
+  width: var(--bubble-size);
+  height: var(--bubble-size);
+  border-radius: 50%;
+  background-color: var(--color-cta);
+  color: var(--color-on-cta);
+  box-shadow: var(--shadow-md);
+  animation: bubblePulse 2.4s var(--ease-out) infinite;
+  transition: transform var(--duration-base) var(--ease-out);
+}
+
+.icon {
+  width: 1.5rem;
+  height: 1.5rem;
+}
+
+.toggle:focus-visible {
+  outline: none;
+}
+
+.toggle:focus-visible .frame {
+  outline: 3px solid var(--color-cta);
+  outline-offset: 3px;
+}
+
+.panel {
+  width: min(18rem, calc(100vw - 2.5rem));
+  padding-bottom: calc(var(--bubble-size) + 0.5rem);
+  visibility: hidden;
+  opacity: 0;
+  transform: translateY(0.5rem);
+  transition:
+    opacity var(--duration-base) var(--ease-out),
+    transform var(--duration-base) var(--ease-out),
+    visibility 0s linear var(--duration-base);
+}
+
+.open .panel {
+  visibility: visible;
+  opacity: 1;
+  transform: none;
+  transition-delay: 0s;
+}
+
+@media (hover: hover) {
+  .root:hover .panel {
+    visibility: visible;
+    opacity: 1;
+    transform: none;
+    transition-delay: 0s;
+  }
+
+  .root:hover .frame {
+    transform: translateY(-0.25rem);
+  }
+
+  .root:hover .iconBubble {
+    transform: scale(1.1);
+    animation-play-state: paused;
+  }
+}
+
+.card {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-xs);
+  padding: var(--space-lg);
+  border-top: 3px solid var(--color-cta);
+  border-radius: var(--radius-sharp);
+  background-color: var(--color-surface);
+  box-shadow: var(--shadow-lg);
+  color: var(--color-text);
+}
+
+.title {
+  margin: 0;
+  font-family: var(--font-heading);
+  font-size: var(--text-h4);
+  font-weight: 800;
+  line-height: 1.2;
+  color: var(--color-primary-deep);
+}
+
+.text {
+  margin: 0;
+  font-size: var(--text-small);
+  color: var(--color-text-muted);
+}
+
+.action {
+  display: flex;
+  align-items: center;
+  min-height: var(--tap-target-min);
+  font-weight: 700;
+  color: var(--color-primary);
+  text-decoration: none;
+  overflow-wrap: anywhere;
+}
+
+.action:hover,
+.action:focus-visible {
+  text-decoration: underline;
+}
+
+.quoteLink {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: var(--tap-target-min);
+  margin-top: var(--space-xs);
+  border-radius: var(--radius-sharp);
+  background-color: var(--color-cta);
+  font-weight: 800;
+  color: var(--color-on-cta);
+  text-decoration: none;
+  transition: background-color var(--duration-fast) var(--ease-out);
+}
+
+.quoteLink:hover,
+.quoteLink:focus-visible {
+  background-color: var(--color-cta-hover);
+}
+
+@keyframes bubblePulse {
+  0% {
+    box-shadow: var(--shadow-md), 0 0 0 0 rgba(255, 176, 32, 0.6);
+  }
+  70%,
+  100% {
+    box-shadow: var(--shadow-md), 0 0 0 1rem rgba(255, 176, 32, 0);
+  }
+}
+
+@media (max-width: 767px) {
+  .root {
+    --portrait-width: 6.75rem;
+    --bubble-size: 3rem;
+    right: max(0.75rem, env(safe-area-inset-right));
+  }
+
+  .icon {
+    width: 1.3rem;
+    height: 1.3rem;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .root,
+  .panel,
+  .frame,
+  .iconBubble {
+    transition: none;
+  }
+
+  .iconBubble {
+    animation: none;
+  }
+}
+
+@media print {
+  .root {
+    display: none;
+  }
+}

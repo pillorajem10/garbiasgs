@@ -132,6 +132,7 @@
   --z-nav: 1000;
   --z-menu: 1100;
   --z-modal: 2000;
+  --z-floating: 900;
   --z-skip-link: 10001;
 
   /* Smallest comfortable tap target (WCAG 2.5.5 target size) */

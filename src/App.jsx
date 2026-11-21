@@ -9,6 +9,7 @@ import {
 
 import Navbar from "@components/Navbar";
 import Footer from "@components/Footer";
+import FloatingContact from "@components/FloatingContact";
 import BurgerMenu from "@components/BurgerMenu";
 import ScrollToTop from "@components/ScrollToTop";
 import OfflineScreen from "@components/OfflineScreen";
@@ -159,6 +160,8 @@ function AppShell({ menuOpen, onOpenMenu, onCloseMenu }) {
       <RoutedMain />
 
       <Footer />
+
+      <FloatingContact />
     </>
   );
 }

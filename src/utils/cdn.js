@@ -76,6 +76,19 @@ export function backgroundImageValue(src) {
   return `image-set(${candidates.join(", ")})`;
 }
 
+export function studioPhotoSources(photoPath) {
+  const photoUrl = (width, format) =>
+    versioned(`${CDN_IMAGES}/${photoPath}-${width}.${format}`);
+  const photoSrcSet = (format) =>
+    IMAGE_VARIANT_WIDTHS.map((width) => `${photoUrl(width, format)} ${width}w`).join(", ");
+
+  return {
+    avifSrcSet: photoSrcSet("avif"),
+    webpSrcSet: photoSrcSet("webp"),
+    defaultSrc: photoUrl(DEFAULT_VARIANT_WIDTH, "webp"),
+  };
+}
+
 export function cdnVideoPoster(videoSrc) {
   if (!OPTIMIZED_VARIANTS_ARE_UPLOADED) return undefined;
   const match = FILE_STEM_PATTERN.exec(videoSrc);

@@ -31,6 +31,30 @@
   flex-direction: column;
 }
 
+.engineer {
+  margin-bottom: var(--space-lg);
+  overflow: hidden;
+  border-top: 3px solid var(--color-cta);
+  border-radius: var(--radius-sharp);
+  background-color: var(--color-primary-deep);
+  box-shadow: var(--shadow-card);
+}
+
+.engineerPhoto {
+  display: block;
+  width: 100%;
+  height: auto;
+  aspect-ratio: 4 / 3;
+  object-fit: cover;
+  object-position: top;
+}
+
+.engineerCaption {
+  padding: var(--space-md) var(--space-lg);
+  color: var(--color-on-dark-muted);
+  font-size: var(--text-small);
+}
+
 .detailBlock {
   display: flex;
   flex-direction: column;
